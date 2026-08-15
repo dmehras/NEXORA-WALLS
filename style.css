@@ -149,15 +149,33 @@
   }
   .pill-btn:hover, .pill-btn.active{ border-color:transparent; background:var(--grad); box-shadow:0 0 18px rgba(0,200,255,0.4); }
 
-  .layout{ display:flex; gap:26px; padding:26px 0 60px; align-items:flex-start; }
+  .layout{ padding:26px 0 60px; }
 
-  /* SIDEBAR */
-  aside#sidebar{
-    width:230px; flex:0 0 230px; position:sticky; top:96px;
-    max-height:calc(100vh - 120px); overflow-y:auto;
-    background:var(--panel); border:1px solid var(--panel-border); border-radius:var(--radius);
-    padding:14px;
+  /* SIDEBAR TOGGLE TAB */
+  #sidebarToggle{
+    position:fixed; left:0; top:50%; transform:translateY(-50%);
+    z-index:250; background:var(--grad); border:none; color:#fff;
+    padding:18px 10px; border-radius:0 14px 14px 0; writing-mode:vertical-rl;
+    font-size:12px; font-weight:800; letter-spacing:2px; cursor:pointer;
+    box-shadow:0 0 24px rgba(0,200,255,0.4); transition: left .4s ease, box-shadow .3s;
   }
+  #sidebarToggle:hover{ box-shadow:0 0 34px rgba(0,200,255,0.65); }
+  #sidebarToggle.shifted{ left:260px; }
+
+  #sidebarBackdrop{
+    position:fixed; inset:0; z-index:240; background:rgba(4,4,6,0.6); backdrop-filter:blur(4px);
+    opacity:0; pointer-events:none; transition:opacity .35s ease;
+  }
+  #sidebarBackdrop.show{ opacity:1; pointer-events:auto; }
+
+  /* SIDEBAR (off-canvas) */
+  aside#sidebar{
+    position:fixed; top:0; left:-280px; width:260px; height:100vh; z-index:260;
+    background:var(--bg-alt); border-right:1px solid var(--panel-border);
+    padding:100px 14px 20px; overflow-y:auto;
+    transition:left .4s ease; box-shadow:14px 0 50px rgba(0,0,0,0.5);
+  }
+  aside#sidebar.open{ left:0; }
   aside#sidebar::-webkit-scrollbar{ width:6px; }
   .cat-item{
     display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:10px;
@@ -181,8 +199,7 @@
   .grid{
     column-width:320px; column-gap:20px;
   }
-  @media(max-width:1100px){ aside#sidebar{ display:none; } }
-  @media(max-width:640px){ .grid{ column-width:100%; } .search-wrap input{ width:150px; } }
+  @media(max-width:640px){ .grid{ column-width:100%; } .search-wrap input{ width:150px; } aside#sidebar{ width:80vw; left:-85vw; } }
 
   .card{
     break-inside:avoid; margin-bottom:18px; border-radius:var(--radius);
