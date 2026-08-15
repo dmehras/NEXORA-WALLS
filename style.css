@@ -54,9 +54,9 @@
   }
   .landing-inner{ position:relative; z-index:2; text-align:center; padding:20px; }
   .landing-logo{
-    font-size:clamp(48px,9vw,110px);
+    font-size:clamp(56px,12vw,160px);
     font-weight:800;
-    letter-spacing:6px;
+    letter-spacing:8px;
     background:linear-gradient(90deg,#fff,var(--blue) 45%,var(--purple) 90%);
     -webkit-background-clip:text; background-clip:text; color:transparent;
     filter: blur(14px);
