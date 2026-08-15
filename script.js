@@ -265,10 +265,29 @@ function renderSidebar(){
       else { state.category = cat; }
       renderSidebar();
       renderGrid();
+      closeSidebar();
       window.scrollTo({top:0, behavior:'smooth'});
     });
   });
 }
+
+/* ============ SIDEBAR TOGGLE (off-canvas slide panel) ============ */
+function openSidebar(){
+  document.getElementById('sidebar').classList.add('open');
+  document.getElementById('sidebarBackdrop').classList.add('show');
+  document.getElementById('sidebarToggle').classList.add('shifted');
+}
+function closeSidebar(){
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebarBackdrop').classList.remove('show');
+  document.getElementById('sidebarToggle').classList.remove('shifted');
+}
+function toggleSidebar(){
+  const isOpen = document.getElementById('sidebar').classList.contains('open');
+  if(isOpen) closeSidebar(); else openSidebar();
+}
+document.getElementById('sidebarToggle').addEventListener('click', toggleSidebar);
+document.getElementById('sidebarBackdrop').addEventListener('click', closeSidebar);
 
 /* ============ FAVORITES / DOWNLOAD COUNTS (session only) ============ */
 let favorites = new Set();
