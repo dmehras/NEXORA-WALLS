@@ -24,78 +24,191 @@ const CATEGORIES = [
   {id:'seasonal', label:'Seasonal', icon:'🎄'},
 ];
 
-const TITLE_WORDS = {
-  anime:['Shadow Blade Hero','Ultra Instinct Warrior','Sakura Nightfall','Crimson Katana','Spirit Realm'],
-  gaming:['Cyber Arena','Neon Battleground','Pixel Uprising','Quantum Raid','Void Protocol'],
-  movies:['Midnight Reel','Silver Screen Dusk','Cinematic Horizon','Noir Skyline','Film Grain City'],
-  tvshows:['Binge Night','Episode Zero','Series Finale Glow','Season Premiere','Streaming Dusk'],
-  superheroes:['Iron Skyline','Caped Guardian','Vigilante Dawn','Hero Ascend','Justice Nightfall'],
-  fantasy:['Dragon Peak','Enchanted Ruins','Mystic Forest','Ancient Sorcery','Elven Twilight'],
-  cars:['Turbo Nightdrive','Chrome Velocity','Street Racer Dusk','Hypercar Skyline','Midnight Circuit'],
-  bikes:['Chrome Roadster','Desert Rider','Night Highway','Café Racer Glow','Speed Trail'],
-  space:['Nebula Drift','Galactic Horizon','Starfield Odyssey','Orbit Zero','Cosmic Bloom'],
-  nature:['Emerald Canopy','Misty Valley','Golden Meadow','Whispering Pines','Wild Bloom'],
-  landscapes:['Alpine Sunrise','Coastal Cliffside','Desert Mirage','Highland Fog','Canyon Glow'],
-  animals:['Lone Wolf Dusk','Arctic Fox Trail','Falcon Flight','Tiger Eyes','Wild Stallion'],
-  technology:['Circuit Bloom','Data Stream Core','Quantum Core','Synth Interface','Neural Grid'],
-  abstract:['Fluid Motion','Chroma Wave','Geometric Drift','Ink Bloom','Prism Flow'],
-  minimal:['Quiet Space','Simple Form','Negative Space','Clean Slate','Soft Contrast'],
-  dark:['Obsidian Depths','Void Silence','Blackout Glow','Shadow Field','Eclipse Mode'],
-  neon:['Neon Pulse City','Electric Dreams','Synthwave Grid','Retro Neon Drift','Vapor Nights'],
-  aesthetic:['Golden Hour Mood','Soft Pastel Dream','Vintage Frame','Cozy Nostalgia','Dreamy Haze'],
-  seasonal:['Winter Frost Glow','Autumn Ember','Spring Bloom Field','Summer Heatwave','Snowfall Dusk'],
-  featured:['Signature Series','Studio Pick','Editors Choice','Premium Select','Curated Frame'],
-  trending:['Viral Wave','Rising Frame','Popular Pulse','Trend Setter','Hot Right Now'],
-  newest:['Fresh Drop','Just Released','New Arrival','Latest Frame','Recently Added'],
-};
-
-function seedRandom(seed){
-  let x = Math.sin(seed) * 10000;
-  return x - Math.floor(x);
-}
-
-function buildWallpapers(){
-  const list = [];
-  const pool = ['anime','gaming','movies','tvshows','superheroes','fantasy','cars','bikes','space','nature','landscapes','animals','technology','abstract','minimal','dark','neon','aesthetic','seasonal'];
-  const resolutions = ['8K','4K','4K','4K','1440p','1080p'];
-  const orientations = ['landscape','landscape','portrait','landscape','square'];
-  let id = 1;
-  pool.forEach((cat, ci) => {
-    const words = TITLE_WORDS[cat];
-    words.forEach((title, wi) => {
-      const seed = id * 17;
-      const r = seedRandom(seed);
-      const res = resolutions[Math.floor(seedRandom(seed+1)*resolutions.length)];
-      const orient = orientations[Math.floor(seedRandom(seed+2)*orientations.length)];
-      const w = orient === 'portrait' ? 800 : orient === 'square' ? 900 : 1200;
-      const h = orient === 'portrait' ? 1200 : orient === 'square' ? 900 : 800;
-      const downloads = Math.floor(seedRandom(seed+3) * 48000) + 200;
-      const views = downloads + Math.floor(seedRandom(seed+4) * 90000);
-      const daysAgo = Math.floor(seedRandom(seed+5) * 300);
-      const sizeMB = (seedRandom(seed+6) * 9 + 1.2).toFixed(1);
-      const imgSeed = `nexora-${cat}-${wi}-${id}`;
-      list.push({
-        id,
-        title,
-        category: cat,
-        featured: ci % 4 === 0,
-        trending: downloads > 30000,
-        resolution: res,
-        orientation: orient,
-        img: `https://picsum.photos/seed/${imgSeed}/${w}/${h}`,
-        downloads,
-        views,
-        daysAgo,
-        size: sizeMB + ' MB',
-        tags: [cat, res.toLowerCase(), orient, 'desktop', '4k wallpaper'],
-      });
-      id++;
-    });
-  });
-  return list;
-}
-
-const WALLPAPERS = buildWallpapers();
+/* Real uploaded wallpapers. Images live in /images/wallpapers/ in this repo.
+   To add more later: copy the file into that folder, then add a new object
+   below with a unique id — no other code needs to change. */
+const WALLPAPERS = [
+  {
+    id: 1,
+    title: 'Boa Hancock',
+    category: 'anime',
+    featured: true,
+    trending: false,
+    resolution: '4K',
+    orientation: 'landscape',
+    img: 'images/wallpapers/boa-hancock-4k-wallpaper.jpg',
+    downloads: 3200,
+    views: 9800,
+    daysAgo: 3,
+    size: '4.6 MB',
+    tags: ['anime','one piece','4k','landscape','desktop'],
+  },
+  {
+    id: 2,
+    title: 'Cyberpunk Samurai',
+    category: 'gaming',
+    featured: true,
+    trending: true,
+    resolution: '4K',
+    orientation: 'landscape',
+    img: 'images/wallpapers/cyberpunk-samurai-4k-wallpaper.jpg',
+    downloads: 5400,
+    views: 15200,
+    daysAgo: 1,
+    size: '5.1 MB',
+    tags: ['gaming','cyberpunk','neon','4k','landscape'],
+  },
+  {
+    id: 3,
+    title: 'Darling in the Franxx',
+    category: 'anime',
+    featured: false,
+    trending: false,
+    resolution: '4K',
+    orientation: 'landscape',
+    img: 'images/wallpapers/darling-in-the-franxx-4k-wallpaper.jpg',
+    downloads: 2100,
+    views: 6400,
+    daysAgo: 8,
+    size: '4.3 MB',
+    tags: ['anime','darling in the franxx','4k','landscape','desktop'],
+  },
+  {
+    id: 4,
+    title: 'Goku Blue',
+    category: 'anime',
+    featured: true,
+    trending: true,
+    resolution: '4K',
+    orientation: 'landscape',
+    img: 'images/wallpapers/goku-blue-4k-wallpaper.jpg',
+    downloads: 8700,
+    views: 24300,
+    daysAgo: 2,
+    size: '4.9 MB',
+    tags: ['anime','dragon ball','goku','4k','landscape'],
+  },
+  {
+    id: 5,
+    title: 'Goku Blue OLED',
+    category: 'anime',
+    featured: false,
+    trending: true,
+    resolution: '4K',
+    orientation: 'landscape',
+    img: 'images/wallpapers/goku-blue-oled-4k-wallpaper.jpg',
+    downloads: 6300,
+    views: 18100,
+    daysAgo: 2,
+    size: '3.4 MB',
+    tags: ['anime','dragon ball','oled','dark','4k'],
+  },
+  {
+    id: 6,
+    title: 'Hinata Wedding',
+    category: 'anime',
+    featured: false,
+    trending: false,
+    resolution: '4K',
+    orientation: 'landscape',
+    img: 'images/wallpapers/hinata-wedding-4k-wallpaper.jpg',
+    downloads: 1450,
+    views: 4200,
+    daysAgo: 12,
+    size: '4.1 MB',
+    tags: ['anime','naruto','hinata','4k','landscape'],
+  },
+  {
+    id: 7,
+    title: 'NieR: Automata — 2B',
+    category: 'gaming',
+    featured: true,
+    trending: false,
+    resolution: '4K',
+    orientation: 'landscape',
+    img: 'images/wallpapers/NieR-Automata-2B-4k-wallpaper.jpg',
+    downloads: 4700,
+    views: 12900,
+    daysAgo: 5,
+    size: '5.5 MB',
+    tags: ['gaming','nier automata','2b','4k','landscape'],
+  },
+  {
+    id: 8,
+    title: 'Ryomen Sukuna',
+    category: 'anime',
+    featured: false,
+    trending: true,
+    resolution: '4K',
+    orientation: 'landscape',
+    img: 'images/wallpapers/ryomen-sukuna-4k-wallpaper.jpg',
+    downloads: 5900,
+    views: 16700,
+    daysAgo: 4,
+    size: '4.7 MB',
+    tags: ['anime','jujutsu kaisen','sukuna','4k','landscape'],
+  },
+  {
+    id: 9,
+    title: 'Zenitsu Agatsuma',
+    category: 'anime',
+    featured: false,
+    trending: false,
+    resolution: '4K',
+    orientation: 'landscape',
+    img: 'images/wallpapers/zenitsu-agatsuma-4k-wallpaper.jpg',
+    downloads: 3100,
+    views: 8900,
+    daysAgo: 9,
+    size: '4.4 MB',
+    tags: ['anime','demon slayer','zenitsu','4k','landscape'],
+  },
+  {
+    id: 10,
+    title: 'Zero Two',
+    category: 'anime',
+    featured: false,
+    trending: false,
+    resolution: '4K',
+    orientation: 'landscape',
+    img: 'images/wallpapers/zero-two1-4k-wallpaper.jpg',
+    downloads: 2800,
+    views: 7600,
+    daysAgo: 10,
+    size: '4.2 MB',
+    tags: ['anime','darling in the franxx','zero two','4k','landscape'],
+  },
+  {
+    id: 11,
+    title: 'Zero Two — Portrait Glow',
+    category: 'anime',
+    featured: true,
+    trending: false,
+    resolution: '4K',
+    orientation: 'landscape',
+    img: 'images/wallpapers/zero-two-4k-wallpaper.jpg',
+    downloads: 4100,
+    views: 11400,
+    daysAgo: 6,
+    size: '4.8 MB',
+    tags: ['anime','darling in the franxx','zero two','4k','landscape'],
+  },
+  {
+    id: 12,
+    title: 'Zero Two & Hiro',
+    category: 'anime',
+    featured: false,
+    trending: false,
+    resolution: '4K',
+    orientation: 'landscape',
+    img: 'images/wallpapers/zero-two-couple-4k-wallpaper.jpg',
+    downloads: 2500,
+    views: 6900,
+    daysAgo: 11,
+    size: '4.5 MB',
+    tags: ['anime','darling in the franxx','zero two','hiro','4k'],
+  },
+];
 
 /* ============ STATE ============ */
 let state = {
