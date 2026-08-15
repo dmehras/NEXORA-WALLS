@@ -62,7 +62,7 @@ const WALLPAPERS = [
     id: 3,
     title: 'Darling in the Franxx',
     category: 'anime',
-    featured: false,
+    featured: true,
     trending: false,
     resolution: '4K',
     orientation: 'landscape',
@@ -92,7 +92,7 @@ const WALLPAPERS = [
     id: 5,
     title: 'Goku Blue OLED',
     category: 'anime',
-    featured: false,
+    featured: true,
     trending: true,
     resolution: '4K',
     orientation: 'landscape',
@@ -107,7 +107,7 @@ const WALLPAPERS = [
     id: 6,
     title: 'Hinata Wedding',
     category: 'anime',
-    featured: false,
+    featured: true,
     trending: false,
     resolution: '4K',
     orientation: 'landscape',
@@ -137,7 +137,7 @@ const WALLPAPERS = [
     id: 8,
     title: 'Ryomen Sukuna',
     category: 'anime',
-    featured: false,
+    featured: true,
     trending: true,
     resolution: '4K',
     orientation: 'landscape',
@@ -152,7 +152,7 @@ const WALLPAPERS = [
     id: 9,
     title: 'Zenitsu Agatsuma',
     category: 'anime',
-    featured: false,
+    featured: true,
     trending: false,
     resolution: '4K',
     orientation: 'landscape',
@@ -167,7 +167,7 @@ const WALLPAPERS = [
     id: 10,
     title: 'Zero Two',
     category: 'anime',
-    featured: false,
+    featured: true,
     trending: false,
     resolution: '4K',
     orientation: 'landscape',
@@ -177,6 +177,7 @@ const WALLPAPERS = [
     daysAgo: 10,
     size: '4.2 MB',
     tags: ['anime','darling in the franxx','zero two','4k','landscape'],
+    featuredOverride: true,
   },
   {
     id: 11,
@@ -197,7 +198,7 @@ const WALLPAPERS = [
     id: 12,
     title: 'Zero Two & Hiro',
     category: 'anime',
-    featured: false,
+    featured: true,
     trending: false,
     resolution: '4K',
     orientation: 'landscape',
@@ -520,6 +521,15 @@ function triggerDownload(id){
   if(!w) return;
   downloadedIds.add(id);
   w.downloads += 1;
+
+  // Actually trigger a file download using the image URL
+  const link = document.createElement('a');
+  link.href = w.img;
+  link.download = w.img.split('/').pop(); // suggests the original filename to the browser
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+
   showToast(`✅ Thank you for downloading "${w.title}"!`);
   if(state.category==='__downloads__') renderGrid();
 }
