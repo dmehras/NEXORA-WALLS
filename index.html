@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEXORA WALLS — Free Premium 4K Desktop Wallpapers</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============ LANDING PAGE ============ -->
+<div id="landing">
+  <div id="particleField"></div>
+  <div class="landing-inner">
+    <div class="landing-logo">NEXORA WALLS</div>
+    <div class="landing-tag">The Best Free 4K Desktop Wallpaper Website</div>
+    <div class="landing-sub">Download thousands of ultra HD PC wallpapers completely free.</div>
+    <button id="enterBtn" aria-label="Enter NEXORA WALLS">
+      <span class="ripple"></span><span class="ripple"></span><span class="ripple"></span>
+      ► ENTER
+    </button>
+  </div>
+</div>
+
+<!-- ============ MAIN SITE ============ -->
+<div id="site">
+  <header id="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="brand-name">NEXORA WALLS</div>
+        <div class="brand-sub">FREE PREMIUM QUALITY 4K DESKTOP WALLPAPERS</div>
+      </div>
+      <div class="topbar-right">
+        <div class="search-wrap">
+          <label class="visually-hidden-label" for="searchInput">Search wallpapers</label>
+          <input id="searchInput" type="text" placeholder="Search anime, games, movies…">
+          <span class="icon">🔍</span>
+        </div>
+        <button class="icon-btn" id="randomBtn" title="Random wallpaper">🎲</button>
+        <button class="icon-btn" id="darkModeBtn" title="Toggle theme">🌙</button>
+        <button class="pill-btn" data-sort="newest">Newest</button>
+        <button class="pill-btn" data-sort="downloads">Popular</button>
+        <button class="pill-btn" data-sort="views">Trending</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="layout">
+    <aside id="sidebar"></aside>
+
+    <main id="content">
+      <div class="section-title" id="sectionTitle">Featured Wallpapers</div>
+      <div class="section-sub" id="sectionSub">Curated 4K wallpapers, refreshed daily.</div>
+
+      <div class="filters-row">
+        <select id="resFilter">
+          <option value="">All Resolutions</option>
+          <option value="8K">8K</option>
+          <option value="4K">4K</option>
+          <option value="1440p">1440p</option>
+          <option value="1080p">1080p</option>
+        </select>
+        <select id="orientFilter">
+          <option value="">All Orientations</option>
+          <option value="landscape">Landscape</option>
+          <option value="portrait">Portrait</option>
+          <option value="square">Square</option>
+        </select>
+        <select id="sortFilter">
+          <option value="newest">Newest</option>
+          <option value="downloads">Most Downloaded</option>
+          <option value="views">Most Viewed</option>
+          <option value="az">Alphabetical</option>
+        </select>
+      </div>
+
+      <div class="grid" id="grid"></div>
+      <div class="empty-state" id="emptyState" style="display:none;">
+        <div class="big">🖼️</div>
+        <div>No wallpapers match your search. Try another keyword or category.</div>
+      </div>
+    </main>
+  </div>
+
+  <!-- DONATION -->
+  <div class="donate-section">
+    <div class="donate-card">
+      <div class="donate-title">Support NEXORA WALLS ❤️</div>
+      <div class="donate-desc">If you enjoy our wallpapers and want to support future uploads, consider making a small donation. Every contribution helps keep the website free, fast, and ad-light.</div>
+      <button class="btn btn-primary" id="donateBtn" style="margin:0 auto;">💜 Donate</button>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">NEXORA WALLS</div>
+        <p class="footer-about">NEXORA WALLS is a free platform offering premium-quality 4K desktop wallpapers across anime, gaming, movies, fantasy, nature, technology, and more. Every wallpaper is optimized for desktop displays with ultra-high resolution and clean image quality.</p>
+      </div>
+      <div>
+        <div class="footer-heading">Quick Links</div>
+        <div class="footer-links">
+          <a href="#">Home</a><a href="#">Categories</a><a href="#">Newest</a><a href="#">Popular</a><a href="#">Trending</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-heading">Company</div>
+        <div class="footer-links">
+          <a href="#">About</a><a href="#">Contact</a><a href="#" id="footerDonate">Donate</a><a href="#">Privacy Policy</a><a href="#">Terms</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-heading">Follow</div>
+        <div class="social-row">
+          <span class="icon-btn">📷</span><span class="icon-btn">▶️</span><span class="icon-btn">💬</span><span class="icon-btn">𝕏</span><span class="icon-btn">🐙</span>
+        </div>
+        <div class="footer-heading" style="margin-top:22px;">Contact</div>
+        <div class="footer-links"><a href="mailto:hello@nexorawalls.com">hello@nexorawalls.com</a></div>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 NEXORA WALLS. All wallpapers are free for personal desktop use. This is a UI concept demo.</div>
+  </footer>
+</div>
+
+<button id="scrollTop" title="Scroll to top">↑</button>
+
+<!-- DETAIL MODAL -->
+<div class="modal-backdrop" id="detailBackdrop">
+  <div class="detail-modal" id="detailModal"></div>
+</div>
+
+<!-- FULLSCREEN PREVIEW -->
+<div id="fullscreenPreview">
+  <button class="fs-btn" id="fsClose">✕</button>
+  <button class="fs-btn" id="fsPrev">‹</button>
+  <button class="fs-btn" id="fsNext">›</button>
+  <img id="fsImage" src="" alt="Fullscreen wallpaper preview">
+  <div class="fs-hint">Arrow keys to navigate · Scroll or double-click to zoom · Esc to exit</div>
+</div>
+
+<!-- DOWNLOAD TOAST -->
+<div id="toast">✅ Thank you for downloading!</div>
+
+<!-- DONATE POPUP -->
+<div class="donate-popup-backdrop" id="donatePopup">
+  <div class="donate-popup">
+    <button class="modal-close" id="closeDonate" style="position:absolute; top:12px; right:12px;">✕</button>
+    <h3 style="font-size:20px; margin-bottom:4px;">Support NEXORA WALLS</h3>
+    <p style="font-size:12px; color:var(--text-dimmer);">Scan or copy the details below</p>
+    <div class="qr-box">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <rect width="100" height="100" fill="#fff"/>
+        <g fill="#0d0d0d">
+          <rect x="6" y="6" width="22" height="22"/><rect x="12" y="12" width="10" height="10" fill="#fff"/>
+          <rect x="72" y="6" width="22" height="22"/><rect x="78" y="12" width="10" height="10" fill="#fff"/>
+          <rect x="6" y="72" width="22" height="22"/><rect x="12" y="78" width="10" height="10" fill="#fff"/>
+          <rect x="34" y="10" width="6" height="6"/><rect x="46" y="10" width="6" height="6"/><rect x="58" y="16" width="6" height="6"/>
+          <rect x="34" y="34" width="6" height="6"/><rect x="46" y="34" width="6" height="6"/><rect x="58" y="34" width="6" height="6"/>
+          <rect x="34" y="46" width="6" height="6"/><rect x="70" y="46" width="6" height="6"/><rect x="82" y="46" width="6" height="6"/>
+          <rect x="34" y="58" width="6" height="6"/><rect x="46" y="58" width="6" height="6"/><rect x="58" y="58" width="6" height="6"/>
+          <rect x="34" y="70" width="6" height="6"/><rect x="46" y="82" width="6" height="6"/><rect x="60" y="70" width="6" height="6"/>
+          <rect x="70" y="70" width="22" height="22"/><rect x="76" y="76" width="10" height="10" fill="#fff"/>
+        </g>
+      </svg>
+    </div>
+    <div class="pay-row"><span>UPI: nexorawalls@upi</span><button class="copy-btn" data-copy="nexorawalls@upi">Copy</button></div>
+    <div class="pay-row"><span>PayPal: donate@nexorawalls.com</span><button class="copy-btn" data-copy="donate@nexorawalls.com">Copy</button></div>
+    <button class="btn btn-primary" id="confirmDonate" style="width:100%; justify-content:center; margin-top:8px;">I've Donated 💜</button>
+  </div>
+</div>
+
+<div class="thank-you" id="thankYou">
+  <div class="thank-you-box">
+    <div class="emoji">🎉</div>
+    <h3>Thank you for your support!</h3>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
