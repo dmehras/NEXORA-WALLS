@@ -197,8 +197,9 @@
   .section-sub{ font-size:13px; color:var(--text-dimmer); margin-bottom:18px; }
 
   .grid{
-    column-width:320px; column-gap:20px;
+    column-width:420px; column-gap:24px;
   }
+  @media(max-width:900px){ .grid{ column-width:320px; } }
   @media(max-width:640px){ .grid{ column-width:100%; } .search-wrap input{ width:150px; } aside#sidebar{ width:80vw; left:-85vw; } }
 
   .card{
@@ -221,8 +222,8 @@
     opacity:0; transition:opacity .35s ease; display:flex; flex-direction:column; justify-content:flex-end; padding:14px;
   }
   .card:hover .card-overlay{ opacity:1; }
-  .card-title{ font-size:14px; font-weight:700; margin-bottom:4px; }
-  .card-meta{ font-size:11px; color:var(--text-dim); display:flex; gap:10px; flex-wrap:wrap; }
+  .card-title{ font-size:16px; font-weight:700; margin-bottom:5px; }
+  .card-meta{ font-size:12px; color:var(--text-dim); display:flex; gap:10px; flex-wrap:wrap; }
   .card-dl{
     position:absolute; top:12px; right:12px; width:34px; height:34px; border-radius:50%;
     background:rgba(13,13,13,0.7); backdrop-filter:blur(6px); border:1px solid rgba(255,255,255,0.15);
