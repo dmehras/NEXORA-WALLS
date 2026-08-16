@@ -3,25 +3,11 @@ const CATEGORIES = [
   {id:'featured', label:'Featured', icon:'⭐'},
   {id:'trending', label:'Trending', icon:'🔥'},
   {id:'newest', label:'Newest', icon:'🆕'},
+  {id:'oled', label:'OLED', icon:'⚫'},
+  {id:'ips', label:'IPS', icon:'🖥'},
   {id:'anime', label:'Anime', icon:'🎌'},
+  {id:'movies', label:'Movie', icon:'🎬'},
   {id:'gaming', label:'Gaming', icon:'🎮'},
-  {id:'movies', label:'Movies', icon:'🎬'},
-  {id:'tvshows', label:'TV Shows', icon:'📺'},
-  {id:'superheroes', label:'Superheroes', icon:'🦸'},
-  {id:'fantasy', label:'Fantasy', icon:'🐉'},
-  {id:'cars', label:'Cars', icon:'🚗'},
-  {id:'bikes', label:'Bikes', icon:'🏍'},
-  {id:'space', label:'Space', icon:'🌌'},
-  {id:'nature', label:'Nature', icon:'🌿'},
-  {id:'landscapes', label:'Landscapes', icon:'🏔'},
-  {id:'animals', label:'Animals', icon:'🐺'},
-  {id:'technology', label:'Technology', icon:'💻'},
-  {id:'abstract', label:'Abstract', icon:'🎨'},
-  {id:'minimal', label:'Minimal', icon:'🟣'},
-  {id:'dark', label:'Dark', icon:'🟢'},
-  {id:'neon', label:'Neon', icon:'💜'},
-  {id:'aesthetic', label:'Aesthetic', icon:'❤️'},
-  {id:'seasonal', label:'Seasonal', icon:'🎄'},
 ];
 
 /* Real uploaded wallpapers. Images live in /images/wallpapers/ in this repo.
@@ -131,7 +117,7 @@ const WALLPAPERS = [
     views: 12900,
     daysAgo: 5,
     size: '5.5 MB',
-    tags: ['gaming','nier automata','2b','4k','landscape'],
+    tags: ['gaming','nier automata','2b','oled','4k','landscape'],
   },
   {
     id: 8,
@@ -146,7 +132,7 @@ const WALLPAPERS = [
     views: 16700,
     daysAgo: 4,
     size: '4.7 MB',
-    tags: ['anime','jujutsu kaisen','sukuna','4k','landscape'],
+    tags: ['anime','jujutsu kaisen','sukuna','oled','4k','landscape'],
   },
   {
     id: 9,
@@ -161,7 +147,7 @@ const WALLPAPERS = [
     views: 8900,
     daysAgo: 9,
     size: '4.4 MB',
-    tags: ['anime','demon slayer','zenitsu','4k','landscape'],
+    tags: ['anime','demon slayer','zenitsu','oled','4k','landscape'],
   },
   {
     id: 10,
@@ -297,7 +283,7 @@ const WALLPAPERS = [
     views: 6000,
     daysAgo: 1,
     size: '4.6 MB',
-    tags: ['anime','demon slayer','kanae kocho','4k'],
+    tags: ['anime','demon slayer','kanae kocho','oled','4k'],
   },
   {
     id: 19,
@@ -483,6 +469,10 @@ function getFiltered(){
     list = list.filter(w => w.trending);
   } else if(state.category === 'newest'){
     list = list.filter(w => w.daysAgo <= 20);
+  } else if(state.category === 'oled'){
+    list = list.filter(w => w.tags.includes('oled'));
+  } else if(state.category === 'ips'){
+    list = list.filter(w => !w.tags.includes('oled'));
   } else {
     list = list.filter(w => w.category === state.category);
   }
@@ -507,6 +497,8 @@ const SECTION_TITLES = {
   featured:['Featured Wallpapers','Hand-picked, studio-quality frames.'],
   trending:['Trending Now','What everyone is downloading right now.'],
   newest:['Newest Wallpapers','Fresh uploads from the last 20 days.'],
+  oled:['OLED Wallpapers','True-black optimized picks for OLED displays.'],
+  ips:['IPS Wallpapers','Standard wallpapers that look great on any display.'],
   __favorites__:['Your Favorites','Wallpapers you\'ve saved this session.'],
   __downloads__:['Your Downloads','Wallpapers you\'ve downloaded this session.'],
 };
@@ -574,7 +566,6 @@ document.querySelectorAll('.pill-btn[data-sort]').forEach(btn => {
     const map = {newest:'newest', downloads:'downloads', views:'views'};
     state.sort = map[btn.dataset.sort];
     document.getElementById('sortFilter').value = state.sort;
-    if(btn.dataset.sort==='downloads') state.category='trending';
     renderGrid();
   });
 });
