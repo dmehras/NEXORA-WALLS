@@ -363,12 +363,14 @@ const WALLPAPERS = [
 ];
 
 /* ============ STATE ============ */
+const PAGE_SIZE = 24;
 let state = {
   category: 'featured',
   search: '',
   sort: 'newest',
   resolution: '',
   orientation: '',
+  page: 1,
 };
 
 /* ============ LANDING PAGE ============ */
@@ -414,6 +416,7 @@ function renderSidebar(){
       if(cat === 'favorites'){ state.category='__favorites__'; }
       else if(cat === 'downloads-tab'){ state.category='__downloads__'; }
       else { state.category = cat; }
+      state.page = 1;
       renderSidebar();
       renderGrid();
       closeSidebar();
@@ -506,19 +509,27 @@ const SECTION_TITLES = {
 function renderGrid(){
   const grid = document.getElementById('grid');
   const empty = document.getElementById('emptyState');
-  const list = getFiltered();
+  const fullList = getFiltered();
 
   const titleInfo = SECTION_TITLES[state.category];
   const catObj = CATEGORIES.find(c=>c.id===state.category);
   document.getElementById('sectionTitle').textContent = titleInfo ? titleInfo[0] : (catObj ? catObj.icon+' '+catObj.label : 'Wallpapers');
-  document.getElementById('sectionSub').textContent = titleInfo ? titleInfo[1] : `${list.length} wallpapers in this category.`;
+  document.getElementById('sectionSub').textContent = titleInfo ? titleInfo[1] : `${fullList.length} wallpapers in this category.`;
 
-  if(list.length === 0){
+  const totalPages = Math.max(1, Math.ceil(fullList.length / PAGE_SIZE));
+  if(state.page > totalPages) state.page = totalPages;
+  if(state.page < 1) state.page = 1;
+
+  if(fullList.length === 0){
     grid.innerHTML = '';
     empty.style.display = 'block';
+    document.getElementById('pagination').innerHTML = '';
     return;
   }
   empty.style.display = 'none';
+
+  const start = (state.page - 1) * PAGE_SIZE;
+  const list = fullList.slice(start, start + PAGE_SIZE);
 
   grid.innerHTML = list.map((w, i) => `
     <div class="card" data-id="${w.id}" style="animation-delay:${Math.min(i*0.04,0.6)}s">
@@ -548,16 +559,59 @@ function renderGrid(){
       triggerDownload(parseInt(btn.dataset.dl));
     });
   });
+
+  renderPagination(totalPages);
+}
+
+/* ============ PAGINATION ============ */
+function goToPage(p){
+  state.page = p;
+  renderGrid();
+  document.querySelector('main#content').scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+function renderPagination(totalPages){
+  const el = document.getElementById('pagination');
+  if(totalPages <= 1){ el.innerHTML = ''; return; }
+
+  const cur = state.page;
+  let html = `<button class="page-btn" data-page="${cur-1}" ${cur===1?'disabled':''}>‹ Prev</button>`;
+
+  const pages = [];
+  pages.push(1);
+  if(cur > 3) pages.push('...');
+  for(let p = Math.max(2, cur-1); p <= Math.min(totalPages-1, cur+1); p++) pages.push(p);
+  if(cur < totalPages-2) pages.push('...');
+  if(totalPages > 1) pages.push(totalPages);
+
+  pages.forEach(p => {
+    if(p === '...'){
+      html += `<span class="page-ellipsis">…</span>`;
+    } else {
+      html += `<button class="page-btn ${p===cur?'active':''}" data-page="${p}">${p}</button>`;
+    }
+  });
+
+  html += `<button class="page-btn" data-page="${cur+1}" ${cur===totalPages?'disabled':''}>Next ›</button>`;
+  el.innerHTML = html;
+
+  el.querySelectorAll('.page-btn[data-page]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const p = parseInt(btn.dataset.page);
+      if(!isNaN(p) && p >= 1 && p <= totalPages && p !== cur) goToPage(p);
+    });
+  });
 }
 
 /* ============ SEARCH / FILTERS ============ */
 document.getElementById('searchInput').addEventListener('input', (e) => {
   state.search = e.target.value;
+  state.page = 1;
   renderGrid();
 });
-document.getElementById('resFilter').addEventListener('change', e => { state.resolution = e.target.value; renderGrid(); });
-document.getElementById('orientFilter').addEventListener('change', e => { state.orientation = e.target.value; renderGrid(); });
-document.getElementById('sortFilter').addEventListener('change', e => { state.sort = e.target.value; renderGrid(); });
+document.getElementById('resFilter').addEventListener('change', e => { state.resolution = e.target.value; state.page = 1; renderGrid(); });
+document.getElementById('orientFilter').addEventListener('change', e => { state.orientation = e.target.value; state.page = 1; renderGrid(); });
+document.getElementById('sortFilter').addEventListener('change', e => { state.sort = e.target.value; state.page = 1; renderGrid(); });
 
 document.querySelectorAll('.pill-btn[data-sort]').forEach(btn => {
   btn.addEventListener('click', () => {
@@ -566,6 +620,7 @@ document.querySelectorAll('.pill-btn[data-sort]').forEach(btn => {
     const map = {newest:'newest', downloads:'downloads', views:'views'};
     state.sort = map[btn.dataset.sort];
     document.getElementById('sortFilter').value = state.sort;
+    state.page = 1;
     renderGrid();
   });
 });
