@@ -360,6 +360,21 @@ const WALLPAPERS = [
     size: '4.4 MB',
     tags: ['anime','naruto','hinata','beach','4k'],
   },
+  {
+    id: 24,
+    title: 'Kawaii Cat Girl OLED',
+    category: 'anime',
+    featured: true,
+    trending: false,
+    resolution: '4K',
+    orientation: 'landscape',
+    img: 'images/wallpapers/kawaii-cat-girl-OLED-4k-wallpaper.jpg',
+    downloads: 1500,
+    views: 4300,
+    daysAgo: 0,
+    size: '3.2 MB',
+    tags: ['anime','catgirl','kawaii','oled','dark','4k'],
+  },
 ];
 
 /* ============ STATE ============ */
