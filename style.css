@@ -359,8 +359,11 @@
   .footer-heading{ font-size:15px; font-weight:700; letter-spacing:1px; text-transform:uppercase; margin-bottom:18px; color:var(--text-dim); }
   .footer-links a{ display:block; font-size:15px; color:var(--text-dim); margin-bottom:12px; transition:color .2s; }
   .footer-links a:hover{ color:var(--blue); }
-  .social-row{ display:flex; gap:10px; flex-wrap:wrap; }
-  .social-row .icon-btn{ width:44px; height:44px; font-size:19px; }
+  .footer-qr{ margin-bottom:8px; }
+  .footer-qr img{
+    width:100px; height:100px; object-fit:contain; background:#fff; border-radius:12px;
+    padding:8px; border:1px solid var(--panel-border); box-shadow:0 0 20px rgba(0,200,255,0.15);
+  }
   .footer-links a[href^="mailto"]{ font-size:16px; font-weight:600; color:var(--blue); }
   .footer-bottom{ text-align:center; font-size:13px; color:var(--text-dimmer); padding-top:24px; border-top:1px solid var(--panel-border); }
 
