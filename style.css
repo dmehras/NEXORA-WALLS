@@ -246,6 +246,21 @@
   .empty-state{ text-align:center; padding:80px 20px; color:var(--text-dimmer); }
   .empty-state .big{ font-size:40px; margin-bottom:12px; }
 
+  /* PAGINATION */
+  .pagination{
+    display:flex; align-items:center; justify-content:center; gap:8px;
+    margin-top:36px; flex-wrap:wrap;
+  }
+  .page-btn{
+    min-width:40px; height:40px; padding:0 12px; border-radius:10px;
+    border:1px solid var(--panel-border); background:var(--panel); color:#fff;
+    font-size:14px; font-weight:600; transition:all .25s; display:flex; align-items:center; justify-content:center;
+  }
+  .page-btn:hover:not(:disabled):not(.active){ border-color:var(--blue); box-shadow:0 0 14px rgba(0,200,255,0.3); transform:translateY(-2px); }
+  .page-btn.active{ background:var(--grad); border-color:transparent; box-shadow:0 0 18px rgba(0,200,255,0.4); }
+  .page-btn:disabled{ opacity:0.35; cursor:not-allowed; }
+  .page-ellipsis{ color:var(--text-dimmer); padding:0 4px; font-size:14px; }
+
   /* SCROLL TOP */
   #scrollTop{
     position:fixed; bottom:28px; right:28px; z-index:150;
