@@ -368,7 +368,7 @@ const WALLPAPERS = [
     trending: false,
     resolution: '4K',
     orientation: 'landscape',
-    img: 'images/wallpapers/kawaii-cat-girl-OLED-4k-wallpaper.jpg',
+    img: 'images/wallpapers/kawaii-cat-girl-OLED-4k-wallpaper.png',
     downloads: 1500,
     views: 4300,
     daysAgo: 0,
