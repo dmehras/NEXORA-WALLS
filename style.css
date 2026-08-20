@@ -434,3 +434,13 @@
   @media (prefers-reduced-motion: reduce){
     *{ animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; }
   }
+
+/* ============ PREMIUM WALLPAPERS ============ */
+.premium-card-btn{
+  background:linear-gradient(135deg,#ffb300,#ff6a00) !important;
+  border-color:rgba(255,255,255,.35) !important;
+  box-shadow:0 0 18px rgba(255,140,0,.35);
+}
+.premium-card-btn:hover{
+  box-shadow:0 0 24px rgba(255,140,0,.65) !important;
+}
