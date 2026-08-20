@@ -13,6 +13,16 @@ const CATEGORIES = [
 /* Real uploaded wallpapers. Images live in /images/wallpapers/ in this repo.
    To add more later: copy the file into that folder, then add a new object
    below with a unique id — no other code needs to change. */
+// ============ PREMIUM SETTINGS ============
+// Add a wallpaper ID to PREMIUM_WALLPAPER_IDS to make it paid.
+// Replace each empty gumroadUrl with that wallpaper's Gumroad product URL.
+const PREMIUM_PRICE = '₹79';
+const PREMIUM_WALLPAPER_IDS = new Set([30, 31, 25, 26, 20, 16, 35, 17, 5, 9, 8, 7, 18, 13]);
+const GUMROAD_LINKS = {
+  5: '', 7: '', 8: '', 9: '', 13: '', 16: '', 17: '', 18: '',
+  20: '', 25: '', 26: '', 30: '', 31: '', 35: ''
+};
+
 const WALLPAPERS = [
   {
     id: 1,
@@ -23,8 +33,8 @@ const WALLPAPERS = [
     resolution: '4K',
     orientation: 'landscape',
     img: 'images/wallpapers/boa-hancock-4k-wallpaper.jpg',
-    downloads: 32,
-    views: 98,
+    downloads: 3200,
+    views: 9800,
     daysAgo: 3,
     size: '4.6 MB',
     tags: ['anime','one piece','4k','landscape','desktop'],
@@ -38,8 +48,8 @@ const WALLPAPERS = [
     resolution: '4K',
     orientation: 'landscape',
     img: 'images/wallpapers/cyberpunk-samurai-4k-wallpaper.jpg',
-    downloads: 54,
-    views: 150,
+    downloads: 5400,
+    views: 15200,
     daysAgo: 1,
     size: '5.1 MB',
     tags: ['gaming','cyberpunk','neon','4k','landscape'],
@@ -53,8 +63,8 @@ const WALLPAPERS = [
     resolution: '4K',
     orientation: 'landscape',
     img: 'images/wallpapers/darling-in-the-franxx-4k-wallpaper.jpg',
-    downloads: 21,
-    views: 64,
+    downloads: 2100,
+    views: 6400,
     daysAgo: 8,
     size: '4.3 MB',
     tags: ['anime','darling in the franxx','4k','landscape','desktop'],
@@ -68,8 +78,8 @@ const WALLPAPERS = [
     resolution: '4K',
     orientation: 'landscape',
     img: 'images/wallpapers/goku-blue-4k-wallpaper.jpg',
-    downloads: 87,
-    views: 243,
+    downloads: 8700,
+    views: 24300,
     daysAgo: 2,
     size: '4.9 MB',
     tags: ['anime','dragon ball','goku','4k','landscape'],
@@ -83,8 +93,8 @@ const WALLPAPERS = [
     resolution: '4K',
     orientation: 'landscape',
     img: 'images/wallpapers/goku-blue-oled-4k-wallpaper.jpg',
-    downloads: 63,
-    views: 181,
+    downloads: 6300,
+    views: 18100,
     daysAgo: 2,
     size: '3.4 MB',
     tags: ['anime','dragon ball','oled','dark','4k'],
@@ -98,8 +108,8 @@ const WALLPAPERS = [
     resolution: '4K',
     orientation: 'landscape',
     img: 'images/wallpapers/hinata-wedding-4k-wallpaper.jpg',
-    downloads: 14,
-    views: 42,
+    downloads: 1450,
+    views: 4200,
     daysAgo: 12,
     size: '4.1 MB',
     tags: ['anime','naruto','hinata','4k','landscape'],
@@ -113,8 +123,8 @@ const WALLPAPERS = [
     resolution: '4K',
     orientation: 'landscape',
     img: 'images/wallpapers/NieR-Automata-2B-4k-wallpaper.jpg',
-    downloads: 47,
-    views: 129,
+    downloads: 4700,
+    views: 12900,
     daysAgo: 5,
     size: '5.5 MB',
     tags: ['gaming','nier automata','2b','oled','4k','landscape'],
@@ -128,8 +138,8 @@ const WALLPAPERS = [
     resolution: '4K',
     orientation: 'landscape',
     img: 'images/wallpapers/ryomen-sukuna-4k-wallpaper.jpg',
-    downloads: 59,
-    views: 167,
+    downloads: 5900,
+    views: 16700,
     daysAgo: 4,
     size: '4.7 MB',
     tags: ['anime','jujutsu kaisen','sukuna','oled','4k','landscape'],
@@ -143,8 +153,8 @@ const WALLPAPERS = [
     resolution: '4K',
     orientation: 'landscape',
     img: 'images/wallpapers/zenitsu-agatsuma-4k-wallpaper.jpg',
-    downloads: 31,
-    views: 89,
+    downloads: 3100,
+    views: 8900,
     daysAgo: 9,
     size: '4.4 MB',
     tags: ['anime','demon slayer','zenitsu','oled','4k','landscape'],
@@ -158,8 +168,8 @@ const WALLPAPERS = [
     resolution: '4K',
     orientation: 'landscape',
     img: 'images/wallpapers/zero-two1-4k-wallpaper.jpg',
-    downloads: 28,
-    views: 76,
+    downloads: 2800,
+    views: 7600,
     daysAgo: 10,
     size: '4.2 MB',
     tags: ['anime','darling in the franxx','zero two','4k','landscape'],
@@ -174,8 +184,8 @@ const WALLPAPERS = [
     resolution: '4K',
     orientation: 'landscape',
     img: 'images/wallpapers/zero-two-4k-wallpaper.jpg',
-    downloads: 41,
-    views: 114,
+    downloads: 4100,
+    views: 11400,
     daysAgo: 6,
     size: '4.8 MB',
     tags: ['anime','darling in the franxx','zero two','4k','landscape'],
@@ -189,8 +199,8 @@ const WALLPAPERS = [
     resolution: '4K',
     orientation: 'landscape',
     img: 'images/wallpapers/zero-two-couple-4k-wallpaper.jpg',
-    downloads: 25,
-    views: 69,
+    downloads: 2500,
+    views: 6900,
     daysAgo: 11,
     size: '4.5 MB',
     tags: ['anime','darling in the franxx','zero two','hiro','4k'],
@@ -204,8 +214,8 @@ const WALLPAPERS = [
     resolution: '4K',
     orientation: 'landscape',
     img: 'images/wallpapers/Zero-Two-OLED-4k-wallpaper.jpg',
-    downloads: 38,
-    views: 102,
+    downloads: 3800,
+    views: 10200,
     daysAgo: 1,
     size: '3.6 MB',
     tags: ['anime','darling in the franxx','zero two','oled','dark','4k'],
@@ -219,8 +229,8 @@ const WALLPAPERS = [
     resolution: '4K',
     orientation: 'landscape',
     img: 'images/wallpapers/Shinobu-Kocho-OLED-4k-wallpaper.jpg',
-    downloads: 29,
-    views: 81,
+    downloads: 2900,
+    views: 8100,
     daysAgo: 1,
     size: '3.4 MB',
     tags: ['anime','demon slayer','shinobu kocho','oled','dark','4k'],
@@ -234,8 +244,8 @@ const WALLPAPERS = [
     resolution: '4K',
     orientation: 'landscape',
     img: 'images/wallpapers/Shinobu-Kocho-Beach-4k-wallpaper.jpg',
-    downloads: 26,
-    views: 74,
+    downloads: 2600,
+    views: 7400,
     daysAgo: 1,
     size: '4.5 MB',
     tags: ['anime','demon slayer','shinobu kocho','beach','4k'],
@@ -249,8 +259,8 @@ const WALLPAPERS = [
     resolution: '4K',
     orientation: 'landscape',
     img: 'images/wallpapers/Nier-Automata-2B-OLED-4k-wallpaper.jpg',
-    downloads: 42,
-    views: 118,
+    downloads: 4200,
+    views: 11800,
     daysAgo: 1,
     size: '3.5 MB',
     tags: ['gaming','nier automata','2b','oled','dark','4k'],
@@ -264,8 +274,8 @@ const WALLPAPERS = [
     resolution: '4K',
     orientation: 'landscape',
     img: 'images/wallpapers/Liberty-OLED-4k-wallpaper.jpg',
-    downloads: 18,
-    views: 51,
+    downloads: 1800,
+    views: 5100,
     daysAgo: 1,
     size: '3.3 MB',
     tags: ['tvshows','liberty','oled','dark','4k'],
@@ -279,8 +289,8 @@ const WALLPAPERS = [
     resolution: '4K',
     orientation: 'landscape',
     img: 'images/wallpapers/Kanae-Kocho-4k-wallpaper.jpg',
-    downloads: 21,
-    views: 60,
+    downloads: 2100,
+    views: 6000,
     daysAgo: 1,
     size: '4.6 MB',
     tags: ['anime','demon slayer','kanae kocho','oled','4k'],
@@ -294,8 +304,8 @@ const WALLPAPERS = [
     resolution: '4K',
     orientation: 'landscape',
     img: 'images/wallpapers/Jeanne-d-Arc-4k-wallpaper.jpg',
-    downloads: 33,
-    views: 92,
+    downloads: 3300,
+    views: 9200,
     daysAgo: 1,
     size: '4.7 MB',
     tags: ['gaming','fate','jeanne d\'arc','4k'],
@@ -309,8 +319,8 @@ const WALLPAPERS = [
     resolution: '4K',
     orientation: 'landscape',
     img: 'images/wallpapers/hitsugaya-Toshiro-Bleach-4k-wallpaper.jpg',
-    downloads: 24,
-    views: 68,
+    downloads: 2400,
+    views: 6800,
     daysAgo: 1,
     size: '4.3 MB',
     tags: ['anime','bleach','hitsugaya toshiro','4k'],
@@ -324,8 +334,8 @@ const WALLPAPERS = [
     resolution: '4K',
     orientation: 'landscape',
     img: 'images/wallpapers/Hinata-Hyuga-4k-wallpaper.jpg',
-    downloads: 20,
-    views: 57,
+    downloads: 2000,
+    views: 5700,
     daysAgo: 1,
     size: '4.1 MB',
     tags: ['anime','naruto','hinata hyuga','4k'],
@@ -339,8 +349,8 @@ const WALLPAPERS = [
     resolution: '4K',
     orientation: 'landscape',
     img: 'images/wallpapers/Mikasa-Beach-4k-wallpaper.jpg',
-    downloads: 36,
-    views: 99,
+    downloads: 3600,
+    views: 9900,
     daysAgo: 1,
     size: '4.8 MB',
     tags: ['anime','attack on titan','mikasa','beach','4k'],
@@ -354,8 +364,8 @@ const WALLPAPERS = [
     resolution: '4K',
     orientation: 'landscape',
     img: 'images/wallpapers/Hinata-Beach-4k-wallpaper.jpg',
-    downloads: 23,
-    views: 65,
+    downloads: 2300,
+    views: 6500,
     daysAgo: 1,
     size: '4.4 MB',
     tags: ['anime','naruto','hinata','beach','4k'],
@@ -384,8 +394,8 @@ const WALLPAPERS = [
     resolution: '4K',
     orientation: 'landscape',
     img: 'images/wallpapers/Gojo-Neon.jpg',
-    downloads: 29,
-    views: 82,
+    downloads: 2900,
+    views: 8200,
     daysAgo: 0,
     size: '4.0 MB',
     tags: ['anime','jujutsu kaisen','gojo','neon','4k'],
@@ -399,8 +409,8 @@ const WALLPAPERS = [
     resolution: '4K',
     orientation: 'landscape',
     img: 'images/wallpapers/Sukuna-Neon.jpg',
-    downloads: 31,
-    views: 87,
+    downloads: 3100,
+    views: 8700,
     daysAgo: 0,
     size: '4.1 MB',
     tags: ['anime','jujutsu kaisen','sukuna','neon','4k'],
@@ -414,8 +424,8 @@ const WALLPAPERS = [
     resolution: '4K',
     orientation: 'landscape',
     img: 'images/wallpapers/Kpop-Demon-Hunter.jpg',
-    downloads: 22,
-    views: 61,
+    downloads: 2200,
+    views: 6100,
     daysAgo: 0,
     size: '4.3 MB',
     tags: ['movies','kpop demon hunter','4k'],
@@ -429,8 +439,8 @@ const WALLPAPERS = [
     resolution: '4K',
     orientation: 'landscape',
     img: 'images/wallpapers/Moneky-D-Luffy.jpg',
-    downloads: 34,
-    views: 91,
+    downloads: 3400,
+    views: 9100,
     daysAgo: 0,
     size: '4.2 MB',
     tags: ['anime','one piece','luffy','4k'],
@@ -444,8 +454,8 @@ const WALLPAPERS = [
     resolution: '4K',
     orientation: 'landscape',
     img: 'images/wallpapers/Naruto-Uzumaki-OLED.jpg',
-    downloads: 37,
-    views: 99,
+    downloads: 3700,
+    views: 9900,
     daysAgo: 0,
     size: '3.5 MB',
     tags: ['anime','naruto','naruto uzumaki','oled','dark','4k'],
@@ -459,8 +469,8 @@ const WALLPAPERS = [
     resolution: '4K',
     orientation: 'landscape',
     img: 'images/wallpapers/Pain-OLED.jpg',
-    downloads: 26,
-    views: 73,
+    downloads: 2600,
+    views: 7300,
     daysAgo: 0,
     size: '3.6 MB',
     tags: ['anime','naruto','pain','oled','dark','4k'],
@@ -474,8 +484,8 @@ const WALLPAPERS = [
     resolution: '4K',
     orientation: 'landscape',
     img: 'images/wallpapers/Coyote-Starrk-Bleach.jpg',
-    downloads: 19,
-    views: 54,
+    downloads: 1900,
+    views: 5400,
     daysAgo: 0,
     size: '4.2 MB',
     tags: ['anime','bleach','coyote starrk','4k'],
@@ -489,8 +499,8 @@ const WALLPAPERS = [
     resolution: '4K',
     orientation: 'landscape',
     img: 'images/wallpapers/Grimmjow-Jaegerjaquez-Bleach.jpg',
-    downloads: 25,
-    views: 68,
+    downloads: 2500,
+    views: 6800,
     daysAgo: 0,
     size: '4.4 MB',
     tags: ['anime','bleach','grimmjow','4k'],
@@ -504,8 +514,8 @@ const WALLPAPERS = [
     resolution: '4K',
     orientation: 'landscape',
     img: 'images/wallpapers/Nelliel-Tu-Odelschwanck-Bleach.jpg',
-    downloads: 17,
-    views: 49,
+    downloads: 1700,
+    views: 4900,
     daysAgo: 0,
     size: '4.1 MB',
     tags: ['anime','bleach','nelliel','4k'],
@@ -519,8 +529,8 @@ const WALLPAPERS = [
     resolution: '4K',
     orientation: 'landscape',
     img: 'images/wallpapers/Ulquiorra-Cifer-Bleach.jpg',
-    downloads: 28,
-    views: 76,
+    downloads: 2800,
+    views: 7600,
     daysAgo: 0,
     size: '4.3 MB',
     tags: ['anime','bleach','ulquiorra','4k'],
@@ -534,13 +544,20 @@ const WALLPAPERS = [
     resolution: '4K',
     orientation: 'landscape',
     img: 'images/wallpapers/Yonko-Monkey-D-Luffy.jpg',
-    downloads: 39,
-    views: 105,
+    downloads: 3900,
+    views: 10500,
     daysAgo: 0,
     size: '4.6 MB',
     tags: ['anime','one piece','luffy','yonko','4k'],
   },
 ];
+
+// Apply premium flags after the wallpaper catalog is loaded.
+WALLPAPERS.forEach(w => {
+  w.premium = PREMIUM_WALLPAPER_IDS.has(w.id);
+  w.price = PREMIUM_PRICE;
+  w.gumroadUrl = GUMROAD_LINKS[w.id] || '';
+});
 
 /* ============ STATE ============ */
 const PAGE_SIZE = 24;
@@ -713,8 +730,8 @@ function renderGrid(){
 
   grid.innerHTML = list.map((w, i) => `
     <div class="card" data-id="${w.id}" style="animation-delay:${Math.min(i*0.04,0.6)}s">
-      <span class="card-res-badge">${w.resolution}</span>
-      <button class="card-dl" data-dl="${w.id}" title="Quick download">⬇</button>
+      <span class="card-res-badge">${w.premium ? `🔒 PREMIUM · ${w.price}` : w.resolution}</span>
+      <button class="card-dl ${w.premium ? 'premium-card-btn' : ''}" data-dl="${w.id}" title="${w.premium ? `Buy for ${w.price}` : 'Quick download'}">${w.premium ? '💳' : '⬇'}</button>
       <img src="${w.img}" alt="${w.title}" loading="lazy">
       <div class="card-overlay">
         <div class="card-title">${w.title}</div>
@@ -736,7 +753,7 @@ function renderGrid(){
   grid.querySelectorAll('[data-dl]').forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.stopPropagation();
-      triggerDownload(parseInt(btn.dataset.dl));
+      handleWallpaperAction(parseInt(btn.dataset.dl));
     });
   });
 
@@ -842,7 +859,7 @@ function openDetail(id){
           </div>
         </div>
         <div class="detail-actions">
-          <button class="btn btn-primary" id="detailDownloadBtn">⬇ Download 4K</button>
+          <button class="btn btn-primary" id="detailDownloadBtn">${w.premium ? `💳 Buy for ${w.price}` : '⬇ Download 4K'}</button>
           <button class="btn btn-ghost ${isFav?'liked':''}" id="detailFavBtn">${isFav?'❤':'🤍'} Favorite</button>
           <button class="btn btn-ghost" id="detailShareBtn">🔗 Share</button>
           <button class="btn btn-ghost" id="detailPreviewBtn">🖥 Fullscreen</button>
@@ -853,7 +870,7 @@ function openDetail(id){
         <div class="stat"><div class="num">${fmtNum(w.downloads)}</div><div class="label">Downloads</div></div>
         <div class="stat"><div class="num">${w.orientation==='portrait'?'2160×3840':w.orientation==='square'?'2160×2160':'3840×2160'}</div><div class="label">Resolution</div></div>
       </div>
-      <div class="detail-desc">A premium ${w.resolution} desktop wallpaper from our ${w.category} collection. Optimized for crisp detail and clean color across ultra-wide and standard monitors — free for personal use.</div>
+      <div class="detail-desc">${w.premium ? `A premium ${w.resolution} wallpaper. Purchase this wallpaper for ${w.price} and receive the original downloadable file securely through Gumroad.` : `A ${w.resolution} desktop wallpaper from our ${w.category} collection. Optimized for crisp detail and clean color across ultra-wide and standard monitors — free for personal use.`}</div>
       <div class="tag-row">${w.tags.map(t=>`<span class="tag">#${t}</span>`).join('')}</div>
       <div class="related-title">Related Wallpapers</div>
       <div class="related-row">
@@ -866,7 +883,7 @@ function openDetail(id){
   document.getElementById('detailCloseBtn').addEventListener('click', closeDetail);
   document.getElementById('detailHeroImg').addEventListener('click', () => openFullscreen(w.id));
   document.getElementById('detailPreviewBtn').addEventListener('click', () => openFullscreen(w.id));
-  document.getElementById('detailDownloadBtn').addEventListener('click', () => triggerDownload(w.id));
+  document.getElementById('detailDownloadBtn').addEventListener('click', () => w.premium ? purchaseWallpaper(w.id) : triggerDownload(w.id));
   document.getElementById('detailShareBtn').addEventListener('click', () => showToast('🔗 Link copied to clipboard!'));
   document.getElementById('detailFavBtn').addEventListener('click', (e) => {
     toggleFavorite(w.id);
@@ -926,6 +943,23 @@ document.addEventListener('keydown', (e) => {
 });
 
 /* ============ DOWNLOAD SYSTEM ============ */
+function handleWallpaperAction(id){
+  const w = WALLPAPERS.find(x=>x.id===id);
+  if(!w) return;
+  if(w.premium) purchaseWallpaper(id);
+  else triggerDownload(id);
+}
+
+function purchaseWallpaper(id){
+  const w = WALLPAPERS.find(x=>x.id===id);
+  if(!w || !w.premium) return;
+  if(w.gumroadUrl){
+    window.open(w.gumroadUrl, '_blank', 'noopener,noreferrer');
+  } else {
+    showToast(`⚠️ Gumroad link not added for "${w.title}" yet.`);
+  }
+}
+
 function triggerDownload(id){
   const w = WALLPAPERS.find(x=>x.id===id);
   if(!w) return;
