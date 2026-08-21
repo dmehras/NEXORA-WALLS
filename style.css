@@ -287,6 +287,8 @@
   .modal-backdrop.show .detail-modal{ transform:translateY(0); }
   .detail-hero{ position:relative; width:100%; max-height:60vh; overflow:hidden; }
   .detail-hero img{ width:100%; display:block; cursor:zoom-in; }
+  .premium-preview .preview-watermark{ display:block; }
+  .preview-watermark{ display:none; position:absolute; left:50%; top:50%; transform:translate(-50%,-50%) rotate(-8deg); z-index:5; pointer-events:none; color:rgba(255,255,255,.58); font-size:clamp(13px,1.5vw,22px); font-weight:900; letter-spacing:3px; text-shadow:0 1px 4px rgba(0,0,0,.7); white-space:nowrap; }
   .modal-close{
     position:absolute; top:16px; right:16px; width:38px; height:38px; border-radius:50%;
     background:rgba(0,0,0,0.6); border:1px solid rgba(255,255,255,0.2); color:#fff; font-size:18px;
@@ -434,3 +436,17 @@
   @media (prefers-reduced-motion: reduce){
     *{ animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; }
   }
+
+/* ============ PREMIUM WALLPAPERS ============ */
+.premium-card-btn{
+  background:linear-gradient(135deg,#ffb300,#ff6a00) !important;
+  border-color:rgba(255,255,255,.35) !important;
+  box-shadow:0 0 18px rgba(255,140,0,.35);
+}
+.premium-card-btn:hover{
+  box-shadow:0 0 24px rgba(255,140,0,.65) !important;
+}
+
+  .fs-image-wrap{ position:relative; display:flex; align-items:center; justify-content:center; max-width:92vw; max-height:82vh; }
+  .fs-image-wrap #fsImage{ display:block; max-width:92vw; max-height:82vh; }
+  #fullscreenPreview.premium-preview #fsWatermark{ display:block; }
