@@ -1,1031 +1,446 @@
-/* ============ DATA ============ */
-const CATEGORIES = [
-  {id:'featured', label:'Featured', icon:'⭐'},
-  {id:'trending', label:'Trending', icon:'🔥'},
-  {id:'newest', label:'Newest', icon:'🆕'},
-  {id:'oled', label:'OLED', icon:'⚫'},
-  {id:'ips', label:'IPS', icon:'🖥'},
-  {id:'anime', label:'Anime', icon:'🎌'},
-  {id:'movies', label:'Movie', icon:'🎬'},
-  {id:'gaming', label:'Gaming', icon:'🎮'},
-];
-
-/* Real uploaded wallpapers. Images live in /images/wallpapers/ in this repo.
-   To add more later: copy the file into that folder, then add a new object
-   below with a unique id — no other code needs to change. */
-// ============ PREMIUM SETTINGS ============
-// Add a wallpaper ID to PREMIUM_WALLPAPER_IDS to make it paid.
-// Replace each empty gumroadUrl with that wallpaper's Gumroad product URL.
-const PREMIUM_PRICE = '₹79';
-const PREMIUM_WALLPAPER_IDS = new Set([30, 31, 25, 26, 20, 16, 35, 17, 5, 9, 8, 7, 18, 13]);
-const GUMROAD_LINKS = {
-  5: 'https://imdeepmehra.gumroad.com/l/udujxj',
-  7: '',
-  8: '',
-  9: 'https://imdeepmehra.gumroad.com/l/prmapp',
-  13: '',
-  16: 'https://imdeepmehra.gumroad.com/l/iysamp',
-  17: 'https://imdeepmehra.gumroad.com/l/vggbnv',
-  18: '',
-  20: 'https://imdeepmehra.gumroad.com/l/xklpmb',
-  25: 'https://imdeepmehra.gumroad.com/l/awdzah',
-  26: 'https://imdeepmehra.gumroad.com/l/bmbvxs',
-  30: 'https://imdeepmehra.gumroad.com/l/zzdnal',
-  31: 'https://imdeepmehra.gumroad.com/l/jsgztv',
-  35: 'https://imdeepmehra.gumroad.com/l/bbhnuc'
-};
-
-const WALLPAPERS = [
-  {
-    id: 1,
-    title: 'Boa Hancock',
-    category: 'anime',
-    featured: true,
-    trending: false,
-    resolution: '4K',
-    orientation: 'landscape',
-    img: 'images/wallpapers/boa-hancock-4k-wallpaper.jpg',
-    downloads: 3200,
-    views: 9800,
-    daysAgo: 3,
-    size: '4.6 MB',
-    tags: ['anime','one piece','4k','landscape','desktop'],
-  },
-  {
-    id: 2,
-    title: 'Cyberpunk Samurai',
-    category: 'gaming',
-    featured: true,
-    trending: true,
-    resolution: '4K',
-    orientation: 'landscape',
-    img: 'images/wallpapers/cyberpunk-samurai-4k-wallpaper.jpg',
-    downloads: 5400,
-    views: 15200,
-    daysAgo: 1,
-    size: '5.1 MB',
-    tags: ['gaming','cyberpunk','neon','4k','landscape'],
-  },
-  {
-    id: 3,
-    title: 'Darling in the Franxx',
-    category: 'anime',
-    featured: true,
-    trending: false,
-    resolution: '4K',
-    orientation: 'landscape',
-    img: 'images/wallpapers/darling-in-the-franxx-4k-wallpaper.jpg',
-    downloads: 2100,
-    views: 6400,
-    daysAgo: 8,
-    size: '4.3 MB',
-    tags: ['anime','darling in the franxx','4k','landscape','desktop'],
-  },
-  {
-    id: 4,
-    title: 'Goku Blue',
-    category: 'anime',
-    featured: true,
-    trending: true,
-    resolution: '4K',
-    orientation: 'landscape',
-    img: 'images/wallpapers/goku-blue-4k-wallpaper.jpg',
-    downloads: 8700,
-    views: 24300,
-    daysAgo: 2,
-    size: '4.9 MB',
-    tags: ['anime','dragon ball','goku','4k','landscape'],
-  },
-  {
-    id: 5,
-    title: 'Goku Blue OLED',
-    category: 'anime',
-    featured: true,
-    trending: true,
-    resolution: '4K',
-    orientation: 'landscape',
-    img: 'images/wallpapers/premium-goku-blue-oled-4k-wallpaper-preview.jpg',
-    downloads: 6300,
-    views: 18100,
-    daysAgo: 2,
-    size: '3.4 MB',
-    tags: ['anime','dragon ball','oled','dark','4k'],
-  },
-  {
-    id: 6,
-    title: 'Hinata Wedding',
-    category: 'anime',
-    featured: true,
-    trending: false,
-    resolution: '4K',
-    orientation: 'landscape',
-    img: 'images/wallpapers/hinata-wedding-4k-wallpaper.jpg',
-    downloads: 1450,
-    views: 4200,
-    daysAgo: 12,
-    size: '4.1 MB',
-    tags: ['anime','naruto','hinata','4k','landscape'],
-  },
-  {
-    id: 7,
-    title: 'NieR: Automata — 2B',
-    category: 'gaming',
-    featured: true,
-    trending: false,
-    resolution: '4K',
-    orientation: 'landscape',
-    img: 'images/wallpapers/premium-NieR-Automata-2B-4k-wallpaper-preview.jpg',
-    downloads: 4700,
-    views: 12900,
-    daysAgo: 5,
-    size: '5.5 MB',
-    tags: ['gaming','nier automata','2b','oled','4k','landscape'],
-  },
-  {
-    id: 8,
-    title: 'Ryomen Sukuna',
-    category: 'anime',
-    featured: true,
-    trending: true,
-    resolution: '4K',
-    orientation: 'landscape',
-    img: 'images/wallpapers/premium-ryomen-sukuna-4k-wallpaper-preview.jpg',
-    downloads: 5900,
-    views: 16700,
-    daysAgo: 4,
-    size: '4.7 MB',
-    tags: ['anime','jujutsu kaisen','sukuna','oled','4k','landscape'],
-  },
-  {
-    id: 9,
-    title: 'Zenitsu Agatsuma',
-    category: 'anime',
-    featured: true,
-    trending: false,
-    resolution: '4K',
-    orientation: 'landscape',
-    img: 'images/wallpapers/premium-zenitsu-agatsuma-4k-wallpaper-preview.jpg',
-    downloads: 3100,
-    views: 8900,
-    daysAgo: 9,
-    size: '4.4 MB',
-    tags: ['anime','demon slayer','zenitsu','oled','4k','landscape'],
-  },
-  {
-    id: 10,
-    title: 'Zero Two',
-    category: 'anime',
-    featured: true,
-    trending: false,
-    resolution: '4K',
-    orientation: 'landscape',
-    img: 'images/wallpapers/zero-two1-4k-wallpaper.jpg',
-    downloads: 2800,
-    views: 7600,
-    daysAgo: 10,
-    size: '4.2 MB',
-    tags: ['anime','darling in the franxx','zero two','4k','landscape'],
-    featuredOverride: true,
-  },
-  {
-    id: 11,
-    title: 'Zero Two — Portrait Glow',
-    category: 'anime',
-    featured: true,
-    trending: false,
-    resolution: '4K',
-    orientation: 'landscape',
-    img: 'images/wallpapers/zero-two-4k-wallpaper.jpg',
-    downloads: 4100,
-    views: 11400,
-    daysAgo: 6,
-    size: '4.8 MB',
-    tags: ['anime','darling in the franxx','zero two','4k','landscape'],
-  },
-  {
-    id: 12,
-    title: 'Zero Two & Hiro',
-    category: 'anime',
-    featured: true,
-    trending: false,
-    resolution: '4K',
-    orientation: 'landscape',
-    img: 'images/wallpapers/zero-two-couple-4k-wallpaper.jpg',
-    downloads: 2500,
-    views: 6900,
-    daysAgo: 11,
-    size: '4.5 MB',
-    tags: ['anime','darling in the franxx','zero two','hiro','4k'],
-  },
-  {
-    id: 13,
-    title: 'Zero Two OLED',
-    category: 'anime',
-    featured: true,
-    trending: false,
-    resolution: '4K',
-    orientation: 'landscape',
-    img: 'images/wallpapers/premium-Zero-Two-OLED-4k-wallpaper-preview.jpg',
-    downloads: 3800,
-    views: 10200,
-    daysAgo: 1,
-    size: '3.6 MB',
-    tags: ['anime','darling in the franxx','zero two','oled','dark','4k'],
-  },
-  {
-    id: 14,
-    title: 'Shinobu Kocho OLED',
-    category: 'anime',
-    featured: true,
-    trending: false,
-    resolution: '4K',
-    orientation: 'landscape',
-    img: 'images/wallpapers/Shinobu-Kocho-OLED-4k-wallpaper.jpg',
-    downloads: 2900,
-    views: 8100,
-    daysAgo: 1,
-    size: '3.4 MB',
-    tags: ['anime','demon slayer','shinobu kocho','oled','dark','4k'],
-  },
-  {
-    id: 15,
-    title: 'Shinobu Kocho — Beach',
-    category: 'anime',
-    featured: true,
-    trending: false,
-    resolution: '4K',
-    orientation: 'landscape',
-    img: 'images/wallpapers/Shinobu-Kocho-Beach-4k-wallpaper.jpg',
-    downloads: 2600,
-    views: 7400,
-    daysAgo: 1,
-    size: '4.5 MB',
-    tags: ['anime','demon slayer','shinobu kocho','beach','4k'],
-  },
-  {
-    id: 16,
-    title: 'NieR: Automata — 2B OLED',
-    category: 'gaming',
-    featured: true,
-    trending: false,
-    resolution: '4K',
-    orientation: 'landscape',
-    img: 'images/wallpapers/premium-Nier-Automata-2B-OLED-4k-wallpaper-preview.jpg',
-    downloads: 4200,
-    views: 11800,
-    daysAgo: 1,
-    size: '3.5 MB',
-    tags: ['gaming','nier automata','2b','oled','dark','4k'],
-  },
-  {
-    id: 17,
-    title: 'Liberty OLED',
-    category: 'tvshows',
-    featured: true,
-    trending: false,
-    resolution: '4K',
-    orientation: 'landscape',
-    img: 'images/wallpapers/premium-Liberty-OLED-4k-wallpaper-preview.jpg',
-    downloads: 1800,
-    views: 5100,
-    daysAgo: 1,
-    size: '3.3 MB',
-    tags: ['tvshows','liberty','oled','dark','4k'],
-  },
-  {
-    id: 18,
-    title: 'Kanae Kocho',
-    category: 'anime',
-    featured: true,
-    trending: false,
-    resolution: '4K',
-    orientation: 'landscape',
-    img: 'images/wallpapers/premium-Kanae-Kocho-4k-wallpaper-preview.jpg',
-    downloads: 2100,
-    views: 6000,
-    daysAgo: 1,
-    size: '4.6 MB',
-    tags: ['anime','demon slayer','kanae kocho','oled','4k'],
-  },
-  {
-    id: 19,
-    title: "Jeanne d'Arc",
-    category: 'gaming',
-    featured: true,
-    trending: false,
-    resolution: '4K',
-    orientation: 'landscape',
-    img: 'images/wallpapers/Jeanne-d-Arc-4k-wallpaper.jpg',
-    downloads: 3300,
-    views: 9200,
-    daysAgo: 1,
-    size: '4.7 MB',
-    tags: ['gaming','fate','jeanne d\'arc','4k'],
-  },
-  {
-    id: 20,
-    title: 'Hitsugaya Toshiro',
-    category: 'anime',
-    featured: true,
-    trending: false,
-    resolution: '4K',
-    orientation: 'landscape',
-    img: 'images/wallpapers/premium-hitsugaya-Toshiro-Bleach-4k-wallpaper-preview.jpg',
-    downloads: 2400,
-    views: 6800,
-    daysAgo: 1,
-    size: '4.3 MB',
-    tags: ['anime','bleach','hitsugaya toshiro','4k'],
-  },
-  {
-    id: 21,
-    title: 'Hinata Hyuga',
-    category: 'anime',
-    featured: true,
-    trending: false,
-    resolution: '4K',
-    orientation: 'landscape',
-    img: 'images/wallpapers/Hinata-Hyuga-4k-wallpaper.jpg',
-    downloads: 2000,
-    views: 5700,
-    daysAgo: 1,
-    size: '4.1 MB',
-    tags: ['anime','naruto','hinata hyuga','4k'],
-  },
-  {
-    id: 22,
-    title: 'Mikasa — Beach',
-    category: 'anime',
-    featured: true,
-    trending: false,
-    resolution: '4K',
-    orientation: 'landscape',
-    img: 'images/wallpapers/Mikasa-Beach-4k-wallpaper.jpg',
-    downloads: 3600,
-    views: 9900,
-    daysAgo: 1,
-    size: '4.8 MB',
-    tags: ['anime','attack on titan','mikasa','beach','4k'],
-  },
-  {
-    id: 23,
-    title: 'Hinata — Beach',
-    category: 'anime',
-    featured: true,
-    trending: false,
-    resolution: '4K',
-    orientation: 'landscape',
-    img: 'images/wallpapers/Hinata-Beach-4k-wallpaper.jpg',
-    downloads: 2300,
-    views: 6500,
-    daysAgo: 1,
-    size: '4.4 MB',
-    tags: ['anime','naruto','hinata','beach','4k'],
-  },
-  {
-    id: 24,
-    title: 'Kawaii Cat Girl OLED',
-    category: 'anime',
-    featured: true,
-    trending: false,
-    resolution: '4K',
-    orientation: 'landscape',
-    img: 'images/wallpapers/kawaii-cat-girl-OLED-4k-wallpaper.png',
-    downloads: 1500,
-    views: 4300,
-    daysAgo: 0,
-    size: '3.2 MB',
-    tags: ['anime','catgirl','kawaii','oled','dark','4k'],
-  },
-  {
-    id: 25,
-    title: 'Gojo — Neon',
-    category: 'anime',
-    featured: true,
-    trending: false,
-    resolution: '4K',
-    orientation: 'landscape',
-    img: 'images/wallpapers/premium-Gojo-Neon-preview.jpg',
-    downloads: 2900,
-    views: 8200,
-    daysAgo: 0,
-    size: '4.0 MB',
-    tags: ['anime','jujutsu kaisen','gojo','neon','4k'],
-  },
-  {
-    id: 26,
-    title: 'Sukuna — Neon',
-    category: 'anime',
-    featured: true,
-    trending: false,
-    resolution: '4K',
-    orientation: 'landscape',
-    img: 'images/wallpapers/premium-Sukuna-Neon-preview.jpg',
-    downloads: 3100,
-    views: 8700,
-    daysAgo: 0,
-    size: '4.1 MB',
-    tags: ['anime','jujutsu kaisen','sukuna','neon','4k'],
-  },
-  {
-    id: 27,
-    title: 'KPop Demon Hunter',
-    category: 'movies',
-    featured: true,
-    trending: false,
-    resolution: '4K',
-    orientation: 'landscape',
-    img: 'images/wallpapers/Kpop-Demon-Hunter.jpg',
-    downloads: 2200,
-    views: 6100,
-    daysAgo: 0,
-    size: '4.3 MB',
-    tags: ['movies','kpop demon hunter','4k'],
-  },
-  {
-    id: 28,
-    title: 'Monkey D. Luffy',
-    category: 'anime',
-    featured: true,
-    trending: false,
-    resolution: '4K',
-    orientation: 'landscape',
-    img: 'images/wallpapers/Moneky-D-Luffy.jpg',
-    downloads: 3400,
-    views: 9100,
-    daysAgo: 0,
-    size: '4.2 MB',
-    tags: ['anime','one piece','luffy','4k'],
-  },
-  {
-    id: 29,
-    title: 'Naruto Uzumaki OLED',
-    category: 'anime',
-    featured: true,
-    trending: false,
-    resolution: '4K',
-    orientation: 'landscape',
-    img: 'images/wallpapers/Naruto-Uzumaki-OLED.jpg',
-    downloads: 3700,
-    views: 9900,
-    daysAgo: 0,
-    size: '3.5 MB',
-    tags: ['anime','naruto','naruto uzumaki','oled','dark','4k'],
-  },
-  {
-    id: 30,
-    title: 'Pain OLED',
-    category: 'anime',
-    featured: true,
-    trending: false,
-    resolution: '4K',
-    orientation: 'landscape',
-    img: 'images/wallpapers/premium-Pain-OLED-preview.jpg',
-    downloads: 2600,
-    views: 7300,
-    daysAgo: 0,
-    size: '3.6 MB',
-    tags: ['anime','naruto','pain','oled','dark','4k'],
-  },
-  {
-    id: 31,
-    title: 'Coyote Starrk',
-    category: 'anime',
-    featured: true,
-    trending: false,
-    resolution: '4K',
-    orientation: 'landscape',
-    img: 'images/wallpapers/premium-Coyote-Starrk-Bleach-preview.jpg',
-    downloads: 1900,
-    views: 5400,
-    daysAgo: 0,
-    size: '4.2 MB',
-    tags: ['anime','bleach','coyote starrk','4k'],
-  },
-  {
-    id: 32,
-    title: 'Grimmjow Jaegerjaquez',
-    category: 'anime',
-    featured: true,
-    trending: false,
-    resolution: '4K',
-    orientation: 'landscape',
-    img: 'images/wallpapers/Grimmjow-Jaegerjaquez-Bleach.jpg',
-    downloads: 2500,
-    views: 6800,
-    daysAgo: 0,
-    size: '4.4 MB',
-    tags: ['anime','bleach','grimmjow','4k'],
-  },
-  {
-    id: 33,
-    title: 'Nelliel Tu Odelschwanck',
-    category: 'anime',
-    featured: true,
-    trending: false,
-    resolution: '4K',
-    orientation: 'landscape',
-    img: 'images/wallpapers/Nelliel-Tu-Odelschwanck-Bleach.jpg',
-    downloads: 1700,
-    views: 4900,
-    daysAgo: 0,
-    size: '4.1 MB',
-    tags: ['anime','bleach','nelliel','4k'],
-  },
-  {
-    id: 34,
-    title: 'Ulquiorra Cifer',
-    category: 'anime',
-    featured: true,
-    trending: false,
-    resolution: '4K',
-    orientation: 'landscape',
-    img: 'images/wallpapers/Ulquiorra-Cifer-Bleach.jpg',
-    downloads: 2800,
-    views: 7600,
-    daysAgo: 0,
-    size: '4.3 MB',
-    tags: ['anime','bleach','ulquiorra','4k'],
-  },
-  {
-    id: 35,
-    title: 'Yonko Monkey D. Luffy',
-    category: 'anime',
-    featured: true,
-    trending: false,
-    resolution: '4K',
-    orientation: 'landscape',
-    img: 'images/wallpapers/premium-Yonko-Monkey-D-Luffy-preview.jpg',
-    downloads: 3900,
-    views: 10500,
-    daysAgo: 0,
-    size: '4.6 MB',
-    tags: ['anime','one piece','luffy','yonko','4k'],
-  },
-];
-
-// Apply premium flags after the wallpaper catalog is loaded.
-WALLPAPERS.forEach(w => {
-  w.premium = PREMIUM_WALLPAPER_IDS.has(w.id);
-  w.price = PREMIUM_PRICE;
-  w.gumroadUrl = GUMROAD_LINKS[w.id] || '';
-});
-
-/* ============ STATE ============ */
-const PAGE_SIZE = 24;
-let state = {
-  category: 'featured',
-  search: '',
-  sort: 'newest',
-  resolution: '',
-  orientation: '',
-  page: 1,
-};
-
-/* ============ LANDING PAGE ============ */
-function initParticles(){
-  const field = document.getElementById('particleField');
-  const frag = document.createDocumentFragment();
-  for(let i=0;i<40;i++){
-    const p = document.createElement('div');
-    p.className = 'particle';
-    const size = Math.random()*5+2;
-    p.style.width = size+'px';
-    p.style.height = size+'px';
-    p.style.left = Math.random()*100+'%';
-    p.style.animationDuration = (Math.random()*14+10)+'s';
-    p.style.animationDelay = (Math.random()*10)+'s';
-    frag.appendChild(p);
+:root{
+    --bg:#0d0d0d;
+    --bg-alt:#141416;
+    --panel: rgba(255,255,255,0.04);
+    --panel-border: rgba(255,255,255,0.08);
+    --blue:#00c8ff;
+    --purple:#7b5cff;
+    --text:#ffffff;
+    --text-dim: rgba(255,255,255,0.55);
+    --text-dimmer: rgba(255,255,255,0.35);
+    --radius: 16px;
+    --grad: linear-gradient(135deg,var(--blue),var(--purple));
   }
-  field.appendChild(frag);
-}
-initParticles();
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Segoe UI', 'Inter', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+    overflow-x:hidden;
+  }
+  ::selection{background:var(--blue); color:#000;}
+  ::-webkit-scrollbar{width:10px;}
+  ::-webkit-scrollbar-track{background:var(--bg);}
+  ::-webkit-scrollbar-thumb{background:linear-gradient(var(--blue),var(--purple)); border-radius:10px;}
+  a{color:inherit; text-decoration:none;}
+  button{font-family:inherit; cursor:pointer;}
 
-document.getElementById('enterBtn').addEventListener('click', () => {
-  document.getElementById('landing').classList.add('hide');
-  document.body.style.overflow = 'auto';
-});
-document.body.style.overflow = 'hidden';
-setTimeout(()=>{ document.body.style.overflow='hidden'; }, 0);
-
-/* ============ SIDEBAR ============ */
-function renderSidebar(){
-  const sidebar = document.getElementById('sidebar');
-  sidebar.innerHTML = CATEGORIES.map(c => `
-    <div class="cat-item ${state.category===c.id?'active':''}" data-cat="${c.id}">
-      <span class="cat-emoji">${c.icon}</span><span>${c.label}</span>
-    </div>
-  `).join('') + `<div class="sidebar-divider"></div>
-    <div class="cat-item" data-cat="favorites"><span class="cat-emoji">❤️</span><span>Favorites</span></div>
-    <div class="cat-item" data-cat="downloads-tab"><span class="cat-emoji">⬇</span><span>Downloads</span></div>`;
-
-  sidebar.querySelectorAll('.cat-item').forEach(el => {
-    el.addEventListener('click', () => {
-      const cat = el.dataset.cat;
-      if(cat === 'favorites'){ state.category='__favorites__'; }
-      else if(cat === 'downloads-tab'){ state.category='__downloads__'; }
-      else { state.category = cat; }
-      state.page = 1;
-      renderSidebar();
-      renderGrid();
-      closeSidebar();
-      window.scrollTo({top:0, behavior:'smooth'});
-    });
-  });
-}
-
-/* ============ SIDEBAR TOGGLE (off-canvas slide panel) ============ */
-function openSidebar(){
-  document.getElementById('sidebar').classList.add('open');
-  document.getElementById('sidebarBackdrop').classList.add('show');
-  document.getElementById('sidebarToggle').classList.add('shifted');
-}
-function closeSidebar(){
-  document.getElementById('sidebar').classList.remove('open');
-  document.getElementById('sidebarBackdrop').classList.remove('show');
-  document.getElementById('sidebarToggle').classList.remove('shifted');
-}
-function toggleSidebar(){
-  const isOpen = document.getElementById('sidebar').classList.contains('open');
-  if(isOpen) closeSidebar(); else openSidebar();
-}
-document.getElementById('sidebarToggle').addEventListener('click', toggleSidebar);
-document.getElementById('sidebarBackdrop').addEventListener('click', closeSidebar);
-
-/* ============ FAVORITES / DOWNLOAD COUNTS (session only) ============ */
-let favorites = new Set();
-let downloadedIds = new Set();
-
-/* ============ GRID ============ */
-function timeAgo(days){
-  if(days===0) return 'Today';
-  if(days===1) return '1 day ago';
-  if(days<30) return days+' days ago';
-  const months = Math.floor(days/30);
-  return months+' month'+(months>1?'s':'')+' ago';
-}
-function fmtNum(n){
-  if(n>=1000) return (n/1000).toFixed(1)+'K';
-  return n;
-}
-
-function getFiltered(){
-  let list = WALLPAPERS.slice();
-  if(state.category === '__favorites__'){
-    list = list.filter(w => favorites.has(w.id));
-  } else if(state.category === '__downloads__'){
-    list = list.filter(w => downloadedIds.has(w.id));
-  } else if(state.category === 'featured'){
-    list = list.filter(w => w.featured);
-  } else if(state.category === 'trending'){
-    list = list.filter(w => w.trending);
-  } else if(state.category === 'newest'){
-    list = list.filter(w => w.daysAgo <= 20);
-  } else if(state.category === 'oled'){
-    list = list.filter(w => w.tags.includes('oled'));
-  } else if(state.category === 'ips'){
-    list = list.filter(w => !w.tags.includes('oled'));
-  } else {
-    list = list.filter(w => w.category === state.category);
+  /* ============ LANDING PAGE ============ */
+  #landing{
+    position:fixed; inset:0; z-index:999;
+    display:flex; align-items:center; justify-content:center;
+    flex-direction:column;
+    background: radial-gradient(ellipse at 30% 20%, rgba(123,92,255,0.20), transparent 55%),
+                radial-gradient(ellipse at 70% 80%, rgba(0,200,255,0.18), transparent 55%),
+                #060608;
+    overflow:hidden;
+    transition: opacity 1.2s ease, visibility 1.2s;
+  }
+  #landing.hide{ opacity:0; visibility:hidden; pointer-events:none; }
+  .particle{
+    position:absolute; border-radius:50%;
+    background: radial-gradient(circle, rgba(0,200,255,0.9), rgba(0,200,255,0) 70%);
+    filter:blur(1px);
+    animation: floatUp linear infinite;
+    opacity:0.7;
+  }
+  .particle:nth-child(3n){ background: radial-gradient(circle, rgba(123,92,255,0.9), rgba(123,92,255,0) 70%); }
+  @keyframes floatUp{
+    0%{ transform:translateY(10vh) translateX(0); opacity:0; }
+    10%{ opacity:0.8; }
+    90%{ opacity:0.6; }
+    100%{ transform:translateY(-110vh) translateX(30px); opacity:0; }
+  }
+  .landing-inner{ position:relative; z-index:2; text-align:center; padding:20px; }
+  .landing-logo{
+    font-size:clamp(56px,12vw,160px);
+    font-weight:800;
+    letter-spacing:8px;
+    background:linear-gradient(90deg,#fff,var(--blue) 45%,var(--purple) 90%);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    filter: blur(14px);
+    opacity:0;
+    animation: sharpen 1.6s ease forwards 0.2s;
+  }
+  @keyframes sharpen{
+    to{ filter:blur(0); opacity:1; }
+  }
+  .landing-tag{
+    margin-top:18px; font-size:clamp(14px,2vw,20px); color:var(--text-dim);
+    letter-spacing:2px; text-transform:uppercase;
+    opacity:0; animation: fadeUp 1s ease forwards 1s;
+  }
+  .landing-sub{
+    margin-top:10px; font-size:15px; color:var(--text-dimmer);
+    opacity:0; animation: fadeUp 1s ease forwards 1.3s;
+  }
+  @keyframes fadeUp{
+    from{ opacity:0; transform:translateY(14px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+  #enterBtn{
+    margin-top:52px;
+    width:180px; height:180px; border-radius:50%;
+    border:1px solid rgba(0,200,255,0.4);
+    background: radial-gradient(circle at 35% 30%, rgba(0,200,255,0.25), rgba(123,92,255,0.12) 60%, transparent 75%);
+    color:#fff; font-size:16px; letter-spacing:4px; font-weight:700;
+    display:flex; align-items:center; justify-content:center;
+    position:relative;
+    opacity:0; animation: fadeUp 1s ease forwards 1.7s;
+    transition: transform .4s ease, box-shadow .4s ease;
+    box-shadow: 0 0 40px rgba(0,200,255,0.15);
+  }
+  #enterBtn:hover{
+    transform:scale(1.08);
+    box-shadow: 0 0 80px rgba(0,200,255,0.45), 0 0 120px rgba(123,92,255,0.3);
+  }
+  #enterBtn .ripple{
+    position:absolute; inset:-2px; border-radius:50%;
+    border:1px solid rgba(0,200,255,0.5);
+    animation: ripple 2.4s ease-out infinite;
+  }
+  #enterBtn .ripple:nth-child(2){ animation-delay:0.8s; }
+  #enterBtn .ripple:nth-child(3){ animation-delay:1.6s; }
+  @keyframes ripple{
+    0%{ transform:scale(1); opacity:0.6; }
+    100%{ transform:scale(1.6); opacity:0; }
   }
 
-  if(state.search.trim()){
-    const q = state.search.toLowerCase();
-    list = list.filter(w => w.title.toLowerCase().includes(q) || w.category.includes(q) || w.tags.some(t=>t.includes(q)));
+  /* ============ MAIN SITE ============ */
+  #site{ max-width:1920px; margin:0 auto; padding:0 40px; }
+  header#topbar{
+    position:sticky; top:0; z-index:200;
+    background:rgba(13,13,13,0.65);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border-bottom:1px solid var(--panel-border);
   }
-  if(state.resolution) list = list.filter(w => w.resolution === state.resolution);
-  if(state.orientation) list = list.filter(w => w.orientation === state.orientation);
-
-  switch(state.sort){
-    case 'downloads': list.sort((a,b)=>b.downloads-a.downloads); break;
-    case 'views': list.sort((a,b)=>b.views-a.views); break;
-    case 'az': list.sort((a,b)=>a.title.localeCompare(b.title)); break;
-    default: list.sort((a,b)=>a.daysAgo-b.daysAgo);
+  .topbar-inner{
+    max-width:1920px; margin:0 auto; padding:16px 40px;
+    display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap;
   }
-  return list;
-}
-
-const SECTION_TITLES = {
-  featured:['Featured Wallpapers','Hand-picked, studio-quality frames.'],
-  trending:['Trending Now','What everyone is downloading right now.'],
-  newest:['Newest Wallpapers','Fresh uploads from the last 20 days.'],
-  oled:['OLED Wallpapers','True-black optimized picks for OLED displays.'],
-  ips:['IPS Wallpapers','Standard wallpapers that look great on any display.'],
-  __favorites__:['Your Favorites','Wallpapers you\'ve saved this session.'],
-  __downloads__:['Your Downloads','Wallpapers you\'ve downloaded this session.'],
-};
-
-function renderGrid(){
-  const grid = document.getElementById('grid');
-  const empty = document.getElementById('emptyState');
-  const fullList = getFiltered();
-
-  const titleInfo = SECTION_TITLES[state.category];
-  const catObj = CATEGORIES.find(c=>c.id===state.category);
-  document.getElementById('sectionTitle').textContent = titleInfo ? titleInfo[0] : (catObj ? catObj.icon+' '+catObj.label : 'Wallpapers');
-  document.getElementById('sectionSub').textContent = titleInfo ? titleInfo[1] : `${fullList.length} wallpapers in this category.`;
-
-  const totalPages = Math.max(1, Math.ceil(fullList.length / PAGE_SIZE));
-  if(state.page > totalPages) state.page = totalPages;
-  if(state.page < 1) state.page = 1;
-
-  if(fullList.length === 0){
-    grid.innerHTML = '';
-    empty.style.display = 'block';
-    document.getElementById('pagination').innerHTML = '';
-    return;
+  .brand{ display:flex; flex-direction:column; }
+  .brand-name{
+    font-size:34px; font-weight:800; letter-spacing:3px;
+    background:linear-gradient(90deg,#fff,var(--blue));
+    -webkit-background-clip:text; background-clip:text; color:transparent;
   }
-  empty.style.display = 'none';
-
-  const start = (state.page - 1) * PAGE_SIZE;
-  const list = fullList.slice(start, start + PAGE_SIZE);
-
-  grid.innerHTML = list.map((w, i) => `
-    <div class="card" data-id="${w.id}" style="animation-delay:${Math.min(i*0.04,0.6)}s">
-      <span class="card-res-badge">${w.premium ? `🔒 PREMIUM · ${w.price}` : w.resolution}</span>
-      <button class="card-dl ${w.premium ? 'premium-card-btn' : ''}" data-dl="${w.id}" title="${w.premium ? `Buy for ${w.price}` : 'Quick download'}">${w.premium ? '💳' : '⬇'}</button>
-      <img src="${w.img}" alt="${w.title}" loading="lazy" onerror="this.onerror=null; this.src='images/premium-previews/' + w.img.split('/premium-').pop();">
-      <div class="card-overlay">
-        <div class="card-title">${w.title}</div>
-        <div class="card-meta">
-          <span>${w.orientation==='portrait'?'2160×3840':w.orientation==='square'?'2160×2160':'3840×2160'}</span>
-          <span>⬇ ${fmtNum(w.downloads)}</span>
-          <span>👁 ${fmtNum(w.views)}</span>
-        </div>
-      </div>
-    </div>
-  `).join('');
-
-  grid.querySelectorAll('.card').forEach(card => {
-    card.addEventListener('click', (e) => {
-      if(e.target.closest('.card-dl')) return;
-      openDetail(parseInt(card.dataset.id));
-    });
-  });
-  grid.querySelectorAll('[data-dl]').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      handleWallpaperAction(parseInt(btn.dataset.dl));
-    });
-  });
-
-  renderPagination(totalPages);
-}
-
-/* ============ PAGINATION ============ */
-function goToPage(p){
-  state.page = p;
-  renderGrid();
-  document.querySelector('main#content').scrollIntoView({behavior:'smooth', block:'start'});
-}
-
-function renderPagination(totalPages){
-  const el = document.getElementById('pagination');
-  if(totalPages <= 1){ el.innerHTML = ''; return; }
-
-  const cur = state.page;
-  let html = `<button class="page-btn" data-page="${cur-1}" ${cur===1?'disabled':''}>‹ Prev</button>`;
-
-  const pages = [];
-  pages.push(1);
-  if(cur > 3) pages.push('...');
-  for(let p = Math.max(2, cur-1); p <= Math.min(totalPages-1, cur+1); p++) pages.push(p);
-  if(cur < totalPages-2) pages.push('...');
-  if(totalPages > 1) pages.push(totalPages);
-
-  pages.forEach(p => {
-    if(p === '...'){
-      html += `<span class="page-ellipsis">…</span>`;
-    } else {
-      html += `<button class="page-btn ${p===cur?'active':''}" data-page="${p}">${p}</button>`;
-    }
-  });
-
-  html += `<button class="page-btn" data-page="${cur+1}" ${cur===totalPages?'disabled':''}>Next ›</button>`;
-  el.innerHTML = html;
-
-  el.querySelectorAll('.page-btn[data-page]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const p = parseInt(btn.dataset.page);
-      if(!isNaN(p) && p >= 1 && p <= totalPages && p !== cur) goToPage(p);
-    });
-  });
-}
-
-/* ============ SEARCH / FILTERS ============ */
-document.getElementById('searchInput').addEventListener('input', (e) => {
-  state.search = e.target.value;
-  state.page = 1;
-  renderGrid();
-});
-document.getElementById('resFilter').addEventListener('change', e => { state.resolution = e.target.value; state.page = 1; renderGrid(); });
-document.getElementById('orientFilter').addEventListener('change', e => { state.orientation = e.target.value; state.page = 1; renderGrid(); });
-document.getElementById('sortFilter').addEventListener('change', e => { state.sort = e.target.value; state.page = 1; renderGrid(); });
-
-document.querySelectorAll('.pill-btn[data-sort]').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.pill-btn[data-sort]').forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
-    const map = {newest:'newest', downloads:'downloads', views:'views'};
-    state.sort = map[btn.dataset.sort];
-    document.getElementById('sortFilter').value = state.sort;
-    state.page = 1;
-    renderGrid();
-  });
-});
-
-document.getElementById('randomBtn').addEventListener('click', () => {
-  const w = WALLPAPERS[Math.floor(Math.random()*WALLPAPERS.length)];
-  openDetail(w.id);
-});
-
-let darkToggle = true;
-document.getElementById('darkModeBtn').addEventListener('click', (e) => {
-  darkToggle = !darkToggle;
-  document.documentElement.style.filter = darkToggle ? 'none' : 'invert(1) hue-rotate(180deg)';
-});
-
-/* ============ DETAIL MODAL ============ */
-let currentDetailId = null;
-function openDetail(id){
-  const w = WALLPAPERS.find(x=>x.id===id);
-  if(!w) return;
-  currentDetailId = id;
-  const related = WALLPAPERS.filter(x=>x.category===w.category && x.id!==w.id).slice(0,8);
-  const isFav = favorites.has(w.id);
-
-  document.getElementById('detailModal').innerHTML = `
-    <div class="detail-hero">
-      <button class="modal-close" id="detailCloseBtn">✕</button>
-      <img src="${w.img}" alt="${w.title}" id="detailHeroImg">
-    </div>
-    <div class="detail-body">
-      <div class="detail-top">
-        <div>
-          <div class="detail-title">${w.title}</div>
-          <div class="detail-badges">
-            <span>${CATEGORIES.find(c=>c.id===w.category)?.icon||''} ${w.category}</span>
-            <span>${w.resolution}</span>
-            <span>${w.size}</span>
-            <span>${timeAgo(w.daysAgo)}</span>
-          </div>
-        </div>
-        <div class="detail-actions">
-          <button class="btn btn-primary" id="detailDownloadBtn">${w.premium ? `💳 Buy for ${w.price}` : '⬇ Download 4K'}</button>
-          <button class="btn btn-ghost ${isFav?'liked':''}" id="detailFavBtn">${isFav?'❤':'🤍'} Favorite</button>
-          <button class="btn btn-ghost" id="detailShareBtn">🔗 Share</button>
-          <button class="btn btn-ghost" id="detailPreviewBtn">🖥 Fullscreen</button>
-        </div>
-      </div>
-      <div class="detail-stats">
-        <div class="stat"><div class="num">${fmtNum(w.views)}</div><div class="label">Views</div></div>
-        <div class="stat"><div class="num">${fmtNum(w.downloads)}</div><div class="label">Downloads</div></div>
-        <div class="stat"><div class="num">${w.orientation==='portrait'?'2160×3840':w.orientation==='square'?'2160×2160':'3840×2160'}</div><div class="label">Resolution</div></div>
-      </div>
-      <div class="detail-desc">${w.premium ? `A premium ${w.resolution} wallpaper. Purchase this wallpaper for ${w.price} and receive the original downloadable file securely through Gumroad.` : `A ${w.resolution} desktop wallpaper from our ${w.category} collection. Optimized for crisp detail and clean color across ultra-wide and standard monitors — free for personal use.`}</div>
-      <div class="tag-row">${w.tags.map(t=>`<span class="tag">#${t}</span>`).join('')}</div>
-      <div class="related-title">Related Wallpapers</div>
-      <div class="related-row">
-        ${related.map(r=>`<div class="related-card" data-id="${r.id}"><img src="${r.img}" alt="${r.title}"></div>`).join('')}
-      </div>
-    </div>
-  `;
-
-  document.getElementById('detailBackdrop').classList.add('show');
-  document.getElementById('detailCloseBtn').addEventListener('click', closeDetail);
-  document.getElementById('detailHeroImg').addEventListener('click', () => openFullscreen(w.id));
-  document.getElementById('detailPreviewBtn').addEventListener('click', () => openFullscreen(w.id));
-  document.getElementById('detailDownloadBtn').addEventListener('click', () => w.premium ? purchaseWallpaper(w.id) : triggerDownload(w.id));
-  document.getElementById('detailShareBtn').addEventListener('click', () => showToast('🔗 Link copied to clipboard!'));
-  document.getElementById('detailFavBtn').addEventListener('click', (e) => {
-    toggleFavorite(w.id);
-    const nowFav = favorites.has(w.id);
-    e.currentTarget.classList.toggle('liked', nowFav);
-    e.currentTarget.innerHTML = (nowFav?'❤':'🤍') + ' Favorite';
-  });
-  document.querySelectorAll('.related-card').forEach(c => {
-    c.addEventListener('click', () => openDetail(parseInt(c.dataset.id)));
-  });
-}
-function closeDetail(){
-  document.getElementById('detailBackdrop').classList.remove('show');
-}
-document.getElementById('detailBackdrop').addEventListener('click', (e) => {
-  if(e.target.id === 'detailBackdrop') closeDetail();
-});
-
-function toggleFavorite(id){
-  if(favorites.has(id)) favorites.delete(id); else favorites.add(id);
-  if(state.category==='__favorites__') renderGrid();
-}
-
-/* ============ FULLSCREEN PREVIEW ============ */
-let fsList = [];
-let fsIndex = 0;
-function openFullscreen(id){
-  fsList = getFiltered().length ? getFiltered() : WALLPAPERS;
-  fsIndex = fsList.findIndex(w=>w.id===id);
-  if(fsIndex === -1){ fsList = WALLPAPERS; fsIndex = fsList.findIndex(w=>w.id===id); }
-  renderFullscreen();
-  document.getElementById('fullscreenPreview').classList.add('show');
-}
-function renderFullscreen(){
-  const w = fsList[fsIndex];
-  const img = document.getElementById('fsImage');
-  img.src = w.img;
-  img.classList.remove('zoomed');
-}
-function closeFullscreen(){
-  document.getElementById('fullscreenPreview').classList.remove('show');
-}
-document.getElementById('fsClose').addEventListener('click', closeFullscreen);
-document.getElementById('fsPrev').addEventListener('click', ()=>{ fsIndex=(fsIndex-1+fsList.length)%fsList.length; renderFullscreen(); });
-document.getElementById('fsNext').addEventListener('click', ()=>{ fsIndex=(fsIndex+1)%fsList.length; renderFullscreen(); });
-document.getElementById('fsImage').addEventListener('click', (e)=> e.target.classList.toggle('zoomed'));
-document.getElementById('fsImage').addEventListener('dblclick', (e)=> e.target.classList.toggle('zoomed'));
-
-document.addEventListener('keydown', (e) => {
-  if(document.getElementById('fullscreenPreview').classList.contains('show')){
-    if(e.key==='Escape') closeFullscreen();
-    if(e.key==='ArrowRight'){ fsIndex=(fsIndex+1)%fsList.length; renderFullscreen(); }
-    if(e.key==='ArrowLeft'){ fsIndex=(fsIndex-1+fsList.length)%fsList.length; renderFullscreen(); }
-  } else if(document.getElementById('detailBackdrop').classList.contains('show')){
-    if(e.key==='Escape') closeDetail();
+  .brand-sub{ font-size:12px; color:var(--text-dimmer); letter-spacing:1px; margin-top:3px;}
+  .topbar-right{ display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
+  .search-wrap{ position:relative; }
+  .search-wrap input{
+    width:260px; padding:10px 40px 10px 16px; border-radius:999px;
+    background:var(--panel); border:1px solid var(--panel-border); color:#fff; font-size:14px;
+    outline:none; transition:border .3s, box-shadow .3s;
   }
-});
-
-/* ============ DOWNLOAD SYSTEM ============ */
-function handleWallpaperAction(id){
-  const w = WALLPAPERS.find(x=>x.id===id);
-  if(!w) return;
-  if(w.premium) purchaseWallpaper(id);
-  else triggerDownload(id);
-}
-
-function purchaseWallpaper(id){
-  const w = WALLPAPERS.find(x=>x.id===id);
-  if(!w || !w.premium) return;
-  if(w.gumroadUrl){
-    window.open(w.gumroadUrl, '_blank', 'noopener,noreferrer');
-  } else {
-    showToast(`⚠️ Gumroad link not added for "${w.title}" yet.`);
+  .search-wrap input:focus{ border-color:var(--blue); box-shadow:0 0 0 3px rgba(0,200,255,0.15); }
+  .search-wrap .icon{ position:absolute; right:14px; top:50%; transform:translateY(-50%); opacity:0.6; font-size:14px; }
+  .icon-btn{
+    width:38px; height:38px; border-radius:50%; border:1px solid var(--panel-border);
+    background:var(--panel); display:flex; align-items:center; justify-content:center;
+    font-size:16px; transition:all .25s;
   }
+  .icon-btn:hover{ border-color:var(--blue); box-shadow:0 0 14px rgba(0,200,255,0.35); transform:translateY(-2px); }
+  .pill-btn{
+    padding:9px 16px; border-radius:999px; border:1px solid var(--panel-border);
+    background:var(--panel); color:#fff; font-size:13px; font-weight:600; transition:all .25s;
+    white-space:nowrap;
+  }
+  .pill-btn:hover, .pill-btn.active{ border-color:transparent; background:var(--grad); box-shadow:0 0 18px rgba(0,200,255,0.4); }
+
+  .layout{ padding:26px 0 60px; }
+
+  /* SIDEBAR TOGGLE TAB */
+  #sidebarToggle{
+    position:fixed; left:0; top:50%; transform:translateY(-50%);
+    z-index:250; background:var(--grad); border:none; color:#fff;
+    padding:18px 10px; border-radius:0 14px 14px 0; writing-mode:vertical-rl;
+    font-size:12px; font-weight:800; letter-spacing:2px; cursor:pointer;
+    box-shadow:0 0 24px rgba(0,200,255,0.4); transition: left .4s ease, box-shadow .3s;
+  }
+  #sidebarToggle:hover{ box-shadow:0 0 34px rgba(0,200,255,0.65); }
+  #sidebarToggle.shifted{ left:260px; }
+
+  #sidebarBackdrop{
+    position:fixed; inset:0; z-index:240; background:rgba(4,4,6,0.6); backdrop-filter:blur(4px);
+    opacity:0; pointer-events:none; transition:opacity .35s ease;
+  }
+  #sidebarBackdrop.show{ opacity:1; pointer-events:auto; }
+
+  /* SIDEBAR (off-canvas) */
+  aside#sidebar{
+    position:fixed; top:0; left:-280px; width:260px; height:100vh; z-index:260;
+    background:var(--bg-alt); border-right:1px solid var(--panel-border);
+    padding:100px 14px 20px; overflow-y:auto;
+    transition:left .4s ease; box-shadow:14px 0 50px rgba(0,0,0,0.5);
+  }
+  aside#sidebar.open{ left:0; }
+  aside#sidebar::-webkit-scrollbar{ width:6px; }
+  .cat-item{
+    display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:10px;
+    font-size:14px; color:var(--text-dim); cursor:pointer; transition:all .2s; margin-bottom:2px;
+  }
+  .cat-item:hover{ background:rgba(255,255,255,0.06); color:#fff; transform:translateX(3px); }
+  .cat-item.active{ background:linear-gradient(90deg, rgba(0,200,255,0.18), rgba(123,92,255,0.1)); color:#fff; border-left:2px solid var(--blue); }
+  .cat-emoji{ width:20px; text-align:center; }
+  .sidebar-divider{ height:1px; background:var(--panel-border); margin:12px 0; }
+
+  /* MAIN CONTENT */
+  main#content{ flex:1; min-width:0; }
+  .filters-row{ display:flex; gap:10px; flex-wrap:wrap; margin-bottom:22px; align-items:center; }
+  .filters-row select{
+    background:var(--panel); border:1px solid var(--panel-border); color:#fff; padding:9px 12px;
+    border-radius:10px; font-size:13px; outline:none;
+  }
+  .section-title{ font-size:22px; font-weight:800; margin-bottom:4px; }
+  .section-sub{ font-size:13px; color:var(--text-dimmer); margin-bottom:18px; }
+
+  .grid{
+    column-width:420px; column-gap:24px;
+  }
+  @media(max-width:900px){ .grid{ column-width:320px; } }
+  @media(max-width:640px){ .grid{ column-width:100%; } .search-wrap input{ width:150px; } aside#sidebar{ width:80vw; left:-85vw; } }
+
+  .card{
+    break-inside:avoid; margin-bottom:18px; border-radius:var(--radius);
+    overflow:hidden; position:relative; background:var(--panel-border);
+    border:1px solid var(--panel-border);
+    cursor:pointer;
+    opacity:0; transform:translateY(24px);
+    animation:cardIn .6s ease forwards;
+    transition: box-shadow .35s ease, border-color .35s ease;
+  }
+  .card:hover{ box-shadow:0 0 32px rgba(0,200,255,0.28); border-color:rgba(0,200,255,0.5); }
+  @keyframes cardIn{ to{ opacity:1; transform:translateY(0); } }
+  .card img{
+    width:100%; display:block; transition:transform .6s ease, filter .6s ease;
+  }
+  .card:hover img{ transform:scale(1.07); }
+  .card-overlay{
+    position:absolute; inset:0; background:linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.1) 45%, transparent 70%);
+    opacity:0; transition:opacity .35s ease; display:flex; flex-direction:column; justify-content:flex-end; padding:14px;
+  }
+  .card:hover .card-overlay{ opacity:1; }
+  .card-title{ font-size:16px; font-weight:700; margin-bottom:5px; }
+  .card-meta{ font-size:12px; color:var(--text-dim); display:flex; gap:10px; flex-wrap:wrap; }
+  .card-dl{
+    position:absolute; top:12px; right:12px; width:34px; height:34px; border-radius:50%;
+    background:rgba(13,13,13,0.7); backdrop-filter:blur(6px); border:1px solid rgba(255,255,255,0.15);
+    display:flex; align-items:center; justify-content:center; font-size:15px;
+    opacity:0; transform:translateY(-6px); transition:all .3s;
+  }
+  .card:hover .card-dl{ opacity:1; transform:translateY(0); }
+  .card-dl:hover{ background:var(--grad); box-shadow:0 0 16px rgba(0,200,255,0.5); }
+  .card-res-badge{
+    position:absolute; top:12px; left:12px; font-size:10px; padding:4px 8px; border-radius:999px;
+    background:rgba(13,13,13,0.7); border:1px solid rgba(255,255,255,0.15); letter-spacing:0.5px;
+  }
+  .skeleton{
+    break-inside:avoid; margin-bottom:18px; border-radius:var(--radius); height:280px;
+    background:linear-gradient(100deg, #151517 30%, #1d1d20 50%, #151517 70%);
+    background-size:200% 100%; animation:shimmer 1.4s infinite;
+  }
+  @keyframes shimmer{ from{background-position:200% 0;} to{background-position:-200% 0;} }
+
+  .empty-state{ text-align:center; padding:80px 20px; color:var(--text-dimmer); }
+  .empty-state .big{ font-size:40px; margin-bottom:12px; }
+
+  /* PAGINATION */
+  .pagination{
+    display:flex; align-items:center; justify-content:center; gap:8px;
+    margin-top:36px; flex-wrap:wrap;
+  }
+  .page-btn{
+    min-width:40px; height:40px; padding:0 12px; border-radius:10px;
+    border:1px solid var(--panel-border); background:var(--panel); color:#fff;
+    font-size:14px; font-weight:600; transition:all .25s; display:flex; align-items:center; justify-content:center;
+  }
+  .page-btn:hover:not(:disabled):not(.active){ border-color:var(--blue); box-shadow:0 0 14px rgba(0,200,255,0.3); transform:translateY(-2px); }
+  .page-btn.active{ background:var(--grad); border-color:transparent; box-shadow:0 0 18px rgba(0,200,255,0.4); }
+  .page-btn:disabled{ opacity:0.35; cursor:not-allowed; }
+  .page-ellipsis{ color:var(--text-dimmer); padding:0 4px; font-size:14px; }
+
+  /* SCROLL TOP */
+  #scrollTop{
+    position:fixed; bottom:28px; right:28px; z-index:150;
+    width:48px; height:48px; border-radius:50%; border:1px solid var(--panel-border);
+    background:rgba(20,20,22,0.85); backdrop-filter:blur(10px); color:#fff; font-size:18px;
+    opacity:0; pointer-events:none; transition:all .3s;
+    box-shadow:0 4px 20px rgba(0,0,0,0.4);
+  }
+  #scrollTop.show{ opacity:1; pointer-events:auto; }
+  #scrollTop:hover{ box-shadow:0 0 20px rgba(0,200,255,0.5); transform:translateY(-3px); }
+
+  /* ============ WALLPAPER DETAIL MODAL ============ */
+  .modal-backdrop{
+    position:fixed; inset:0; background:rgba(4,4,6,0.85); backdrop-filter:blur(10px);
+    z-index:500; display:flex; align-items:flex-start; justify-content:center;
+    opacity:0; pointer-events:none; transition:opacity .35s ease; padding:40px 20px; overflow-y:auto;
+  }
+  .modal-backdrop.show{ opacity:1; pointer-events:auto; }
+  .detail-modal{
+    max-width:1100px; width:100%; background:var(--bg-alt); border:1px solid var(--panel-border);
+    border-radius:20px; overflow:hidden; transform:translateY(30px); transition:transform .4s ease;
+    margin:auto;
+  }
+  .modal-backdrop.show .detail-modal{ transform:translateY(0); }
+  .detail-hero{ position:relative; width:100%; max-height:60vh; overflow:hidden; }
+  .detail-hero img{ width:100%; display:block; cursor:zoom-in; }
+  .modal-close{
+    position:absolute; top:16px; right:16px; width:38px; height:38px; border-radius:50%;
+    background:rgba(0,0,0,0.6); border:1px solid rgba(255,255,255,0.2); color:#fff; font-size:18px;
+    display:flex; align-items:center; justify-content:center; z-index:5;
+  }
+  .modal-close:hover{ background:var(--grad); }
+  .detail-body{ padding:28px 32px 36px; }
+  .detail-top{ display:flex; justify-content:space-between; align-items:flex-start; gap:20px; flex-wrap:wrap; margin-bottom:18px; }
+  .detail-title{ font-size:26px; font-weight:800; margin-bottom:8px; }
+  .detail-badges{ display:flex; gap:10px; flex-wrap:wrap; font-size:12px; color:var(--text-dim); }
+  .detail-badges span{ background:var(--panel); border:1px solid var(--panel-border); padding:4px 10px; border-radius:999px; }
+  .detail-actions{ display:flex; gap:10px; flex-wrap:wrap; }
+  .btn{
+    padding:12px 20px; border-radius:12px; border:none; font-size:14px; font-weight:700;
+    display:flex; align-items:center; gap:8px; transition:all .25s;
+  }
+  .btn-primary{ background:var(--grad); color:#fff; box-shadow:0 0 20px rgba(0,200,255,0.35); }
+  .btn-primary:hover{ box-shadow:0 0 34px rgba(0,200,255,0.6); transform:translateY(-2px); }
+  .btn-ghost{ background:var(--panel); color:#fff; border:1px solid var(--panel-border); }
+  .btn-ghost:hover{ border-color:var(--blue); }
+  .btn-ghost.liked{ color:#ff5c8a; border-color:#ff5c8a; }
+  .detail-stats{ display:flex; gap:28px; margin:22px 0; flex-wrap:wrap; }
+  .stat{ }
+  .stat .num{ font-size:20px; font-weight:800; }
+  .stat .label{ font-size:11px; color:var(--text-dimmer); text-transform:uppercase; letter-spacing:1px; }
+  .detail-desc{ font-size:14px; color:var(--text-dim); line-height:1.7; margin-bottom:18px; }
+  .tag-row{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:26px; }
+  .tag{ font-size:12px; padding:6px 12px; border-radius:999px; background:var(--panel); border:1px solid var(--panel-border); color:var(--text-dim); }
+  .related-title{ font-size:16px; font-weight:700; margin-bottom:14px; }
+  .related-row{ display:flex; gap:14px; overflow-x:auto; padding-bottom:8px; }
+  .related-row::-webkit-scrollbar{ height:6px; }
+  .related-card{ flex:0 0 150px; border-radius:12px; overflow:hidden; cursor:pointer; border:1px solid var(--panel-border); transition:all .25s; }
+  .related-card:hover{ border-color:var(--blue); box-shadow:0 0 16px rgba(0,200,255,0.3); }
+  .related-card img{ width:100%; height:100px; object-fit:cover; display:block; }
+
+  /* ============ FULLSCREEN PREVIEW ============ */
+  #fullscreenPreview{
+    position:fixed; inset:0; background:#000; z-index:900; display:flex; align-items:center; justify-content:center;
+    opacity:0; pointer-events:none; transition:opacity .3s ease;
+  }
+  #fullscreenPreview.show{ opacity:1; pointer-events:auto; }
+  #fullscreenPreview img{ max-width:92vw; max-height:92vh; object-fit:contain; transition:transform .25s ease; cursor:zoom-in; }
+  #fullscreenPreview img.zoomed{ transform:scale(1.7); cursor:zoom-out; }
+  .fs-btn{
+    position:absolute; width:46px; height:46px; border-radius:50%; background:rgba(255,255,255,0.06);
+    border:1px solid rgba(255,255,255,0.15); color:#fff; font-size:20px; display:flex; align-items:center; justify-content:center;
+    backdrop-filter:blur(6px); transition:all .25s;
+  }
+  .fs-btn:hover{ background:var(--grad); }
+  #fsClose{ top:20px; right:20px; }
+  #fsPrev{ left:20px; top:50%; transform:translateY(-50%); }
+  #fsNext{ right:20px; top:50%; transform:translateY(-50%); }
+  .fs-hint{ position:absolute; bottom:20px; left:50%; transform:translateX(-50%); font-size:12px; color:var(--text-dimmer); }
+
+  /* ============ DOWNLOAD TOAST ============ */
+  #toast{
+    position:fixed; bottom:28px; left:50%; transform:translateX(-50%) translateY(40px);
+    background:rgba(20,20,22,0.95); border:1px solid rgba(0,200,255,0.4); padding:14px 24px;
+    border-radius:14px; font-size:14px; display:flex; align-items:center; gap:10px; z-index:1000;
+    opacity:0; transition:all .4s ease; box-shadow:0 10px 40px rgba(0,0,0,0.5);
+  }
+  #toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+
+  /* ============ FOOTER ============ */
+  footer{ border-top:1px solid var(--panel-border); margin-top:20px; padding:60px 0 30px; }
+  .footer-grid{ display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:40px; margin-bottom:40px; }
+  @media(max-width:900px){ .footer-grid{ grid-template-columns:1fr 1fr; } }
+  .footer-logo{ font-size:28px; font-weight:800; margin-bottom:14px; background:linear-gradient(90deg,#fff,var(--blue)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .footer-about{ font-size:15px; color:var(--text-dim); line-height:1.8; max-width:400px; }
+  .footer-heading{ font-size:15px; font-weight:700; letter-spacing:1px; text-transform:uppercase; margin-bottom:18px; color:var(--text-dim); }
+  .footer-links a{ display:block; font-size:15px; color:var(--text-dim); margin-bottom:12px; transition:color .2s; }
+  .footer-links a:hover{ color:var(--blue); }
+  .cf-block{ text-align:center; }
+  .cf-heading-box{
+    display:inline-block; border:1.5px solid rgba(255,255,255,0.35); border-radius:6px;
+    padding:9px 22px; font-size:14px; font-weight:700; letter-spacing:1px; text-transform:uppercase;
+    color:#fff; margin-bottom:14px;
+  }
+  .cf-value a{ font-size:15px; font-weight:600; color:var(--blue); }
+  .cf-caption{ font-size:13px; color:var(--text-dim); margin-bottom:16px; }
+  .footer-qr img{
+    width:100px; height:100px; object-fit:contain; background:#fff; border-radius:12px;
+    padding:8px; border:1px solid var(--panel-border); box-shadow:0 0 20px rgba(0,200,255,0.15);
+  }
+  .footer-links a[href^="mailto"]{ font-size:16px; font-weight:600; color:var(--blue); }
+  .footer-bottom{ text-align:center; font-size:13px; color:var(--text-dimmer); padding-top:24px; border-top:1px solid var(--panel-border); }
+
+  /* DONATION */
+  .donate-section{ margin:60px 0; }
+  .donate-card{
+    border-radius:24px; padding:60px 40px; text-align:center; position:relative; overflow:hidden;
+    background: radial-gradient(ellipse at 20% 0%, rgba(0,200,255,0.15), transparent 60%),
+                radial-gradient(ellipse at 80% 100%, rgba(123,92,255,0.18), transparent 60%),
+                var(--panel);
+    border:1px solid var(--panel-border);
+  }
+  .donate-title{ font-size:36px; font-weight:800; margin-bottom:16px; }
+  .donate-desc{ font-size:17px; color:var(--text-dim); max-width:620px; margin:0 auto 32px; line-height:1.8; }
+
+  #donateBtn{
+    font-size:18px; padding:18px 40px; border-radius:16px;
+    background-size:200% 200%;
+    background-image: linear-gradient(120deg, var(--blue), var(--purple), var(--blue));
+    animation: donateGlow 4s ease infinite, donatePulse 2.4s ease infinite;
+  }
+  @keyframes donateGlow{
+    0%{ background-position:0% 50%; }
+    50%{ background-position:100% 50%; }
+    100%{ background-position:0% 50%; }
+  }
+  @keyframes donatePulse{
+    0%,100%{ box-shadow:0 0 22px rgba(0,200,255,0.4); }
+    50%{ box-shadow:0 0 42px rgba(123,92,255,0.65); }
+  }
+  #donateBtn:hover{ transform:translateY(-3px) scale(1.04); }
+
+  .donate-popup-backdrop{
+    position:fixed; inset:0; background:rgba(4,4,6,0.8); backdrop-filter:blur(10px); z-index:600;
+    display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:opacity .35s;
+  }
+  .donate-popup-backdrop.show{ opacity:1; pointer-events:auto; }
+  .donate-popup{
+    width:100%; max-width:400px; background:var(--bg-alt); border:1px solid var(--panel-border);
+    border-radius:20px; padding:32px; text-align:center; position:relative;
+    transform:scale(0.9); transition:transform .35s ease;
+  }
+  .donate-popup-backdrop.show .donate-popup{ transform:scale(1); }
+  .qr-box{
+    width:180px; height:180px; margin:20px auto; border-radius:16px; background:#fff; padding:10px;
+    opacity:0; transform:scale(0.7); animation:qrIn .5s ease forwards .2s;
+  }
+  @keyframes qrIn{ to{ opacity:1; transform:scale(1); } }
+  .qr-box svg{ width:100%; height:100%; }
+  .pay-row{ display:flex; align-items:center; justify-content:space-between; background:var(--panel); border:1px solid var(--panel-border); padding:10px 14px; border-radius:10px; margin-bottom:10px; font-size:13px; }
+  .copy-btn{ background:none; border:none; color:var(--blue); font-size:12px; font-weight:700; }
+
+  .thank-you{ position:fixed; inset:0; z-index:700; display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:opacity .4s; background:rgba(4,4,6,0.7); backdrop-filter:blur(8px); }
+  .thank-you.show{ opacity:1; pointer-events:auto; }
+  .thank-you-box{ text-align:center; }
+  .thank-you-box .emoji{ font-size:60px; animation:pop .6s ease; }
+  @keyframes pop{ 0%{transform:scale(0);} 60%{transform:scale(1.2);} 100%{transform:scale(1);} }
+  .thank-you-box h3{ margin-top:16px; font-size:22px; }
+
+  .visually-hidden-label{ position:absolute; left:-9999px; }
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; }
+  }
+
+/* ============ PREMIUM WALLPAPERS ============ */
+.premium-card-btn{
+  background:linear-gradient(135deg,#ffb300,#ff6a00) !important;
+  border-color:rgba(255,255,255,.35) !important;
+  box-shadow:0 0 18px rgba(255,140,0,.35);
 }
-
-function triggerDownload(id){
-  const w = WALLPAPERS.find(x=>x.id===id);
-  if(!w) return;
-  downloadedIds.add(id);
-  w.downloads += 1;
-
-  // Actually trigger a file download using the image URL
-  const link = document.createElement('a');
-  link.href = w.img;
-  link.download = w.img.split('/').pop(); // suggests the original filename to the browser
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-
-  showToast(`✅ Thank you for downloading "${w.title}"!`);
-  if(state.category==='__downloads__') renderGrid();
+.premium-card-btn:hover{
+  box-shadow:0 0 24px rgba(255,140,0,.65) !important;
 }
-let toastTimer;
-function showToast(msg){
-  const toast = document.getElementById('toast');
-  toast.textContent = msg;
-  toast.classList.add('show');
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(()=>toast.classList.remove('show'), 2600);
-}
-
-/* ============ SCROLL TOP ============ */
-const scrollBtn = document.getElementById('scrollTop');
-window.addEventListener('scroll', () => {
-  scrollBtn.classList.toggle('show', window.scrollY > 500);
-});
-scrollBtn.addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}));
-
-/* ============ DONATION ============ */
-function openDonate(){ document.getElementById('donatePopup').classList.add('show'); }
-function closeDonate(){ document.getElementById('donatePopup').classList.remove('show'); }
-document.getElementById('donateBtn').addEventListener('click', openDonate);
-document.getElementById('footerDonate').addEventListener('click', (e)=>{ e.preventDefault(); openDonate(); });
-document.getElementById('closeDonate').addEventListener('click', closeDonate);
-document.getElementById('donatePopup').addEventListener('click', (e)=>{ if(e.target.id==='donatePopup') closeDonate(); });
-document.querySelectorAll('.copy-btn').forEach(btn=>{
-  btn.addEventListener('click', ()=>{
-    navigator.clipboard?.writeText(btn.dataset.copy).catch(()=>{});
-    btn.textContent = 'Copied!';
-    setTimeout(()=>btn.textContent='Copy', 1500);
-  });
-});
-document.getElementById('confirmDonate').addEventListener('click', () => {
-  closeDonate();
-  const ty = document.getElementById('thankYou');
-  ty.classList.add('show');
-  setTimeout(()=>ty.classList.remove('show'), 2200);
-});
-
-/* ============ INIT ============ */
-renderSidebar();
-renderGrid();
