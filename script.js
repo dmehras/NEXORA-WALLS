@@ -744,7 +744,7 @@ function renderGrid(){
     <div class="card" data-id="${w.id}" style="animation-delay:${Math.min(i*0.04,0.6)}s">
       <span class="card-res-badge">${w.premium ? `🔒 PREMIUM · ${w.price}` : w.resolution}</span>
       <button class="card-dl ${w.premium ? 'premium-card-btn' : ''}" data-dl="${w.id}" title="${w.premium ? `Buy for ${w.price}` : 'Quick download'}">${w.premium ? '💳' : '⬇'}</button>
-      <img src="${w.img}" alt="${w.title}" loading="lazy" onerror="this.onerror=null; this.src='images/premium-previews/' + w.img.split('/premium-').pop();">
+      <img src="${w.img}" alt="${w.title}" loading="lazy">
       <div class="card-overlay">
         <div class="card-title">${w.title}</div>
         <div class="card-meta">
