@@ -562,6 +562,21 @@ const WALLPAPERS = [
     size: '4.6 MB',
     tags: ['anime','one piece','luffy','yonko','4k'],
   },
+  {
+    id: 36,
+    title: 'Akaza',
+    category: 'anime',
+    featured: true,
+    trending: false,
+    resolution: '4K',
+    orientation: 'landscape',
+    img: 'images/wallpapers/Akaza.jpg',
+    downloads: 2100,
+    views: 5900,
+    daysAgo: 0,
+    size: '4.2 MB',
+    tags: ['anime','demon slayer','akaza','4k'],
+  },
 ];
 
 // Apply premium flags after the wallpaper catalog is loaded.
