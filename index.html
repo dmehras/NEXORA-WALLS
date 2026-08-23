@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NEXORA WALLS — Free Premium 4K Desktop Wallpapers</title>
 <link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -87,7 +90,19 @@
     <div class="donate-card">
       <div class="donate-title">Support NEXORA WALLS ❤️</div>
       <div class="donate-desc">If you enjoy our wallpapers and want to support future uploads, consider making a small donation. Every contribution helps keep the website free, fast, and ad-light.</div>
-      <button class="btn btn-primary" id="donateBtn" style="margin:0 auto;">💜 Donate</button>
+      <div class="nxd-float-wrap">
+        <button id="donateBtn" type="button" class="nxd-donate-btn nxd-group">
+          <span class="nxd-icon-badge">
+            <svg class="nxd-heart" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+            </svg>
+          </span>
+          <span class="nxd-btn-label">Donate</span>
+          <svg class="nxd-arrow" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+          </svg>
+        </button>
+      </div>
     </div>
   </div>
 
@@ -143,27 +158,91 @@
 <div id="toast">✅ Thank you for downloading!</div>
 
 <!-- DONATE POPUP -->
-<div class="donate-popup-backdrop" id="donatePopup">
-  <div class="donate-popup">
-    <button class="modal-close" id="closeDonate" style="position:absolute; top:12px; right:12px;">✕</button>
-    <h3 style="font-size:20px; margin-bottom:4px;">Support NEXORA WALLS</h3>
-    <p style="font-size:12px; color:var(--text-dimmer);">Scan or copy the details below</p>
-    <div class="qr-box">
-      <img src="images/wallpapers/QR-CODE.JPG" alt="Donation QR code" style="width:100%; height:100%; object-fit:contain; border-radius:6px;">
+<div id="donatePopup" class="nxd-modal-root">
+  <div id="donateBackdrop" class="nxd-modal-backdrop"></div>
+  <div class="nxd-modal-wrap">
+    <div id="donateModalCard" role="dialog" aria-modal="true" aria-labelledby="donateTitle" class="nxd-modal-card">
+      <div class="nxd-drag-handle-wrap"><div class="nxd-drag-handle"></div></div>
+      <div class="nxd-modal-head">
+        <div>
+          <p class="nxd-eyebrow">Thank you</p>
+          <h3 id="donateTitle" class="nxd-modal-title">Send a little love</h3>
+          <p class="nxd-modal-sub">UPI or PayPal — whichever is easier.</p>
+        </div>
+        <button id="closeDonate" type="button" class="nxd-close-btn" aria-label="Close">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="nxd-qr-wrap">
+        <div class="nxd-qr-frame">
+          <img
+            alt="UPI payment QR code"
+            width="200" height="200"
+            src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&margin=8&color=1c1408&bgcolor=fffaf0&data=upi%3A%2F%2Fpay%3Fpa%3Dquincydarth07%40upi%26pn%3DQuincy%20Darth%26cu%3DINR"
+          >
+        </div>
+        <p class="nxd-qr-caption">Scan with any UPI app</p>
+      </div>
+
+      <div class="nxd-chip-stack">
+        <div class="nxd-chip">
+          <div class="nxd-chip-icon nxd-chip-icon-upi">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1.41 16.09V20h-2.67v-1.93c-1.71-.36-3.16-1.46-3.27-3.4h1.96c.1 1.05.82 1.87 2.65 1.87 1.96 0 2.4-.98 2.4-1.59 0-.83-.44-1.61-2.67-2.14-2.48-.6-4.18-1.62-4.18-3.67 0-1.72 1.39-2.84 3.11-3.21V4h2.67v1.95c1.86.45 2.79 1.86 2.85 3.39H14.3c-.05-1.11-.64-1.87-2.22-1.87-1.5 0-2.4.68-2.4 1.64 0 .84.65 1.39 2.67 1.91s4.18 1.39 4.18 3.91c-.01 1.83-1.38 2.83-3.12 3.16z"/>
+            </svg>
+          </div>
+          <div class="nxd-chip-body">
+            <p class="nxd-chip-label">UPI ID</p>
+            <p class="nxd-chip-value">quincydarth07@upi</p>
+          </div>
+          <button id="copyUpi" type="button" class="nxd-copy-btn">
+            <svg id="copyIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <rect x="9" y="9" width="13" height="13" rx="2"></rect>
+              <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"></path>
+            </svg>
+            <span id="copyLabel">Copy</span>
+          </button>
+        </div>
+
+        <a
+          href="https://www.paypal.com/donate/?business=quincydarth%40gmail.com&no_recurring=0&currency_code=USD"
+          target="_blank" rel="noopener noreferrer"
+          class="nxd-chip nxd-chip-link nxd-group"
+        >
+          <div class="nxd-chip-icon nxd-chip-icon-pp">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M7.6 20.2h1.76l.52-3.28h1.7c3.62 0 5.72-1.76 6.26-5.18.07-.42.1-.8.1-1.14 0-.08 0-.16-.01-.23.62-.42 1.02-1.08 1.02-1.87 0-2.18-1.76-3.5-4.76-3.5H8.14L6.2 20.2h1.4zm3.02-11.56h1.38c1.54 0 2.5.58 2.5 1.72 0 1.3-1.02 2.04-2.66 2.04h-1.5l.28-3.76zm8.76 2.08c-.54 3.42-2.96 5.5-6.86 5.5H10.7l-.7 4.38H8.22L10.4 6h5.12c2.28 0 3.86.86 4.26 2.72.22.98.16 1.86-.4 2z" fill="#fff"/>
+              <path d="M18.1 8.64c.22.98.16 1.86-.4 2.72-.54 3.18-2.78 5.1-6.42 5.1h-1.7L8.9 20.2H7.14L9.32 6h5.12c1.82 0 3.16.56 3.66 2.64z" fill="#139AD6"/>
+            </svg>
+          </div>
+          <div class="nxd-chip-body">
+            <p class="nxd-chip-label">PayPal</p>
+            <p class="nxd-chip-value">quincydarth@gmail.com</p>
+          </div>
+          <span class="nxd-chip-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+            </svg>
+          </span>
+        </a>
+      </div>
     </div>
-    <div class="pay-row"><span>UPI: quincydarth07@upi</span><button class="copy-btn" data-copy="quincydarth07@upi">Copy</button></div>
-    <div class="pay-row"><span>PayPal: quincydarth@gmail.com</span><button class="copy-btn" data-copy="quincydarth@gmail.com">Copy</button></div>
-    <button class="btn btn-primary" id="confirmDonate" style="width:100%; justify-content:center; margin-top:8px;">I've Donated 💜</button>
   </div>
 </div>
 
-<div class="thank-you" id="thankYou">
-  <div class="thank-you-box">
-    <div class="emoji">🎉</div>
-    <h3>Thank you for your support!</h3>
+<div id="copyToast" class="nxd-toast-root">
+  <div class="nxd-toast">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+    </svg>
+    UPI ID copied
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 <script src="script.js"></script>
 </body>
 </html>

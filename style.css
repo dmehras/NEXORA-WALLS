@@ -450,57 +450,124 @@
   .donate-section{ margin:60px 0; }
   .donate-card{
     border-radius:24px; padding:60px 40px; text-align:center; position:relative; overflow:hidden;
-    background: radial-gradient(ellipse at 20% 0%, rgba(0,200,255,0.15), transparent 60%),
-                radial-gradient(ellipse at 80% 100%, rgba(123,92,255,0.18), transparent 60%),
+    background: radial-gradient(ellipse at 20% 0%, rgba(251,191,36,0.16), transparent 60%),
+                radial-gradient(ellipse at 80% 100%, rgba(244,63,94,0.14), transparent 60%),
                 var(--panel);
     border:1px solid var(--panel-border);
   }
+  .donate-card::before{
+    content:''; position:absolute; width:280px; height:280px; border-radius:9999px;
+    background:rgba(251,191,36,0.14); filter:blur(80px); pointer-events:none;
+    top:-60px; left:-60px; z-index:0;
+  }
+  .donate-card::after{
+    content:''; position:absolute; width:240px; height:240px; border-radius:9999px;
+    background:rgba(244,63,94,0.10); filter:blur(80px); pointer-events:none;
+    bottom:-60px; right:-60px; z-index:0;
+  }
+  .donate-card > *{ position:relative; z-index:1; }
+
   .donate-title{ font-size:36px; font-weight:800; margin-bottom:16px; }
   .donate-desc{ font-size:17px; color:var(--text-dim); max-width:620px; margin:0 auto 32px; line-height:1.8; }
 
-  #donateBtn{
-    font-size:18px; padding:18px 40px; border-radius:16px;
-    background-size:200% 200%;
-    background-image: linear-gradient(120deg, var(--blue), var(--purple), var(--blue));
-    animation: donateGlow 4s ease infinite, donatePulse 2.4s ease infinite;
-  }
-  @keyframes donateGlow{
-    0%{ background-position:0% 50%; }
-    50%{ background-position:100% 50%; }
-    100%{ background-position:0% 50%; }
-  }
-  @keyframes donatePulse{
-    0%,100%{ box-shadow:0 0 22px rgba(0,200,255,0.4); }
-    50%{ box-shadow:0 0 42px rgba(123,92,255,0.65); }
-  }
-  #donateBtn:hover{ transform:translateY(-3px) scale(1.04); }
+  /* ===== New donation widget (nxd- scoped, self-contained) ===== */
+  .nxd-float-wrap{ display:inline-block; animation:nxdFloat 4s ease-in-out infinite; }
+  @keyframes nxdFloat{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-6px); } }
 
-  .donate-popup-backdrop{
-    position:fixed; inset:0; background:rgba(4,4,6,0.8); backdrop-filter:blur(10px); z-index:600;
-    display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:opacity .35s;
+  .nxd-donate-btn{
+    font-family:'Outfit', system-ui, sans-serif;
+    position:relative; overflow:hidden; isolation:isolate;
+    display:inline-flex; align-items:center; gap:12px;
+    border:none; cursor:pointer; border-radius:9999px;
+    background:linear-gradient(135deg,#fcd34d,#fbbf24,#f97316);
+    padding:14px 28px; color:#3b2208; font-weight:700; font-size:16px; letter-spacing:.02em;
+    box-shadow:0 0 0 1px rgba(255,215,140,.25), 0 8px 32px -6px rgba(245,158,11,.55), 0 0 48px -8px rgba(251,191,36,.35);
+    transition:transform .25s cubic-bezier(.34,1.56,.64,1), box-shadow .25s ease;
   }
-  .donate-popup-backdrop.show{ opacity:1; pointer-events:auto; }
-  .donate-popup{
-    width:100%; max-width:400px; background:var(--bg-alt); border:1px solid var(--panel-border);
-    border-radius:20px; padding:32px; text-align:center; position:relative;
-    transform:scale(0.9); transition:transform .35s ease;
+  @media (min-width:640px){ .nxd-donate-btn{ padding:16px 36px; font-size:18px; } }
+  .nxd-donate-btn::before{
+    content:''; position:absolute; inset:0;
+    background:linear-gradient(110deg, transparent 30%, rgba(255,255,255,.45) 50%, transparent 70%);
+    transform:translateX(-120%); animation:nxdShine 3.6s ease-in-out infinite; pointer-events:none; z-index:1;
   }
-  .donate-popup-backdrop.show .donate-popup{ transform:scale(1); }
-  .qr-box{
-    width:180px; height:180px; margin:20px auto; border-radius:16px; background:#fff; padding:10px;
-    opacity:0; transform:scale(0.7); animation:qrIn .5s ease forwards .2s;
+  @keyframes nxdShine{ 0%,55%{ transform:translateX(-120%); } 75%,100%{ transform:translateX(120%); } }
+  .nxd-donate-btn:hover{
+    transform:translateY(-3px) scale(1.03);
+    box-shadow:0 0 0 1px rgba(255,215,140,.4), 0 16px 40px -6px rgba(245,158,11,.7), 0 0 64px -4px rgba(251,191,36,.5);
   }
-  @keyframes qrIn{ to{ opacity:1; transform:scale(1); } }
-  .qr-box svg{ width:100%; height:100%; }
-  .pay-row{ display:flex; align-items:center; justify-content:space-between; background:var(--panel); border:1px solid var(--panel-border); padding:10px 14px; border-radius:10px; margin-bottom:10px; font-size:13px; }
-  .copy-btn{ background:none; border:none; color:var(--blue); font-size:12px; font-weight:700; }
+  .nxd-donate-btn:active{ transform:translateY(0) scale(.98); }
+  .nxd-icon-badge{ position:relative; z-index:10; display:flex; align-items:center; justify-content:center; width:32px; height:32px; border-radius:9999px; background:rgba(59,34,8,.15); flex-shrink:0; }
+  .nxd-heart{ width:20px; height:20px; animation:nxdHeartbeat 1.6s ease-in-out infinite; transform-origin:center; }
+  @keyframes nxdHeartbeat{ 0%,100%{ transform:scale(1); } 14%{ transform:scale(1.18); } 28%{ transform:scale(1); } 42%{ transform:scale(1.12); } 56%{ transform:scale(1); } }
+  .nxd-btn-label{ position:relative; z-index:10; }
+  .nxd-arrow{ position:relative; z-index:10; width:16px; height:16px; opacity:.7; transition:transform .2s; }
+  .nxd-group:hover .nxd-arrow{ transform:translateX(2px); }
 
-  .thank-you{ position:fixed; inset:0; z-index:700; display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:opacity .4s; background:rgba(4,4,6,0.7); backdrop-filter:blur(8px); }
-  .thank-you.show{ opacity:1; pointer-events:auto; }
-  .thank-you-box{ text-align:center; }
-  .thank-you-box .emoji{ font-size:60px; animation:pop .6s ease; }
-  @keyframes pop{ 0%{transform:scale(0);} 60%{transform:scale(1.2);} 100%{transform:scale(1);} }
-  .thank-you-box h3{ margin-top:16px; font-size:22px; }
+  #donatePopup.nxd-modal-root{ display:none; position:fixed; inset:0; z-index:1000; }
+  #donatePopup.nxd-modal-root.show{ display:block; }
+  .nxd-modal-backdrop{ position:absolute; inset:0; background:rgba(6,6,10,.72); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); }
+  .nxd-modal-wrap{ position:relative; z-index:10; min-height:100%; display:flex; align-items:flex-end; justify-content:center; padding:0; }
+  @media (min-width:640px){ .nxd-modal-wrap{ align-items:center; padding:24px; } }
+  .nxd-modal-card{
+    font-family:'Outfit', system-ui, sans-serif; width:100%; max-width:440px;
+    background:linear-gradient(180deg, rgba(32,28,24,.92) 0%, rgba(16,14,12,.96) 100%);
+    box-shadow:0 0 0 1px rgba(251,191,36,.14), 0 40px 80px -16px rgba(0,0,0,.7), inset 0 1px 0 rgba(255,255,255,.06);
+    border-radius:24px 24px 0 0; padding:20px 20px 28px;
+  }
+  @media (min-width:640px){ .nxd-modal-card{ border-radius:24px; padding:28px; } }
+  .nxd-drag-handle-wrap{ display:flex; justify-content:center; margin-bottom:12px; }
+  @media (min-width:640px){ .nxd-drag-handle-wrap{ display:none; } }
+  .nxd-drag-handle{ width:40px; height:4px; border-radius:9999px; background:rgba(255,255,255,.15); }
+  .nxd-modal-head{ display:flex; align-items:flex-start; justify-content:space-between; gap:12px; margin-bottom:20px; }
+  .nxd-eyebrow{ color:rgba(252,211,77,.8); font-size:11px; font-weight:600; letter-spacing:.22em; text-transform:uppercase; margin-bottom:4px; }
+  .nxd-modal-title{ font-size:24px; font-weight:800; letter-spacing:-.02em; color:#fff; margin:0; }
+  .nxd-modal-sub{ color:#a8a29e; font-size:14px; margin-top:4px; }
+  .nxd-close-btn{ flex-shrink:0; width:36px; height:36px; border-radius:9999px; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1); display:flex; align-items:center; justify-content:center; cursor:pointer; transition:background-color .2s; }
+  .nxd-close-btn:hover{ background:rgba(255,255,255,.1); }
+  .nxd-close-btn svg{ width:16px; height:16px; color:#d6d3d1; }
+  .nxd-qr-wrap{ display:flex; flex-direction:column; align-items:center; margin-bottom:24px; }
+  .nxd-qr-frame{ background:linear-gradient(145deg,#fff8e7,#ffffff); box-shadow:0 0 0 6px rgba(251,191,36,.12), 0 12px 32px -8px rgba(0,0,0,.45); border-radius:16px; padding:12px; }
+  .nxd-qr-frame img{ width:180px; height:180px; border-radius:12px; display:block; }
+  @media (min-width:640px){ .nxd-qr-frame img{ width:200px; height:200px; } }
+  .nxd-qr-caption{ margin-top:12px; color:#78716c; font-size:12px; }
+  .nxd-chip-stack{ display:flex; flex-direction:column; gap:12px; }
+  .nxd-chip{ background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); border-radius:16px; padding:14px; display:flex; align-items:center; gap:12px; transition:border-color .2s, background-color .2s, transform .2s; text-decoration:none; }
+  .nxd-chip:hover{ background:rgba(251,191,36,.08); border-color:rgba(251,191,36,.28); transform:translateY(-1px); }
+  .nxd-chip-icon{ width:44px; height:44px; border-radius:12px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+  .nxd-chip-icon-upi{ background:linear-gradient(135deg,#fbbf24,#f97316); box-shadow:0 10px 25px -8px rgba(245,158,11,.4); }
+  .nxd-chip-icon-upi svg{ width:24px; height:24px; color:#3b2208; }
+  .nxd-chip-icon-pp{ background:#003087; }
+  .nxd-chip-icon-pp svg{ width:24px; height:24px; }
+  .nxd-chip-body{ min-width:0; flex:1; }
+  .nxd-chip-label{ font-size:11px; text-transform:uppercase; letter-spacing:.05em; color:#78716c; font-weight:500; margin:0; }
+  .nxd-chip-value{ font-weight:600; color:#f5f5f4; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-size:14px; margin:0; }
+  @media (min-width:640px){ .nxd-chip-value{ font-size:15px; } }
+  .nxd-copy-btn{ flex-shrink:0; display:inline-flex; align-items:center; gap:6px; border-radius:12px; background:rgba(251,191,36,.15); color:#fde68a; padding:8px 12px; font-size:12px; font-weight:600; border:none; cursor:pointer; transition:background-color .2s; font-family:inherit; }
+  .nxd-copy-btn:hover{ background:rgba(251,191,36,.25); }
+  .nxd-copy-btn svg{ width:14px; height:14px; }
+  .nxd-chip-arrow{ flex-shrink:0; color:#a8a29e; display:flex; transition:color .2s, transform .2s; }
+  .nxd-chip:hover .nxd-chip-arrow{ color:#fde68a; transform:translateX(2px); }
+  .nxd-chip-arrow svg{ width:16px; height:16px; }
+  .nxd-copy-flash{ animation:nxdFlashCopy .5s ease; }
+  @keyframes nxdFlashCopy{ 0%{ background:rgba(74,222,128,.25); } 100%{ background:rgba(251,191,36,.15); } }
+  .nxd-enter-modal{ animation:nxdPopIn .38s cubic-bezier(.34,1.4,.64,1) both; }
+  .nxd-enter-fade{ animation:nxdFadeIn .25s ease both; }
+  @keyframes nxdPopIn{ from{ opacity:0; transform:scale(.88) translateY(18px); } to{ opacity:1; transform:scale(1) translateY(0); } }
+  @keyframes nxdFadeIn{ from{ opacity:0; } to{ opacity:1; } }
+  .nxd-leave-modal{ animation:nxdPopOut .2s ease both; }
+  .nxd-leave-fade{ animation:nxdFadeOut .2s ease both; }
+  @keyframes nxdPopOut{ to{ opacity:0; transform:scale(.94) translateY(10px); } }
+  @keyframes nxdFadeOut{ to{ opacity:0; } }
+
+  .nxd-toast-root{ display:none; position:fixed; bottom:24px; left:50%; transform:translateX(-50%); z-index:1100; pointer-events:none; }
+  .nxd-toast-root.show{ display:block; }
+  .nxd-toast{
+    font-family:'Outfit', system-ui, sans-serif; animation:nxdToastIn .35s cubic-bezier(.34,1.4,.64,1) both;
+    display:flex; align-items:center; gap:8px; border-radius:9999px; background:#10b981; color:#022c22;
+    font-weight:600; font-size:14px; padding:8px 16px; box-shadow:0 10px 25px -5px rgba(16,185,129,.3);
+  }
+  .nxd-toast svg{ width:16px; height:16px; }
+  @keyframes nxdToastIn{ from{ opacity:0; transform:translateY(12px) scale(.94); } to{ opacity:1; transform:translateY(0) scale(1); } }
 
   .visually-hidden-label{ position:absolute; left:-9999px; }
   @media (prefers-reduced-motion: reduce){

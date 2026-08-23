@@ -1215,25 +1215,89 @@ window.addEventListener('scroll', () => {
 scrollBtn.addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}));
 
 /* ============ DONATION ============ */
-function openDonate(){ document.getElementById('donatePopup').classList.add('show'); }
-function closeDonate(){ document.getElementById('donatePopup').classList.remove('show'); }
-document.getElementById('donateBtn').addEventListener('click', openDonate);
-document.getElementById('footerDonate').addEventListener('click', (e)=>{ e.preventDefault(); openDonate(); });
-document.getElementById('closeDonate').addEventListener('click', closeDonate);
-document.getElementById('donatePopup').addEventListener('click', (e)=>{ if(e.target.id==='donatePopup') closeDonate(); });
-document.querySelectorAll('.copy-btn').forEach(btn=>{
-  btn.addEventListener('click', ()=>{
-    navigator.clipboard?.writeText(btn.dataset.copy).catch(()=>{});
-    btn.textContent = 'Copied!';
-    setTimeout(()=>btn.textContent='Copy', 1500);
+(() => {
+  const donateBtn = document.getElementById('donateBtn');
+  const modalRoot = document.getElementById('donatePopup');
+  const backdrop = document.getElementById('donateBackdrop');
+  const modalCard = document.getElementById('donateModalCard');
+  const closeBtn = document.getElementById('closeDonate');
+  const copyUpi = document.getElementById('copyUpi');
+  const copyLabel = document.getElementById('copyLabel');
+  const copyIcon = document.getElementById('copyIcon');
+  const copyToast = document.getElementById('copyToast');
+  const UPI = 'quincydarth07@upi';
+  let toastTimer;
+
+  function burst(){
+    if (typeof confetti !== 'function') return;
+    const rect = donateBtn.getBoundingClientRect();
+    const x = (rect.left + rect.width / 2) / window.innerWidth;
+    const y = (rect.top + rect.height / 2) / window.innerHeight;
+    confetti({
+      particleCount: 70,
+      spread: 68,
+      origin: { x, y },
+      colors: ['#FBBF24', '#F59E0B', '#FB7185', '#FDE68A', '#FFFFFF'],
+      ticks: 180,
+      gravity: 0.9,
+      scalar: 0.85
+    });
+  }
+
+  function openDonate(){
+    modalRoot.classList.add('show');
+    backdrop.classList.remove('nxd-leave-fade');
+    modalCard.classList.remove('nxd-leave-modal');
+    backdrop.classList.add('nxd-enter-fade');
+    modalCard.classList.add('nxd-enter-modal');
+    document.body.style.overflow = 'hidden';
+    burst();
+    closeBtn.focus();
+  }
+
+  function closeDonate(){
+    backdrop.classList.remove('nxd-enter-fade');
+    modalCard.classList.remove('nxd-enter-modal');
+    backdrop.classList.add('nxd-leave-fade');
+    modalCard.classList.add('nxd-leave-modal');
+    setTimeout(() => {
+      modalRoot.classList.remove('show');
+      document.body.style.overflow = '';
+    }, 180);
+  }
+
+  donateBtn.addEventListener('click', openDonate);
+  document.getElementById('footerDonate').addEventListener('click', (e)=>{ e.preventDefault(); openDonate(); });
+  closeBtn.addEventListener('click', closeDonate);
+  backdrop.addEventListener('click', closeDonate);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modalRoot.classList.contains('show')) closeDonate();
   });
-});
-document.getElementById('confirmDonate').addEventListener('click', () => {
-  closeDonate();
-  const ty = document.getElementById('thankYou');
-  ty.classList.add('show');
-  setTimeout(()=>ty.classList.remove('show'), 2200);
-});
+
+  copyUpi.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(UPI);
+    } catch {
+      const ta = document.createElement('textarea');
+      ta.value = UPI;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      ta.remove();
+    }
+    copyLabel.textContent = 'Copied';
+    copyUpi.classList.add('nxd-copy-flash');
+    copyIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>';
+    copyToast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => {
+      copyToast.classList.remove('show');
+      copyLabel.textContent = 'Copy';
+      copyUpi.classList.remove('nxd-copy-flash');
+      copyIcon.innerHTML = '<rect x="9" y="9" width="13" height="13" rx="2"></rect><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"></path>';
+    }, 1800);
+  });
+})();
 
 /* ============ INIT ============ */
 renderSidebar();
