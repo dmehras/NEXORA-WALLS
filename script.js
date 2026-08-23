@@ -808,24 +808,6 @@ let state = {
 };
 
 /* ============ LANDING PAGE ============ */
-function initParticles(){
-  const field = document.getElementById('particleField');
-  const frag = document.createDocumentFragment();
-  for(let i=0;i<40;i++){
-    const p = document.createElement('div');
-    p.className = 'particle';
-    const size = Math.random()*5+2;
-    p.style.width = size+'px';
-    p.style.height = size+'px';
-    p.style.left = Math.random()*100+'%';
-    p.style.animationDuration = (Math.random()*14+10)+'s';
-    p.style.animationDelay = (Math.random()*10)+'s';
-    frag.appendChild(p);
-  }
-  field.appendChild(frag);
-}
-initParticles();
-
 window.addEventListener('message', (event) => {
   if (event.data && event.data.type === 'nexora-enter') {
     document.getElementById('landing').classList.add('hide');
