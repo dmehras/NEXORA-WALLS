@@ -3,510 +3,167 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NEXORA WALLS — Logo</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Orbitron:wght@500;700;800&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --ink: #eef8ff;
-    --muted: #a0b5c9;
-    --cyan: #56e9ff;
-    --blue: #4975ff;
-    --violet: #bd5cff;
-    --bg: #050713;
-  }
-
-  * { box-sizing: border-box; }
-
-  html, body {
-    margin: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    background: var(--bg);
-    color: var(--ink);
-    font-family: "Space Grotesk", sans-serif;
-  }
-
-  body {
-    position: relative;
-    background:
-      radial-gradient(circle at 50% 45%, rgba(67, 91, 213, .18), transparent 30%),
-      radial-gradient(circle at 12% 78%, rgba(34, 226, 255, .08), transparent 25%),
-      radial-gradient(circle at 90% 15%, rgba(171, 71, 255, .10), transparent 28%),
-      #050713;
-  }
-
-  body::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    opacity: .24;
-    pointer-events: none;
-    background-image:
-      linear-gradient(rgba(117, 192, 255, .07) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(117, 192, 255, .07) 1px, transparent 1px);
-    background-size: 54px 54px;
-    mask-image: linear-gradient(to bottom, transparent, black 22%, black 76%, transparent);
-  }
-
-  #stage {
-    position: fixed;
-    inset: 0;
-    z-index: 0;
-  }
-
-  canvas { display: block; }
-
-  .vignette {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 1;
-    box-shadow: inset 0 0 150px 40px rgba(0, 0, 0, .58);
-  }
-
-  .topbar {
-    position: fixed;
-    z-index: 5;
-    top: 28px;
-    left: 5vw;
-    right: 5vw;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    pointer-events: none;
-  }
-
-  .mini-mark {
-    display: flex;
-    align-items: center;
-    gap: 11px;
-    letter-spacing: .18em;
-    font-size: 11px;
-    font-weight: 700;
-    color: #d9f6ff;
-  }
-
-  .mini-symbol {
-    width: 27px;
-    height: 27px;
-    display: grid;
-    place-items: center;
-    border: 1px solid rgba(95, 235, 255, .8);
-    transform: rotate(45deg);
-    box-shadow: 0 0 18px rgba(53, 220, 255, .3);
-  }
-
-  .mini-symbol::after {
-    content: "N";
-    font-family: Orbitron, sans-serif;
-    color: var(--cyan);
-    font-size: 13px;
-    transform: rotate(-45deg);
-  }
-
-  .edition {
-    padding: 8px 13px;
-    border: 1px solid rgba(162, 190, 225, .28);
-    border-radius: 100px;
-    font-size: 10px;
-    color: var(--muted);
-    letter-spacing: .18em;
-    text-transform: uppercase;
-    background: rgba(12, 19, 40, .45);
-    backdrop-filter: blur(10px);
-  }
-
-  .hero {
-    position: fixed;
-    z-index: 4;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    pointer-events: none;
-    text-align: center;
-  }
-
-  .logo-lockup {
-    width: min(90vw, 690px);
-    transform: translateY(1vh);
-    user-select: none;
-    cursor: pointer;
-    pointer-events: auto;
-    transition: transform .35s ease;
-  }
-
-  .logo-lockup:hover { transform: translateY(1vh); }
-
-  .brand-name { cursor: pointer; transition: transform .3s ease, filter .3s ease; }
-  .brand-name:hover { transform: scale(1.035); filter: drop-shadow(0 0 18px rgba(86,233,255,.55)); }
-
-  .monogram {
-    position: relative;
-    width: clamp(115px, 19vw, 172px);
-    height: clamp(115px, 19vw, 172px);
-    margin: 0 auto 30px;
-    display: grid;
-    place-items: center;
-    filter: drop-shadow(0 0 22px rgba(75, 222, 255, .5));
-  }
-
-  .monogram::before,
-  .monogram::after {
-    content: "";
-    position: absolute;
-    border: 1px solid rgba(89, 235, 255, .45);
-    transform: rotate(45deg);
-  }
-
-  .monogram::before {
-    inset: 9%;
-    border-radius: 18px;
-    box-shadow: inset 0 0 25px rgba(82, 179, 255, .14);
-  }
-
-  .monogram::after {
-    inset: -3%;
-    border-color: rgba(186, 86, 255, .25);
-    border-radius: 24px;
-    animation: spin 16s linear infinite reverse;
-  }
-
-  @keyframes spin { to { transform: rotate(405deg); } }
-
-  .brand-name {
-    margin: 0;
-    font-family: Orbitron, sans-serif;
-    font-size: clamp(37px, 7.5vw, 78px);
-    line-height: .95;
-    letter-spacing: .105em;
-    font-weight: 800;
-    color: #f1fbff;
-    text-shadow:
-      0 0 9px rgba(255,255,255,.3),
-      0 0 30px rgba(75, 216, 255, .38),
-      0 0 70px rgba(94, 87, 255, .25);
-  }
-
-  .brand-name span {
-    background: linear-gradient(105deg, #f5feff 0%, #8aefff 48%, #bb80ff 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-
-  .tagline {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 17px;
-    margin-top: 17px;
-    color: #bed0df;
-    font-size: clamp(10px, 1.5vw, 14px);
-    letter-spacing: .46em;
-    text-transform: uppercase;
-    padding-left: .46em;
-  }
-
-  .tagline::before, .tagline::after {
-    content: "";
-    width: clamp(20px, 7vw, 72px);
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(99, 226, 255, .75));
-  }
-
-  .tagline::after { transform: rotate(180deg); }
-
-  .chips {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 28px;
-    opacity: .9;
-  }
-
-  .chip {
-    padding: 7px 12px;
-    border-radius: 3px;
-    font-size: 10px;
-    letter-spacing: .15em;
-    text-transform: uppercase;
-    border: 1px solid rgba(102, 225, 255, .35);
-    color: #8feaff;
-    background: rgba(44, 154, 188, .09);
-  }
-
-  .chip.premium {
-    border-color: rgba(196, 112, 255, .4);
-    color: #d7a4ff;
-    background: rgba(148, 57, 207, .1);
-  }
-
-  .instruction {
-    position: fixed;
-    z-index: 5;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    color: rgba(192, 210, 228, .65);
-    font-size: 11px;
-    letter-spacing: .15em;
-    text-transform: uppercase;
-    white-space: nowrap;
-    pointer-events: none;
-  }
-
-  .corner {
-    position: fixed;
-    z-index: 3;
-    width: 58px;
-    height: 58px;
-    opacity: .5;
-    pointer-events: none;
-  }
-
-  .corner::before, .corner::after {
-    content: "";
-    position: absolute;
-    background: var(--cyan);
-  }
-
-  .corner::before { width: 100%; height: 1px; }
-  .corner::after { height: 100%; width: 1px; }
-  .corner.tl { top: 8%; left: 4%; }
-  .corner.tr { top: 8%; right: 4%; transform: rotate(90deg); }
-  .corner.bl { bottom: 8%; left: 4%; transform: rotate(270deg); }
-  .corner.br { bottom: 8%; right: 4%; transform: rotate(180deg); }
-
-  @media (max-width: 600px) {
-    .topbar { top: 19px; }
-    .edition { font-size: 8px; padding: 7px 9px; }
-    .mini-mark { font-size: 9px; gap: 8px; }
-    .mini-symbol { width: 23px; height: 23px; }
-    .instruction { bottom: 20px; font-size: 9px; }
-    .chips { margin-top: 22px; }
-  }
-</style>
+<title>NEXORA WALLS — Free Premium 4K Desktop Wallpapers</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div id="stage"></div>
-<div class="vignette"></div>
 
-<div class="topbar">
-  <div class="mini-mark">
-    <div class="mini-symbol"></div>
-    <span>NX / VISUAL SYSTEMS</span>
-  </div>
-  <div class="edition">Wallpaper archive · 2024</div>
+<div class="ambient-glow g1"></div>
+<div class="ambient-glow g2"></div>
+<div class="ambient-glow g3"></div>
+<div class="ambient-glow g4"></div>
+
+<!-- ============ LANDING PAGE ============ -->
+<div id="landing" aria-label="NEXORA WALLS entrance">
+  <iframe id="nexoraEntrance" src="entrance/index.html" title="NEXORA WALLS 3D entrance" loading="eager"></iframe>
 </div>
 
-<div class="corner tl"></div>
-<div class="corner tr"></div>
-<div class="corner bl"></div>
-<div class="corner br"></div>
+<!-- ============ MAIN SITE ============ -->
+<div id="site">
+  <header id="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="brand-name">NEXORA WALLS</div>
+        <div class="brand-sub">FREE & PREMIUM QUALITY 4K DESKTOP WALLPAPERS</div>
+      </div>
+      <div class="topbar-right">
+        <div class="search-wrap">
+          <label class="visually-hidden-label" for="searchInput">Search wallpapers</label>
+          <input id="searchInput" type="text" placeholder="Search anime, games, movies…">
+          <span class="icon">🔍</span>
+        </div>
+        <button class="icon-btn" id="randomBtn" title="Random wallpaper">🎲</button>
+        <button class="icon-btn" id="darkModeBtn" title="Toggle theme">🌙</button>
+        <button class="pill-btn" data-sort="newest">Newest</button>
+        <button class="pill-btn" data-sort="downloads">Popular</button>
+        <button class="pill-btn" data-sort="views">Trending</button>
+      </div>
+    </div>
+  </header>
 
-<main class="hero">
-  <div class="logo-lockup" id="logo">
-    <div class="monogram" aria-label="Nexora symbol"></div>
-    <h1 class="brand-name" id="brand-name">NEXORA <span>WALLS</span></h1>
-    <div class="tagline">Wallpapers beyond ordinary</div>
-    <div class="chips">
-      <div class="chip">Free collection</div>
-      <div class="chip premium">Premium worlds</div>
+  <button id="sidebarToggle" aria-label="Toggle categories">☰ CATEGORIES</button>
+  <div id="sidebarBackdrop"></div>
+
+  <div class="layout">
+    <aside id="sidebar"></aside>
+
+    <main id="content">
+      <div class="section-title" id="sectionTitle">Featured Wallpapers</div>
+      <div class="section-sub" id="sectionSub">Curated 4K wallpapers, refreshed daily.</div>
+
+      <div class="filters-row">
+        <select id="resFilter">
+          <option value="">All Resolutions</option>
+          <option value="8K">8K</option>
+          <option value="4K">4K</option>
+          <option value="1440p">1440p</option>
+          <option value="1080p">1080p</option>
+        </select>
+        <select id="orientFilter">
+          <option value="">All Orientations</option>
+          <option value="landscape">Landscape</option>
+          <option value="portrait">Portrait</option>
+          <option value="square">Square</option>
+        </select>
+        <select id="sortFilter">
+          <option value="newest">Newest</option>
+          <option value="downloads">Most Downloaded</option>
+          <option value="views">Most Viewed</option>
+          <option value="az">Alphabetical</option>
+        </select>
+      </div>
+
+      <div class="grid" id="grid"></div>
+      <div class="empty-state" id="emptyState" style="display:none;">
+        <div class="big">🖼️</div>
+        <div>No wallpapers match your search. Try another keyword or category.</div>
+      </div>
+      <div class="pagination" id="pagination"></div>
+    </main>
+  </div>
+
+  <!-- DONATION -->
+  <div class="donate-section">
+    <div class="donate-card">
+      <div class="donate-title">Support NEXORA WALLS ❤️</div>
+      <div class="donate-desc">If you enjoy our wallpapers and want to support future uploads, consider making a small donation. Every contribution helps keep the website free, fast, and ad-light.</div>
+      <button class="btn btn-primary" id="donateBtn" style="margin:0 auto;">💜 Donate</button>
     </div>
   </div>
-</main>
 
-<div class="instruction">Hover over NEXORA WALLS · Click to enter</div>
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">NEXORA WALLS</div>
+        <p class="footer-about">NEXORA WALLS offers free and premium-quality 4K desktop wallpapers across anime, gaming, movies, fantasy, nature, technology, and more. Every wallpaper is optimized for desktop displays with ultra-high resolution and clean image quality.</p>
+      </div>
+      <div>
+        <div class="footer-heading">Quick Links</div>
+        <div class="footer-links">
+          <a href="#">Home</a><a href="#">Categories</a><a href="#">Newest</a><a href="#">Popular</a><a href="#">Trending</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-heading">Company</div>
+        <div class="footer-links">
+          <a href="#">About</a><a href="#">Contact</a><a href="#" id="footerDonate">Donate</a><a href="#">Privacy Policy</a><a href="#">Terms</a>
+        </div>
+      </div>
+      <div class="cf-block">
+        <div class="cf-heading-box">Contact</div>
+        <div class="cf-value"><a href="mailto:imdeepmehra7@gmail.com">imdeepmehra7@gmail.com</a></div>
+        <div class="cf-heading-box" style="margin-top:20px;">Follow</div>
+        <div class="cf-caption">Scan to follow on Instagram</div>
+        <div class="footer-qr">
+          <img src="images/wallpapers/insta-qr.png" alt="Instagram QR code">
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 NEXORA WALLS. Free and premium wallpapers for personal desktop use.</div>
+  </footer>
+</div>
 
-<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/examples/js/controls/OrbitControls.js"></script>
-<script>
-(() => {
-  const stage = document.getElementById('stage');
-  const scene = new THREE.Scene();
-  scene.fog = new THREE.FogExp2(0x050713, 0.035);
+<button id="scrollTop" title="Scroll to top">↑</button>
 
-  const camera = new THREE.PerspectiveCamera(42, innerWidth / innerHeight, .1, 100);
-  camera.position.set(0, .25, 8.8);
+<!-- DETAIL MODAL -->
+<div class="modal-backdrop" id="detailBackdrop">
+  <div class="detail-modal" id="detailModal"></div>
+</div>
 
-  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" });
-  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
-  renderer.setSize(innerWidth, innerHeight);
-  renderer.outputColorSpace = THREE.SRGBColorSpace;
-  renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.25;
-  stage.appendChild(renderer.domElement);
+<!-- FULLSCREEN PREVIEW -->
+<div id="fullscreenPreview">
+  <button class="fs-btn" id="fsClose">✕</button>
+  <button class="fs-btn" id="fsPrev">‹</button>
+  <button class="fs-btn" id="fsNext">›</button>
+  <div class="fs-image-wrap"><img id="fsImage" src="" alt="Fullscreen wallpaper preview"><span class="preview-watermark" id="fsWatermark">NEXORA WALLS</span></div>
+  <div class="fs-hint">Arrow keys to navigate · Scroll or double-click to zoom · Esc to exit</div>
+</div>
 
-  const controls = new THREE.OrbitControls(camera, renderer.domElement);
-  controls.enableDamping = true;
-  controls.dampingFactor = .045;
-  controls.enablePan = false;
-  controls.minDistance = 6;
-  controls.maxDistance = 12;
-  controls.autoRotate = true;
-  controls.autoRotateSpeed = .28;
-  controls.target.set(0, .15, 0);
+<!-- DOWNLOAD TOAST -->
+<div id="toast">✅ Thank you for downloading!</div>
 
-  scene.add(new THREE.AmbientLight(0x5b75b8, 1.2));
+<!-- DONATE POPUP -->
+<div class="donate-popup-backdrop" id="donatePopup">
+  <div class="donate-popup">
+    <button class="modal-close" id="closeDonate" style="position:absolute; top:12px; right:12px;">✕</button>
+    <h3 style="font-size:20px; margin-bottom:4px;">Support NEXORA WALLS</h3>
+    <p style="font-size:12px; color:var(--text-dimmer);">Scan or copy the details below</p>
+    <div class="qr-box">
+      <img src="images/wallpapers/QR-CODE.JPG" alt="Donation QR code" style="width:100%; height:100%; object-fit:contain; border-radius:6px;">
+    </div>
+    <div class="pay-row"><span>UPI: quincydarth07@upi</span><button class="copy-btn" data-copy="quincydarth07@upi">Copy</button></div>
+    <div class="pay-row"><span>PayPal: quincydarth@gmail.com</span><button class="copy-btn" data-copy="quincydarth@gmail.com">Copy</button></div>
+    <button class="btn btn-primary" id="confirmDonate" style="width:100%; justify-content:center; margin-top:8px;">I've Donated 💜</button>
+  </div>
+</div>
 
-  const cyanLight = new THREE.PointLight(0x35eaff, 15, 12);
-  cyanLight.position.set(-3.8, 2.8, 3.5);
-  scene.add(cyanLight);
+<div class="thank-you" id="thankYou">
+  <div class="thank-you-box">
+    <div class="emoji">🎉</div>
+    <h3>Thank you for your support!</h3>
+  </div>
+</div>
 
-  const violetLight = new THREE.PointLight(0xa952ff, 18, 13);
-  violetLight.position.set(4, -2, 2);
-  scene.add(violetLight);
-
-  const key = new THREE.DirectionalLight(0xffffff, 2.5);
-  key.position.set(1, 4, 5);
-  scene.add(key);
-
-  const logoGroup = new THREE.Group();
-  scene.add(logoGroup);
-
-  const chrome = new THREE.MeshStandardMaterial({
-    color: 0x8eeaff,
-    metalness: .82,
-    roughness: .19,
-    emissive: 0x123e6c,
-    emissiveIntensity: .8
-  });
-
-  const violet = new THREE.MeshStandardMaterial({
-    color: 0xb763ff,
-    metalness: .75,
-    roughness: .2,
-    emissive: 0x451078,
-    emissiveIntensity: .9
-  });
-
-  function bar(w, h, d, x, y, z, rot, material) {
-    const mesh = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), material);
-    mesh.position.set(x, y, z);
-    mesh.rotation.z = rot || 0;
-    logoGroup.add(mesh);
-    return mesh;
-  }
-
-  bar(.26, 2.6, .42, -.94, 0, .08, 0, chrome);
-  bar(.26, 2.6, .42, .94, 0, .08, 0, violet);
-  bar(.29, 2.74, .43, 0, 0, .12, -.72, chrome);
-
-  const ring = new THREE.Mesh(
-    new THREE.TorusGeometry(1.78, .018, 10, 96),
-    new THREE.MeshBasicMaterial({ color: 0x53eaff, transparent: true, opacity: .7 })
-  );
-  ring.rotation.x = Math.PI / 2;
-  ring.position.z = -.22;
-  logoGroup.add(ring);
-
-  const ring2 = ring.clone();
-  ring2.scale.set(.84, .84, .84);
-  ring2.material = new THREE.MeshBasicMaterial({ color: 0xb05bff, transparent: true, opacity: .55 });
-  ring2.rotation.x = Math.PI / 2.4;
-  ring2.rotation.z = .45;
-  logoGroup.add(ring2);
-
-  const halo = new THREE.Mesh(
-    new THREE.CircleGeometry(2.15, 64),
-    new THREE.MeshBasicMaterial({ color: 0x2254c8, transparent: true, opacity: .075, side: THREE.DoubleSide })
-  );
-  halo.position.z = -.5;
-  logoGroup.add(halo);
-
-  const particleGeometry = new THREE.BufferGeometry();
-  const count = 800;
-  const positions = new Float32Array(count * 3);
-  const colors = new Float32Array(count * 3);
-  const colorA = new THREE.Color(0x55eaff);
-  const colorB = new THREE.Color(0xb964ff);
-
-  for (let i = 0; i < count; i++) {
-    const radius = 3.2 + Math.random() * 5.5;
-    const angle = Math.random() * Math.PI * 2;
-    positions[i * 3] = Math.cos(angle) * radius * (1.1 + Math.random() * .6);
-    positions[i * 3 + 1] = (Math.random() - .5) * 7;
-    positions[i * 3 + 2] = (Math.random() - .5) * 5 - 1;
-    const c = colorA.clone().lerp(colorB, Math.random());
-    colors[i * 3] = c.r;
-    colors[i * 3 + 1] = c.g;
-    colors[i * 3 + 2] = c.b;
-  }
-  particleGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-  particleGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-
-  const particles = new THREE.Points(particleGeometry, new THREE.PointsMaterial({
-    size: .025,
-    vertexColors: true,
-    transparent: true,
-    opacity: .72,
-    blending: THREE.AdditiveBlending,
-    depthWrite: false
-  }));
-  scene.add(particles);
-
-  const panels = new THREE.Group();
-  scene.add(panels);
-  const panelMat = new THREE.MeshStandardMaterial({
-    color: 0x13284d,
-    metalness: .35,
-    roughness: .38,
-    transparent: true,
-    opacity: .33,
-    side: THREE.DoubleSide
-  });
-
-  for (let i = 0; i < 12; i++) {
-    const panel = new THREE.Mesh(new THREE.PlaneGeometry(1.8 + Math.random() * 1.7, 2.6 + Math.random() * 2), panelMat.clone());
-    const a = (i / 12) * Math.PI * 2;
-    const r = 6.1 + Math.random() * 1.5;
-    panel.position.set(Math.cos(a) * r, (Math.random() - .5) * 3.2, Math.sin(a) * r - 1.5);
-    panel.rotation.y = -a + Math.PI / 2;
-    panel.rotation.z = (Math.random() - .5) * .3;
-    panel.material.opacity = .12 + Math.random() * .16;
-    panels.add(panel);
-  }
-
-  let pulse = 0;
-  document.getElementById('logo').addEventListener('click', () => {
-    pulse = 1;
-    window.parent.postMessage({ type: 'nexora-enter' }, '*');
-  });
-
-  const clock = new THREE.Clock();
-  function animate() {
-    requestAnimationFrame(animate);
-    const t = clock.getElapsedTime();
-
-    logoGroup.rotation.y = Math.sin(t * .38) * .11;
-    logoGroup.rotation.x = Math.sin(t * .27) * .045;
-    ring.rotation.z += .003;
-    ring2.rotation.z -= .006;
-    particles.rotation.y = t * .012;
-    particles.rotation.x = Math.sin(t * .08) * .04;
-    panels.rotation.y = t * .008;
-
-    pulse *= .92;
-    logoGroup.scale.setScalar(1 + pulse * .11);
-    cyanLight.intensity = 13 + Math.sin(t * 1.8) * 3 + pulse * 18;
-    violetLight.intensity = 16 + Math.cos(t * 1.4) * 3;
-
-    controls.update();
-    renderer.render(scene, camera);
-  }
-  animate();
-
-  addEventListener('resize', () => {
-    camera.aspect = innerWidth / innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(innerWidth, innerHeight);
-    renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
-  });
-})();
-</script>
+<script src="script.js"></script>
 </body>
 </html>
