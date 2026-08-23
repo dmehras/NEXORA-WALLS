@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEXORA WALLS — Logo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Orbitron:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #eef8ff;
+    --muted: #a0b5c9;
+    --cyan: #56e9ff;
+    --blue: #4975ff;
+    --violet: #bd5cff;
+    --bg: #050713;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Space Grotesk", sans-serif;
+  }
+
+  body {
+    position: relative;
+    background:
+      radial-gradient(circle at 50% 45%, rgba(67, 91, 213, .18), transparent 30%),
+      radial-gradient(circle at 12% 78%, rgba(34, 226, 255, .08), transparent 25%),
+      radial-gradient(circle at 90% 15%, rgba(171, 71, 255, .10), transparent 28%),
+      #050713;
+  }
+
+  body::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: .24;
+    pointer-events: none;
+    background-image:
+      linear-gradient(rgba(117, 192, 255, .07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(117, 192, 255, .07) 1px, transparent 1px);
+    background-size: 54px 54px;
+    mask-image: linear-gradient(to bottom, transparent, black 22%, black 76%, transparent);
+  }
+
+  #stage {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+  }
+
+  canvas { display: block; }
+
+  .vignette {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    box-shadow: inset 0 0 150px 40px rgba(0, 0, 0, .58);
+  }
+
+  .topbar {
+    position: fixed;
+    z-index: 5;
+    top: 28px;
+    left: 5vw;
+    right: 5vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    pointer-events: none;
+  }
+
+  .mini-mark {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    letter-spacing: .18em;
+    font-size: 11px;
+    font-weight: 700;
+    color: #d9f6ff;
+  }
+
+  .mini-symbol {
+    width: 27px;
+    height: 27px;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(95, 235, 255, .8);
+    transform: rotate(45deg);
+    box-shadow: 0 0 18px rgba(53, 220, 255, .3);
+  }
+
+  .mini-symbol::after {
+    content: "N";
+    font-family: Orbitron, sans-serif;
+    color: var(--cyan);
+    font-size: 13px;
+    transform: rotate(-45deg);
+  }
+
+  .edition {
+    padding: 8px 13px;
+    border: 1px solid rgba(162, 190, 225, .28);
+    border-radius: 100px;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    background: rgba(12, 19, 40, .45);
+    backdrop-filter: blur(10px);
+  }
+
+  .hero {
+    position: fixed;
+    z-index: 4;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    text-align: center;
+  }
+
+  .logo-lockup {
+    width: min(90vw, 690px);
+    transform: translateY(1vh);
+    user-select: none;
+    cursor: pointer;
+    pointer-events: auto;
+    transition: transform .35s ease;
+  }
+
+  .logo-lockup:hover { transform: translateY(1vh); }
+
+  .brand-name { cursor: pointer; transition: transform .3s ease, filter .3s ease; }
+  .brand-name:hover { transform: scale(1.035); filter: drop-shadow(0 0 18px rgba(86,233,255,.55)); }
+
+  .monogram {
+    position: relative;
+    width: clamp(115px, 19vw, 172px);
+    height: clamp(115px, 19vw, 172px);
+    margin: 0 auto 30px;
+    display: grid;
+    place-items: center;
+    filter: drop-shadow(0 0 22px rgba(75, 222, 255, .5));
+  }
+
+  .monogram::before,
+  .monogram::after {
+    content: "";
+    position: absolute;
+    border: 1px solid rgba(89, 235, 255, .45);
+    transform: rotate(45deg);
+  }
+
+  .monogram::before {
+    inset: 9%;
+    border-radius: 18px;
+    box-shadow: inset 0 0 25px rgba(82, 179, 255, .14);
+  }
+
+  .monogram::after {
+    inset: -3%;
+    border-color: rgba(186, 86, 255, .25);
+    border-radius: 24px;
+    animation: spin 16s linear infinite reverse;
+  }
+
+  @keyframes spin { to { transform: rotate(405deg); } }
+
+  .brand-name {
+    margin: 0;
+    font-family: Orbitron, sans-serif;
+    font-size: clamp(37px, 7.5vw, 78px);
+    line-height: .95;
+    letter-spacing: .105em;
+    font-weight: 800;
+    color: #f1fbff;
+    text-shadow:
+      0 0 9px rgba(255,255,255,.3),
+      0 0 30px rgba(75, 216, 255, .38),
+      0 0 70px rgba(94, 87, 255, .25);
+  }
+
+  .brand-name span {
+    background: linear-gradient(105deg, #f5feff 0%, #8aefff 48%, #bb80ff 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .tagline {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 17px;
+    margin-top: 17px;
+    color: #bed0df;
+    font-size: clamp(10px, 1.5vw, 14px);
+    letter-spacing: .46em;
+    text-transform: uppercase;
+    padding-left: .46em;
+  }
+
+  .tagline::before, .tagline::after {
+    content: "";
+    width: clamp(20px, 7vw, 72px);
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(99, 226, 255, .75));
+  }
+
+  .tagline::after { transform: rotate(180deg); }
+
+  .chips {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 28px;
+    opacity: .9;
+  }
+
+  .chip {
+    padding: 7px 12px;
+    border-radius: 3px;
+    font-size: 10px;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    border: 1px solid rgba(102, 225, 255, .35);
+    color: #8feaff;
+    background: rgba(44, 154, 188, .09);
+  }
+
+  .chip.premium {
+    border-color: rgba(196, 112, 255, .4);
+    color: #d7a4ff;
+    background: rgba(148, 57, 207, .1);
+  }
+
+  .instruction {
+    position: fixed;
+    z-index: 5;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(192, 210, 228, .65);
+    font-size: 11px;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    pointer-events: none;
+  }
+
+  .corner {
+    position: fixed;
+    z-index: 3;
+    width: 58px;
+    height: 58px;
+    opacity: .5;
+    pointer-events: none;
+  }
+
+  .corner::before, .corner::after {
+    content: "";
+    position: absolute;
+    background: var(--cyan);
+  }
+
+  .corner::before { width: 100%; height: 1px; }
+  .corner::after { height: 100%; width: 1px; }
+  .corner.tl { top: 8%; left: 4%; }
+  .corner.tr { top: 8%; right: 4%; transform: rotate(90deg); }
+  .corner.bl { bottom: 8%; left: 4%; transform: rotate(270deg); }
+  .corner.br { bottom: 8%; right: 4%; transform: rotate(180deg); }
+
+  @media (max-width: 600px) {
+    .topbar { top: 19px; }
+    .edition { font-size: 8px; padding: 7px 9px; }
+    .mini-mark { font-size: 9px; gap: 8px; }
+    .mini-symbol { width: 23px; height: 23px; }
+    .instruction { bottom: 20px; font-size: 9px; }
+    .chips { margin-top: 22px; }
+  }
+</style>
+</head>
+<body>
+<div id="stage"></div>
+<div class="vignette"></div>
+
+<div class="topbar">
+  <div class="mini-mark">
+    <div class="mini-symbol"></div>
+    <span>NX / VISUAL SYSTEMS</span>
+  </div>
+  <div class="edition">Wallpaper archive · 2024</div>
+</div>
+
+<div class="corner tl"></div>
+<div class="corner tr"></div>
+<div class="corner bl"></div>
+<div class="corner br"></div>
+
+<main class="hero">
+  <div class="logo-lockup" id="logo">
+    <div class="monogram" aria-label="Nexora symbol"></div>
+    <h1 class="brand-name" id="brand-name">NEXORA <span>WALLS</span></h1>
+    <div class="tagline">Wallpapers beyond ordinary</div>
+    <div class="chips">
+      <div class="chip">Free collection</div>
+      <div class="chip premium">Premium worlds</div>
+    </div>
+  </div>
+</main>
+
+<div class="instruction">Hover over NEXORA WALLS · Click to enter</div>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/examples/js/controls/OrbitControls.js"></script>
+<script>
+(() => {
+  const stage = document.getElementById('stage');
+  const scene = new THREE.Scene();
+  scene.fog = new THREE.FogExp2(0x050713, 0.035);
+
+  const camera = new THREE.PerspectiveCamera(42, innerWidth / innerHeight, .1, 100);
+  camera.position.set(0, .25, 8.8);
+
+  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" });
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+  renderer.setSize(innerWidth, innerHeight);
+  renderer.outputColorSpace = THREE.SRGBColorSpace;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.25;
+  stage.appendChild(renderer.domElement);
+
+  const controls = new THREE.OrbitControls(camera, renderer.domElement);
+  controls.enableDamping = true;
+  controls.dampingFactor = .045;
+  controls.enablePan = false;
+  controls.minDistance = 6;
+  controls.maxDistance = 12;
+  controls.autoRotate = true;
+  controls.autoRotateSpeed = .28;
+  controls.target.set(0, .15, 0);
+
+  scene.add(new THREE.AmbientLight(0x5b75b8, 1.2));
+
+  const cyanLight = new THREE.PointLight(0x35eaff, 15, 12);
+  cyanLight.position.set(-3.8, 2.8, 3.5);
+  scene.add(cyanLight);
+
+  const violetLight = new THREE.PointLight(0xa952ff, 18, 13);
+  violetLight.position.set(4, -2, 2);
+  scene.add(violetLight);
+
+  const key = new THREE.DirectionalLight(0xffffff, 2.5);
+  key.position.set(1, 4, 5);
+  scene.add(key);
+
+  const logoGroup = new THREE.Group();
+  scene.add(logoGroup);
+
+  const chrome = new THREE.MeshStandardMaterial({
+    color: 0x8eeaff,
+    metalness: .82,
+    roughness: .19,
+    emissive: 0x123e6c,
+    emissiveIntensity: .8
+  });
+
+  const violet = new THREE.MeshStandardMaterial({
+    color: 0xb763ff,
+    metalness: .75,
+    roughness: .2,
+    emissive: 0x451078,
+    emissiveIntensity: .9
+  });
+
+  function bar(w, h, d, x, y, z, rot, material) {
+    const mesh = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), material);
+    mesh.position.set(x, y, z);
+    mesh.rotation.z = rot || 0;
+    logoGroup.add(mesh);
+    return mesh;
+  }
+
+  bar(.26, 2.6, .42, -.94, 0, .08, 0, chrome);
+  bar(.26, 2.6, .42, .94, 0, .08, 0, violet);
+  bar(.29, 2.74, .43, 0, 0, .12, -.72, chrome);
+
+  const ring = new THREE.Mesh(
+    new THREE.TorusGeometry(1.78, .018, 10, 96),
+    new THREE.MeshBasicMaterial({ color: 0x53eaff, transparent: true, opacity: .7 })
+  );
+  ring.rotation.x = Math.PI / 2;
+  ring.position.z = -.22;
+  logoGroup.add(ring);
+
+  const ring2 = ring.clone();
+  ring2.scale.set(.84, .84, .84);
+  ring2.material = new THREE.MeshBasicMaterial({ color: 0xb05bff, transparent: true, opacity: .55 });
+  ring2.rotation.x = Math.PI / 2.4;
+  ring2.rotation.z = .45;
+  logoGroup.add(ring2);
+
+  const halo = new THREE.Mesh(
+    new THREE.CircleGeometry(2.15, 64),
+    new THREE.MeshBasicMaterial({ color: 0x2254c8, transparent: true, opacity: .075, side: THREE.DoubleSide })
+  );
+  halo.position.z = -.5;
+  logoGroup.add(halo);
+
+  const particleGeometry = new THREE.BufferGeometry();
+  const count = 800;
+  const positions = new Float32Array(count * 3);
+  const colors = new Float32Array(count * 3);
+  const colorA = new THREE.Color(0x55eaff);
+  const colorB = new THREE.Color(0xb964ff);
+
+  for (let i = 0; i < count; i++) {
+    const radius = 3.2 + Math.random() * 5.5;
+    const angle = Math.random() * Math.PI * 2;
+    positions[i * 3] = Math.cos(angle) * radius * (1.1 + Math.random() * .6);
+    positions[i * 3 + 1] = (Math.random() - .5) * 7;
+    positions[i * 3 + 2] = (Math.random() - .5) * 5 - 1;
+    const c = colorA.clone().lerp(colorB, Math.random());
+    colors[i * 3] = c.r;
+    colors[i * 3 + 1] = c.g;
+    colors[i * 3 + 2] = c.b;
+  }
+  particleGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+  particleGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+  const particles = new THREE.Points(particleGeometry, new THREE.PointsMaterial({
+    size: .025,
+    vertexColors: true,
+    transparent: true,
+    opacity: .72,
+    blending: THREE.AdditiveBlending,
+    depthWrite: false
+  }));
+  scene.add(particles);
+
+  const panels = new THREE.Group();
+  scene.add(panels);
+  const panelMat = new THREE.MeshStandardMaterial({
+    color: 0x13284d,
+    metalness: .35,
+    roughness: .38,
+    transparent: true,
+    opacity: .33,
+    side: THREE.DoubleSide
+  });
+
+  for (let i = 0; i < 12; i++) {
+    const panel = new THREE.Mesh(new THREE.PlaneGeometry(1.8 + Math.random() * 1.7, 2.6 + Math.random() * 2), panelMat.clone());
+    const a = (i / 12) * Math.PI * 2;
+    const r = 6.1 + Math.random() * 1.5;
+    panel.position.set(Math.cos(a) * r, (Math.random() - .5) * 3.2, Math.sin(a) * r - 1.5);
+    panel.rotation.y = -a + Math.PI / 2;
+    panel.rotation.z = (Math.random() - .5) * .3;
+    panel.material.opacity = .12 + Math.random() * .16;
+    panels.add(panel);
+  }
+
+  let pulse = 0;
+  document.getElementById('brand-name').addEventListener('click', () => {
+    pulse = 1;
+    window.parent.postMessage({ type: 'nexora-enter' }, '*');
+  });
+
+  const clock = new THREE.Clock();
+  function animate() {
+    requestAnimationFrame(animate);
+    const t = clock.getElapsedTime();
+
+    logoGroup.rotation.y = Math.sin(t * .38) * .11;
+    logoGroup.rotation.x = Math.sin(t * .27) * .045;
+    ring.rotation.z += .003;
+    ring2.rotation.z -= .006;
+    particles.rotation.y = t * .012;
+    particles.rotation.x = Math.sin(t * .08) * .04;
+    panels.rotation.y = t * .008;
+
+    pulse *= .92;
+    logoGroup.scale.setScalar(1 + pulse * .11);
+    cyanLight.intensity = 13 + Math.sin(t * 1.8) * 3 + pulse * 18;
+    violetLight.intensity = 16 + Math.cos(t * 1.4) * 3;
+
+    controls.update();
+    renderer.render(scene, camera);
+  }
+  animate();
+
+  addEventListener('resize', () => {
+    camera.aspect = innerWidth / innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(innerWidth, innerHeight);
+    renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+  });
+})();
+</script>
+</body>
+</html>
