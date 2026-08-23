@@ -151,8 +151,13 @@
   .brand{ display:flex; flex-direction:column; }
   .brand-name{
     font-size:34px; font-weight:800; letter-spacing:3px;
-    background:linear-gradient(90deg,#fff,var(--blue));
+    background-image:linear-gradient(90deg,#fff,var(--blue),var(--purple),var(--blue),#fff);
+    background-size:250% auto;
     -webkit-background-clip:text; background-clip:text; color:transparent;
+    animation: brandShimmer 6s linear infinite;
+  }
+  @keyframes brandShimmer{
+    0%{ background-position:0% 50%; } 100%{ background-position:250% 50%; }
   }
   .brand-sub{ font-size:12px; color:var(--text-dimmer); letter-spacing:1px; margin-top:3px;}
   .topbar-right{ display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
@@ -221,8 +226,15 @@
     background:var(--panel); border:1px solid var(--panel-border); color:#fff; padding:9px 12px;
     border-radius:10px; font-size:13px; outline:none;
   }
-  .section-title{ font-size:22px; font-weight:800; margin-bottom:4px; }
-  .section-sub{ font-size:13px; color:var(--text-dimmer); margin-bottom:18px; }
+  .section-title{
+    font-size:26px; font-weight:800; margin-bottom:6px; position:relative; padding-left:16px;
+    text-shadow:0 0 24px rgba(0,200,255,0.25);
+  }
+  .section-title::before{
+    content:''; position:absolute; left:0; top:4px; bottom:4px; width:5px; border-radius:4px;
+    background:var(--grad); box-shadow:0 0 12px rgba(0,200,255,0.6);
+  }
+  .section-sub{ font-size:14px; color:var(--text-dim); margin-bottom:20px; padding-left:16px; }
 
   .grid{
     column-width:420px; column-gap:24px;
@@ -256,7 +268,7 @@
     opacity:0; transition:opacity .35s ease; display:flex; flex-direction:column; justify-content:flex-end; padding:14px;
   }
   .card:hover .card-overlay{ opacity:1; }
-  .card-title{ font-size:16px; font-weight:700; margin-bottom:5px; }
+  .card-title{ font-size:17px; font-weight:800; margin-bottom:5px; text-shadow:0 2px 8px rgba(0,0,0,0.8); }
   .card-meta{ font-size:12px; color:var(--text-dim); display:flex; gap:10px; flex-wrap:wrap; }
   .card-dl{
     position:absolute; top:12px; right:12px; width:34px; height:34px; border-radius:50%;
@@ -267,8 +279,29 @@
   .card:hover .card-dl{ opacity:1; transform:translateY(0); }
   .card-dl:hover{ background:var(--grad); box-shadow:0 0 16px rgba(0,200,255,0.5); }
   .card-res-badge{
-    position:absolute; top:12px; left:12px; font-size:10px; padding:4px 8px; border-radius:999px;
-    background:rgba(13,13,13,0.7); border:1px solid rgba(255,255,255,0.15); letter-spacing:0.5px;
+    position:absolute; top:12px; left:12px; font-size:12px; font-weight:700; padding:5px 11px; border-radius:999px;
+    background:rgba(13,13,13,0.75); border:1px solid rgba(0,200,255,0.4); letter-spacing:0.5px;
+    box-shadow:0 0 10px rgba(0,200,255,0.2); z-index:2;
+  }
+  .card-res-badge.premium-badge{
+    font-size:12.5px; font-weight:800; padding:6px 13px; color:#1a0f00;
+    background-image: linear-gradient(120deg, #ffd166, #ff8a00, #ffd166);
+    background-size:200% 200%;
+    border:1px solid rgba(255,255,255,0.4);
+    box-shadow:0 0 14px rgba(255,140,0,0.6);
+    animation: premiumBadgeGlow 4s ease infinite;
+  }
+  .card-res-badge.premium-badge::before{
+    content:''; position:absolute; inset:-4px; border-radius:inherit;
+    background:inherit; filter:blur(6px); z-index:-1; opacity:0.6;
+    animation: premiumBadgePulse 2.2s ease infinite;
+  }
+  @keyframes premiumBadgeGlow{
+    0%{ background-position:0% 50%; } 50%{ background-position:100% 50%; } 100%{ background-position:0% 50%; }
+  }
+  @keyframes premiumBadgePulse{
+    0%,100%{ opacity:0.35; transform:scale(1); }
+    50%{ opacity:0.75; transform:scale(1.15); }
   }
   .skeleton{
     break-inside:avoid; margin-bottom:18px; border-radius:var(--radius); height:280px;
