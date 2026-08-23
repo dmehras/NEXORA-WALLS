@@ -449,6 +449,11 @@
   }
   .cf-social-btn:hover{ transform:translateY(-3px); filter:brightness(1.08); }
   .cf-social-icon{ width:18px; height:18px; flex:none; }
+  .cf-social-mail{
+    background:linear-gradient(135deg,#ea4335,#c5221f);
+    box-shadow:0 0 18px rgba(234,67,53,.3);
+  }
+  .cf-social-mail:hover{ box-shadow:0 0 26px rgba(234,67,53,.5); }
   .cf-social-insta{
     background:linear-gradient(135deg,#f9ce34,#ee2a7b,#6228d7);
     box-shadow:0 0 18px rgba(238,42,123,.35);
