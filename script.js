@@ -826,9 +826,11 @@ function initParticles(){
 }
 initParticles();
 
-document.getElementById('enterBtn').addEventListener('click', () => {
-  document.getElementById('landing').classList.add('hide');
-  document.body.style.overflow = 'auto';
+window.addEventListener('message', (event) => {
+  if (event.data && event.data.type === 'nexora-enter') {
+    document.getElementById('landing').classList.add('hide');
+    document.body.style.overflow = 'auto';
+  }
 });
 document.body.style.overflow = 'hidden';
 setTimeout(()=>{ document.body.style.overflow='hidden'; }, 0);
