@@ -661,7 +661,7 @@ const WALLPAPERS = [
     views: 7400,
     daysAgo: 0,
     size: '4.1 MB',
-    tags: ['anime','my hero academia','himiko toga','4k'],
+    tags: ['anime','my hero academia','himiko toga','oled','4k'],
   },
   {
     id: 42,
@@ -901,7 +901,7 @@ const WALLPAPERS = [
     views: 5600,
     daysAgo: 0,
     size: '4.0 MB',
-    tags: ['anime','jujutsu kaisen','suguru geto','4k'],
+    tags: ['anime','jujutsu kaisen','suguru geto','oled','4k'],
   },
   {
     id: 58,
@@ -961,7 +961,7 @@ const WALLPAPERS = [
     views: 7200,
     daysAgo: 0,
     size: '4.3 MB',
-    tags: ['anime','naruto','madara uchiha','4k'],
+    tags: ['anime','naruto','madara uchiha','oled','4k'],
   },
   {
     id: 62,
@@ -991,7 +991,7 @@ const WALLPAPERS = [
     views: 7700,
     daysAgo: 0,
     size: '4.2 MB',
-    tags: ['anime','naruto','itachi uchiha','sharingan','4k'],
+    tags: ['anime','naruto','itachi uchiha','sharingan','oled','4k'],
   },
   {
     id: 64,
@@ -1006,7 +1006,7 @@ const WALLPAPERS = [
     views: 6400,
     daysAgo: 0,
     size: '4.1 MB',
-    tags: ['anime','demon slayer','zenitsu agatsuma','4k'],
+    tags: ['anime','demon slayer','zenitsu agatsuma','oled','4k'],
   },
 ];
 
@@ -1133,7 +1133,7 @@ function getFiltered(){
     case 'downloads': list.sort((a,b)=>b.downloads-a.downloads); break;
     case 'views': list.sort((a,b)=>b.views-a.views); break;
     case 'az': list.sort((a,b)=>a.title.localeCompare(b.title)); break;
-    default: list.sort((a,b)=>a.daysAgo-b.daysAgo);
+    default: list.sort((a,b)=> (a.daysAgo - b.daysAgo) || (b.id - a.id));
   }
   return list;
 }
