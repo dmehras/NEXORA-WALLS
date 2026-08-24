@@ -856,7 +856,7 @@ const WALLPAPERS = [
     views: 4700,
     daysAgo: 0,
     size: '4.0 MB',
-    tags: ['dark fantasy','regal','4k'],
+    tags: ['dark fantasy','regal','oled','4k'],
   },
   {
     id: 55,
