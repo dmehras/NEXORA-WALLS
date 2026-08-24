@@ -1025,6 +1025,7 @@ let state = {
   sort: 'newest',
   resolution: '',
   orientation: '',
+  priceFilter: '',
   page: 1,
 };
 
@@ -1125,6 +1126,8 @@ function getFiltered(){
   }
   if(state.resolution) list = list.filter(w => w.resolution === state.resolution);
   if(state.orientation) list = list.filter(w => w.orientation === state.orientation);
+  if(state.priceFilter === 'premium') list = list.filter(w => w.premium);
+  else if(state.priceFilter === 'free') list = list.filter(w => !w.premium);
 
   switch(state.sort){
     case 'downloads': list.sort((a,b)=>b.downloads-a.downloads); break;
@@ -1248,9 +1251,23 @@ document.getElementById('searchInput').addEventListener('input', (e) => {
   state.page = 1;
   renderGrid();
 });
-document.getElementById('resFilter').addEventListener('change', e => { state.resolution = e.target.value; state.page = 1; renderGrid(); });
-document.getElementById('orientFilter').addEventListener('change', e => { state.orientation = e.target.value; state.page = 1; renderGrid(); });
-document.getElementById('sortFilter').addEventListener('change', e => { state.sort = e.target.value; state.page = 1; renderGrid(); });
+document.querySelectorAll('.quick-filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.quick-filter-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const type = btn.dataset.filter;
+    if(type === 'premium'){
+      state.priceFilter = 'premium';
+    } else if(type === 'free'){
+      state.priceFilter = 'free';
+    } else {
+      state.priceFilter = '';
+      state.sort = 'newest';
+    }
+    state.page = 1;
+    renderGrid();
+  });
+});
 
 document.querySelectorAll('.pill-btn[data-sort]').forEach(btn => {
   btn.addEventListener('click', () => {
@@ -1258,7 +1275,7 @@ document.querySelectorAll('.pill-btn[data-sort]').forEach(btn => {
     btn.classList.add('active');
     const map = {newest:'newest', downloads:'downloads', views:'views'};
     state.sort = map[btn.dataset.sort];
-    document.getElementById('sortFilter').value = state.sort;
+    document.getElementById('filterNewest').classList.toggle('active', btn.dataset.sort === 'newest');
     state.page = 1;
     renderGrid();
   });

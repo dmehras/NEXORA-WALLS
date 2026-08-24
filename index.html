@@ -55,25 +55,15 @@
       <div class="section-sub" id="sectionSub">Curated 4K wallpapers, refreshed daily.</div>
 
       <div class="filters-row">
-        <select id="resFilter">
-          <option value="">All Resolutions</option>
-          <option value="8K">8K</option>
-          <option value="4K">4K</option>
-          <option value="1440p">1440p</option>
-          <option value="1080p">1080p</option>
-        </select>
-        <select id="orientFilter">
-          <option value="">All Orientations</option>
-          <option value="landscape">Landscape</option>
-          <option value="portrait">Portrait</option>
-          <option value="square">Square</option>
-        </select>
-        <select id="sortFilter">
-          <option value="newest">Newest</option>
-          <option value="downloads">Most Downloaded</option>
-          <option value="views">Most Viewed</option>
-          <option value="az">Alphabetical</option>
-        </select>
+        <button class="quick-filter-btn" id="filterPremium" data-filter="premium">
+          <span class="qf-icon">🔒</span> Premium
+        </button>
+        <button class="quick-filter-btn" id="filterFree" data-filter="free">
+          <span class="qf-icon">🎁</span> Free
+        </button>
+        <button class="quick-filter-btn active" id="filterNewest" data-filter="newest">
+          <span class="qf-icon">✨</span> Newest
+        </button>
       </div>
 
       <div class="grid" id="grid"></div>
