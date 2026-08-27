@@ -1159,7 +1159,7 @@ const WALLPAPERS = [
     trending: true,
     resolution: '4K',
     orientation: 'landscape',
-    img: 'images/premium-previews/Crowned-in-Shadows-preview.jpg',
+    img: 'images/premium-previews/Crowned-in-Shadow-preview.jpg',
     downloads: 1800,
     views: 4900,
     daysAgo: 0,
