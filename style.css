@@ -234,6 +234,9 @@
   #filterFree.active{
     background:linear-gradient(135deg,#34d399,#10b981); color:#022c22; border-color:transparent;
   }
+  #filterOled.active{
+    background:linear-gradient(135deg,#3a3a3f,#111114); color:#fff; border-color:rgba(255,255,255,.25);
+  }
   #filterNewest.active{
     background:linear-gradient(135deg,#38bdf8,#818cf8); color:#0b1220; border-color:transparent;
   }
