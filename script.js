@@ -17,12 +17,11 @@ const CATEGORIES = [
 // Add a wallpaper ID to PREMIUM_WALLPAPER_IDS to make it paid.
 // Replace each empty gumroadUrl with that wallpaper's Gumroad product URL.
 const PREMIUM_PRICE = '₹79';
-const PREMIUM_WALLPAPER_IDS = new Set([30, 25, 26, 16, 35, 17, 5, 9, 8, 7, 18, 13, 55, 57, 58, 73, 74, 76, 77, 78, 79, 105, 106, 109, 111, 112]);
+const PREMIUM_WALLPAPER_IDS = new Set([30, 25, 26, 16, 35, 17, 5, 8, 7, 18, 13, 55, 57, 58, 73, 74, 76, 77, 78, 79, 105, 106, 109, 111, 112, 114]);
 const GUMROAD_LINKS = {
   5: 'https://imdeepmehra.gumroad.com/l/udujxj',
   7: 'https://imdeepmehra.gumroad.com/l/hignlp',
   8: 'https://imdeepmehra.gumroad.com/l/enueho',
-  9: 'https://imdeepmehra.gumroad.com/l/prmapp',
   13: 'https://imdeepmehra.gumroad.com/l/wyrigf',
   16: 'https://imdeepmehra.gumroad.com/l/iysamp',
   17: 'https://imdeepmehra.gumroad.com/l/vggbnv',
@@ -44,7 +43,8 @@ const GUMROAD_LINKS = {
   106: 'https://imdeepmehra.gumroad.com/l/odtwht',
   109: 'https://imdeepmehra.gumroad.com/l/uxxiep',
   111: 'https://imdeepmehra.gumroad.com/l/thmkvq',
-  112: 'https://imdeepmehra.gumroad.com/l/dovmxh'
+  112: 'https://imdeepmehra.gumroad.com/l/dovmxh',
+  114: 'https://imdeepmehra.gumroad.com/l/oaeepz'
 };
 
 
@@ -173,21 +173,6 @@ const WALLPAPERS = [
     daysAgo: 4,
     size: '4.7 MB',
     tags: ['anime','jujutsu kaisen','sukuna','oled','4k','landscape'],
-  },
-  {
-    id: 9,
-    title: 'Zenitsu Agatsuma',
-    category: 'anime',
-    featured: true,
-    trending: false,
-    resolution: '4K',
-    orientation: 'landscape',
-    img: 'images/premium-previews/zenitsu-agatsuma-4k-wallpaper-preview.jpg',
-    downloads: 3100,
-    views: 8900,
-    daysAgo: 9,
-    size: '4.4 MB',
-    tags: ['anime','demon slayer','zenitsu','oled','4k','landscape'],
   },
   {
     id: 10,
@@ -1831,6 +1816,21 @@ const WALLPAPERS = [
     daysAgo: 0,
     size: '613 KB',
     tags: ['anime','dragon ball','granolah','oled','4k'],
+  },
+  {
+    id: 114,
+    title: 'Zenitsu Agatsuma — Radiant Smile',
+    category: 'anime',
+    featured: true,
+    trending: true,
+    resolution: '4K',
+    orientation: 'landscape',
+    img: 'images/premium-previews/Zenitsu-Agatsuma-Smile-preview.jpg',
+    downloads: 1900,
+    views: 5300,
+    daysAgo: 0,
+    size: '4.0 MB',
+    tags: ['anime','demon slayer','zenitsu agatsuma','smile','4k'],
   },
 ];
 
