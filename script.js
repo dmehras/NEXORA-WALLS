@@ -47,6 +47,28 @@ const GUMROAD_LINKS = {
   114: 'https://imdeepmehra.gumroad.com/l/oaeepz'
 };
 
+/* Wallpaper Bundles: multi-wallpaper packs sold as a single one-time Gumroad
+   purchase. Each bundle shows one cover image in the grid; clicking it opens
+   a gallery of everything inside, with one "Get Bundle" button linking out
+   to that bundle's Gumroad product page. To add a new bundle later, just
+   copy this object shape and push another entry into BUNDLES. */
+const BUNDLES = [
+  {
+    id: 'crimson-eclipse',
+    title: 'Crimson Eclipse — 3 Premium Gothic Desktop Wallpapers',
+    price: '$1.99',
+    gumroadLink: 'https://imdeepmehra.gumroad.com/l/zakyrl',
+    cover: 'images/bundles/covers/Crimson-Eclipse-cover.jpg',
+    downloads: 0,
+    views: 0,
+    daysAgo: 0,
+    items: [
+      { img: 'images/bundles/previews/Crimson-Eyed-Gothic-Portrait-I.jpg', title: 'Crimson-Eyed Gothic Portrait I' },
+      { img: 'images/bundles/previews/Crimson-Eyed-Gothic-Portrait-II.jpg', title: 'Crimson-Eyed Gothic Portrait II' },
+      { img: 'images/bundles/previews/Crimson-Eyed-Gothic-Portrait-III.jpg', title: 'Crimson-Eyed Gothic Portrait III' },
+    ],
+  },
+];
 
 const WALLPAPERS = [
   {
@@ -2106,6 +2128,7 @@ let state = {
   resolution: '',
   orientation: '',
   priceFilter: '',
+  showBundles: false,
   page: 1,
 };
 
@@ -2137,6 +2160,7 @@ function renderSidebar(){
       else if(cat === 'downloads-tab'){ state.category='__downloads__'; }
       else { state.category = cat; }
       state.priceFilter = '';
+      state.showBundles = false;
       document.querySelectorAll('.quick-filter-btn').forEach(b=>b.classList.remove('active'));
       if(cat === 'oled') document.getElementById('filterOled')?.classList.add('active');
       else if(cat === 'featured') document.getElementById('filterNewest')?.classList.add('active');
@@ -2232,7 +2256,37 @@ const SECTION_TITLES = {
 function renderGrid(){
   const grid = document.getElementById('grid');
   const empty = document.getElementById('emptyState');
+
+  if(state.showBundles){
+    document.getElementById('sectionTitle').textContent = '📦 Wallpaper Bundles';
+    document.getElementById('sectionSub').textContent = 'Multi-wallpaper packs, one purchase, own them forever.';
+    document.getElementById('pagination').innerHTML = '';
+    if(BUNDLES.length === 0){
+      grid.innerHTML = '';
+      empty.style.display = 'block';
+      return;
+    }
+    empty.style.display = 'none';
+    grid.innerHTML = BUNDLES.map((b, i) => `
+      <div class="card bundle-card" data-bundle-id="${b.id}" style="animation-delay:${Math.min(i*0.04,0.6)}s">
+        <span class="card-res-badge bundle-badge">📦 BUNDLE · ${b.price}</span>
+        <img src="${b.cover}" alt="${b.title}" loading="lazy">
+        <div class="card-overlay">
+          <div class="card-title">${b.title}</div>
+          <div class="card-meta">
+            <span>${b.items.length} Wallpapers</span>
+          </div>
+        </div>
+      </div>
+    `).join('');
+    grid.querySelectorAll('.bundle-card').forEach(card => {
+      card.addEventListener('click', () => openBundleModal(card.dataset.bundleId));
+    });
+    return;
+  }
+
   const fullList = getFiltered();
+
 
   const titleInfo = SECTION_TITLES[state.category];
   const catObj = CATEGORIES.find(c=>c.id===state.category);
@@ -2329,6 +2383,7 @@ function renderPagination(totalPages){
 /* ============ SEARCH / FILTERS ============ */
 document.getElementById('searchInput').addEventListener('input', (e) => {
   state.search = e.target.value;
+  state.showBundles = false;
   state.page = 1;
   renderGrid();
 });
@@ -2338,15 +2393,21 @@ document.querySelectorAll('.quick-filter-btn').forEach(btn => {
     btn.classList.add('active');
     const type = btn.dataset.filter;
     if(type === 'premium'){
+      state.showBundles = false;
       state.category = 'featured';
       state.priceFilter = 'premium';
     } else if(type === 'free'){
+      state.showBundles = false;
       state.category = 'featured';
       state.priceFilter = 'free';
     } else if(type === 'oled'){
+      state.showBundles = false;
       state.category = 'oled';
       state.priceFilter = '';
+    } else if(type === 'bundles'){
+      state.showBundles = true;
     } else {
+      state.showBundles = false;
       state.category = 'featured';
       state.priceFilter = '';
       state.sort = 'newest';
@@ -2362,6 +2423,7 @@ document.querySelectorAll('.pill-btn[data-sort]').forEach(btn => {
     btn.classList.add('active');
     const map = {newest:'newest', downloads:'downloads', views:'views'};
     state.sort = map[btn.dataset.sort];
+    state.showBundles = false;
     document.getElementById('filterNewest').classList.toggle('active', btn.dataset.sort === 'newest');
     state.page = 1;
     renderGrid();
@@ -2452,6 +2514,42 @@ function toggleFavorite(id){
   if(state.category==='__favorites__') renderGrid();
 }
 
+/* ============ BUNDLE MODAL ============ */
+function openBundleModal(bundleId){
+  const b = BUNDLES.find(x=>x.id===bundleId);
+  if(!b) return;
+
+  document.getElementById('bundleModal').innerHTML = `
+    <button class="modal-close" id="bundleCloseBtn">✕</button>
+    <div class="bundle-modal-hero">
+      <img src="${b.cover}" alt="${b.title}">
+    </div>
+    <div class="bundle-modal-body">
+      <div class="bundle-modal-badge">📦 BUNDLE · ${b.items.length} Wallpapers</div>
+      <div class="bundle-modal-title">${b.title}</div>
+      <div class="bundle-modal-sub">One-time purchase — own every wallpaper in this pack.</div>
+      <div class="bundle-modal-gallery">
+        ${b.items.map(it => `
+          <div class="bundle-gallery-item">
+            <img src="${it.img}" alt="${it.title}">
+            <span>${it.title}</span>
+          </div>
+        `).join('')}
+      </div>
+      <a href="${b.gumroadLink}" target="_blank" rel="noopener" class="bundle-modal-buy">Get Bundle — ${b.price}</a>
+    </div>
+  `;
+
+  document.getElementById('bundleBackdrop').classList.add('show');
+  document.getElementById('bundleCloseBtn').addEventListener('click', closeBundleModal);
+}
+function closeBundleModal(){
+  document.getElementById('bundleBackdrop').classList.remove('show');
+}
+document.getElementById('bundleBackdrop').addEventListener('click', (e) => {
+  if(e.target.id === 'bundleBackdrop') closeBundleModal();
+});
+
 /* ============ FULLSCREEN PREVIEW ============ */
 let fsList = [];
 let fsIndex = 0;
@@ -2484,6 +2582,8 @@ document.addEventListener('keydown', (e) => {
     if(e.key==='ArrowLeft'){ fsIndex=(fsIndex-1+fsList.length)%fsList.length; renderFullscreen(); }
   } else if(document.getElementById('detailBackdrop').classList.contains('show')){
     if(e.key==='Escape') closeDetail();
+  } else if(document.getElementById('bundleBackdrop').classList.contains('show')){
+    if(e.key==='Escape') closeBundleModal();
   }
 });
 
