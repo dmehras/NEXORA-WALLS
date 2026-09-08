@@ -16,7 +16,7 @@ const CATEGORIES = [
 // ============ PREMIUM SETTINGS ============
 // Add a wallpaper ID to PREMIUM_WALLPAPER_IDS to make it paid.
 // Replace each empty gumroadUrl with that wallpaper's Gumroad product URL.
-const PREMIUM_PRICE = '₹79';
+const PREMIUM_PRICE = '$0.94';
 const PREMIUM_WALLPAPER_IDS = new Set([30, 25, 26, 16, 35, 17, 5, 8, 7, 18, 13, 55, 57, 58, 73, 74, 76, 77, 78, 79, 105, 106, 109, 111, 112, 114]);
 const GUMROAD_LINKS = {
   5: 'https://imdeepmehra.gumroad.com/l/udujxj',
@@ -66,6 +66,25 @@ const BUNDLES = [
       { img: 'images/bundles/previews/Crimson-Eyed-Gothic-Portrait-I.jpg', title: 'Crimson-Eyed Gothic Portrait I' },
       { img: 'images/bundles/previews/Crimson-Eyed-Gothic-Portrait-II.jpg', title: 'Crimson-Eyed Gothic Portrait II' },
       { img: 'images/bundles/previews/Crimson-Eyed-Gothic-Portrait-III.jpg', title: 'Crimson-Eyed Gothic Portrait III' },
+    ],
+  },
+  {
+    id: 'naruto-legends',
+    title: 'Naruto Legends — 7 Premium Anime Desktop Wallpapers',
+    price: '$2.50',
+    gumroadLink: 'https://imdeepmehra.gumroad.com/l/zliihq',
+    cover: 'images/bundles/covers/Naruto-Legends-cover.jpg',
+    downloads: 0,
+    views: 0,
+    daysAgo: 0,
+    items: [
+      { img: 'images/bundles/previews/Naruto-Legends-Naruto.jpg', title: 'Naruto Uzumaki' },
+      { img: 'images/bundles/previews/Naruto-Legends-Sasuke.jpg', title: 'Sasuke Uchiha' },
+      { img: 'images/bundles/previews/Naruto-Legends-Kakashi.jpg', title: 'Kakashi Hatake' },
+      { img: 'images/bundles/previews/Naruto-Legends-Madara.jpg', title: 'Madara Uchiha' },
+      { img: 'images/bundles/previews/Naruto-Legends-Gaara.jpg', title: 'Gaara' },
+      { img: 'images/bundles/previews/Naruto-Legends-Hinata.jpg', title: 'Hinata Hyuga' },
+      { img: 'images/bundles/previews/Naruto-Legends-Orochimaru.jpg', title: 'Orochimaru' },
     ],
   },
 ];
