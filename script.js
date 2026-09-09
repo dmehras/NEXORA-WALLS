@@ -87,6 +87,22 @@ const BUNDLES = [
       { img: 'images/bundles/previews/Naruto-Legends-Orochimaru.jpg', title: 'Orochimaru' },
     ],
   },
+  {
+    id: 'street-noir',
+    title: 'Street Noir — Cinematic Desktop Wallpapers',
+    price: '$1.99',
+    gumroadLink: 'https://imdeepmehra.gumroad.com/l/onhwmr',
+    cover: 'images/bundles/covers/Street-Noir-cover.jpg',
+    downloads: 0,
+    views: 0,
+    daysAgo: 0,
+    items: [
+      { img: 'images/bundles/previews/Street-Noir-Portrait-I.jpg', title: 'Street Noir Portrait I' },
+      { img: 'images/bundles/previews/Street-Noir-Portrait-II.jpg', title: 'Street Noir Portrait II' },
+      { img: 'images/bundles/previews/Street-Noir-Portrait-III.jpg', title: 'Street Noir Portrait III' },
+      { img: 'images/bundles/previews/Street-Noir-Portrait-IV.jpg', title: 'Street Noir Portrait IV' },
+    ],
+  },
 ];
 
 const WALLPAPERS = [
