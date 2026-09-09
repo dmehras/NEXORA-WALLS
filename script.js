@@ -55,7 +55,7 @@ const GUMROAD_LINKS = {
 const BUNDLES = [
   {
     id: 'crimson-eclipse',
-    title: 'Crimson Eclipse — 3 Premium Gothic Desktop Wallpapers',
+    title: 'Crimson Eclipse',
     price: '$1.99',
     gumroadLink: 'https://imdeepmehra.gumroad.com/l/zakyrl',
     cover: 'images/bundles/covers/Crimson-Eclipse-cover.jpg',
@@ -70,8 +70,8 @@ const BUNDLES = [
   },
   {
     id: 'naruto-legends',
-    title: 'Naruto Legends — 7 Premium Anime Desktop Wallpapers',
-    price: '$2.50',
+    title: 'Naruto Legends',
+    price: '$1.99',
     gumroadLink: 'https://imdeepmehra.gumroad.com/l/zliihq',
     cover: 'images/bundles/covers/Naruto-Legends-cover.jpg',
     downloads: 0,
@@ -89,7 +89,7 @@ const BUNDLES = [
   },
   {
     id: 'street-noir',
-    title: 'Street Noir — Cinematic Desktop Wallpapers',
+    title: 'Street Noir',
     price: '$1.99',
     gumroadLink: 'https://imdeepmehra.gumroad.com/l/onhwmr',
     cover: 'images/bundles/covers/Street-Noir-cover.jpg',
@@ -101,6 +101,22 @@ const BUNDLES = [
       { img: 'images/bundles/previews/Street-Noir-Portrait-II.jpg', title: 'Street Noir Portrait II' },
       { img: 'images/bundles/previews/Street-Noir-Portrait-III.jpg', title: 'Street Noir Portrait III' },
       { img: 'images/bundles/previews/Street-Noir-Portrait-IV.jpg', title: 'Street Noir Portrait IV' },
+    ],
+  },
+  {
+    id: 'ethereal-portraits',
+    title: 'Ethereal Portraits',
+    price: '$1.99',
+    gumroadLink: 'https://imdeepmehra.gumroad.com/l/icuga',
+    cover: 'images/bundles/covers/Ethereal-Portraits-cover.jpg',
+    downloads: 0,
+    views: 0,
+    daysAgo: 0,
+    items: [
+      { img: 'images/bundles/previews/Ethereal-Portrait-I.jpg', title: 'Ethereal Portrait I' },
+      { img: 'images/bundles/previews/Ethereal-Portrait-II.jpg', title: 'Ethereal Portrait II' },
+      { img: 'images/bundles/previews/Ethereal-Portrait-III.jpg', title: 'Ethereal Portrait III' },
+      { img: 'images/bundles/previews/Ethereal-Portrait-IV.jpg', title: 'Ethereal Portrait IV' },
     ],
   },
 ];
