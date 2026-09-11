@@ -130,6 +130,21 @@ const BUNDLES = [
       { img: 'images/bundles/previews/Lord-Krishna-Abstract-III.jpg', title: 'Lord Krishna Abstract III' },
     ],
   },
+  {
+    id: 'abstract-fallen-trinity',
+    title: 'Abstract Fallen Trinity',
+    price: '$1.99',
+    gumroadLink: 'https://imdeepmehra.gumroad.com/l/rpkyhv',
+    cover: 'images/bundles/covers/Abstract-Fallen-Trinity-cover.jpg',
+    downloads: 0,
+    views: 0,
+    daysAgo: 0,
+    items: [
+      { img: 'images/bundles/previews/Abstract-Fallen-Trinity-Hooded-Figure.jpg', title: 'Abstract Hooded Figure' },
+      { img: 'images/bundles/previews/Abstract-Fallen-Trinity-Fallen-Angel.jpg', title: 'Abstract Fallen Angel' },
+      { img: 'images/bundles/previews/Abstract-Fallen-Trinity-Veiled-Women.jpg', title: 'Abstract Veiled Women' },
+    ],
+  },
 ];
 
 const WALLPAPERS = [
