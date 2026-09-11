@@ -115,6 +115,21 @@ const BUNDLES = [
       { img: 'images/bundles/previews/Abstract-Faceless-Monarch-III.jpg', title: 'Abstract Faceless Monarch III' },
     ],
   },
+  {
+    id: 'lord-krishna-abstract',
+    title: 'Lord Krishna Abstract',
+    price: '$1.99',
+    gumroadLink: 'https://imdeepmehra.gumroad.com/l/wioevf',
+    cover: 'images/bundles/covers/Lord-Krishna-Abstract-cover.jpg',
+    downloads: 0,
+    views: 0,
+    daysAgo: 0,
+    items: [
+      { img: 'images/bundles/previews/Lord-Krishna-Abstract-I.jpg', title: 'Lord Krishna Abstract I' },
+      { img: 'images/bundles/previews/Lord-Krishna-Abstract-II.jpg', title: 'Lord Krishna Abstract II' },
+      { img: 'images/bundles/previews/Lord-Krishna-Abstract-III.jpg', title: 'Lord Krishna Abstract III' },
+    ],
+  },
 ];
 
 const WALLPAPERS = [
