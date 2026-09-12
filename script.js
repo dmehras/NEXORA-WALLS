@@ -145,6 +145,36 @@ const BUNDLES = [
       { img: 'images/bundles/previews/Abstract-Fallen-Trinity-Veiled-Women.jpg', title: 'Abstract Veiled Women' },
     ],
   },
+  {
+    id: 'oni-blossom-samurai',
+    title: 'Oni Blossom Samurai',
+    price: '$1.99',
+    gumroadLink: 'https://imdeepmehra.gumroad.com/l/aqsth',
+    cover: 'images/bundles/covers/Oni-Blossom-Samurai-cover.jpg',
+    downloads: 0,
+    views: 0,
+    daysAgo: 0,
+    items: [
+      { img: 'images/bundles/previews/Oni-Blossom-Samurai-I.jpg', title: 'Oni Blossom Samurai I' },
+      { img: 'images/bundles/previews/Oni-Blossom-Samurai-II.jpg', title: 'Oni Blossom Samurai II' },
+      { img: 'images/bundles/previews/Oni-Blossom-Samurai-III.jpg', title: 'Oni Blossom Samurai III' },
+    ],
+  },
+  {
+    id: 'golden-hour-elegance',
+    title: 'Golden Hour Elegance',
+    price: '$1.99',
+    gumroadLink: 'https://imdeepmehra.gumroad.com/l/epngt',
+    cover: 'images/bundles/covers/Golden-Hour-Elegance-cover.jpg',
+    downloads: 0,
+    views: 0,
+    daysAgo: 0,
+    items: [
+      { img: 'images/bundles/previews/Golden-Hour-Elegance-I.jpg', title: 'Golden Hour Elegance I' },
+      { img: 'images/bundles/previews/Golden-Hour-Elegance-II.jpg', title: 'Golden Hour Elegance II' },
+      { img: 'images/bundles/previews/Golden-Hour-Elegance-III.jpg', title: 'Golden Hour Elegance III' },
+    ],
+  },
 ];
 
 const WALLPAPERS = [
