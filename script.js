@@ -206,6 +206,25 @@ const BUNDLES = [
       { img: 'images/bundles/previews/SUKUNA-GLOWING-CURSE-MARKS-II.jpg', title: 'Sukuna Glowing Curse Marks II' },
     ],
   },
+  {
+    id: 'crimson-edition',
+    title: 'Crimson Edition',
+    price: '$1.99',
+    gumroadLink: 'https://imdeepmehra.gumroad.com/l/wbkplf',
+    cover: 'images/bundles/covers/Crimson-Edition-cover.jpg',
+    downloads: 0,
+    views: 0,
+    daysAgo: 0,
+    items: [
+      { img: 'images/bundles/previews/Crimson-Blossom-Kitten-at-Midnight.jpg', title: 'Crimson Blossom Kitten at Midnight' },
+      { img: 'images/bundles/previews/Crimson-Beacon-in-the-Storm.jpg', title: 'Crimson Beacon in the Storm' },
+      { img: 'images/bundles/previews/Crimson-Blossoms-in-Midnight-Light.jpg', title: 'Crimson Blossoms in Midnight Light' },
+      { img: 'images/bundles/previews/Crimson-Branches-Beneath-the-Moon.jpg', title: 'Crimson Branches Beneath the Moon' },
+      { img: 'images/bundles/previews/Crimson-Crescent-Reflected-in-Rain-Drenched-Leaves.jpg', title: 'Crimson Crescent Reflected in Rain-Drenched Leaves' },
+      { img: 'images/bundles/previews/Crimson-Dew-Kissed-Butterfly-at-Sunset.jpg', title: 'Crimson Dew-Kissed Butterfly at Sunset' },
+      { img: 'images/bundles/previews/Crimson-Ring-Over-Silent-Waters.jpg', title: 'Crimson Ring Over Silent Waters' },
+    ],
+  },
 ];
 
 const WALLPAPERS = [
