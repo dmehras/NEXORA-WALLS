@@ -225,6 +225,53 @@ const BUNDLES = [
       { img: 'images/bundles/previews/Crimson-Ring-Over-Silent-Waters.jpg', title: 'Crimson Ring Over Silent Waters' },
     ],
   },
+  {
+    id: 'wind-torn-warriors',
+    title: 'Wind-Torn Warriors',
+    price: '$1.99',
+    gumroadLink: 'https://imdeepmehra.gumroad.com/l/hqfsnw',
+    cover: 'images/bundles/covers/Wind-Torn-Warriors-cover.jpg',
+    downloads: 0,
+    views: 0,
+    daysAgo: 0,
+    items: [
+      { img: 'images/bundles/previews/Wind-Torn-Couple-Warrior-Ultrawide.jpg', title: 'Wind-Torn Couple Warrior Ultrawide' },
+      { img: 'images/bundles/previews/Wind-Torn-Female-Warrior.jpg', title: 'Wind-Torn Female Warrior' },
+      { img: 'images/bundles/previews/Wind-Torn-Male-Warrior.jpg', title: 'Wind-Torn Male Warrior' },
+    ],
+  },
+  {
+    id: 'neon-tokyo-noir-muse',
+    title: 'Neon Tokyo Noir Muse',
+    price: '$1.99',
+    gumroadLink: 'https://imdeepmehra.gumroad.com/l/plrhq',
+    cover: 'images/bundles/covers/Neon-Tokyo-Noir-Muse-cover.jpg',
+    downloads: 0,
+    views: 0,
+    daysAgo: 0,
+    items: [
+      { img: 'images/bundles/previews/Neon-Tokyo-Noir-Muse-I.jpg', title: 'Neon Tokyo Noir Muse I' },
+      { img: 'images/bundles/previews/Neon-Tokyo-Noir-Muse-II.jpg', title: 'Neon Tokyo Noir Muse II' },
+      { img: 'images/bundles/previews/Neon-Tokyo-Noir-Muse-III.jpg', title: 'Neon Tokyo Noir Muse III' },
+      { img: 'images/bundles/previews/Neon-Tokyo-Noir-Muse-IV.jpg', title: 'Neon Tokyo Noir Muse IV' },
+    ],
+  },
+  {
+    id: 'boruto-walls-edition',
+    title: 'Boruto Walls Edition',
+    price: '$1.99',
+    gumroadLink: 'https://imdeepmehra.gumroad.com/l/ozxzuv',
+    cover: 'images/bundles/covers/Boruto-Walls-Edition-cover.jpg',
+    downloads: 0,
+    views: 0,
+    daysAgo: 0,
+    items: [
+      { img: 'images/bundles/previews/Boruto-Uzumaki.jpg', title: 'Boruto Uzumaki' },
+      { img: 'images/bundles/previews/Kawaki-Uzumaki.jpg', title: 'Kawaki' },
+      { img: 'images/bundles/previews/Sharda-Uchiha.jpg', title: 'Sarada Uchiha' },
+      { img: 'images/bundles/previews/Ada.jpg', title: 'Eida' },
+    ],
+  },
 ];
 
 const WALLPAPERS = [
