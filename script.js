@@ -337,6 +337,37 @@ const BUNDLES = [
       { img: 'images/bundles/previews/Chaotic-Eye-and-Masked-Entities-IV.jpg', title: 'Chaotic Eye & Masked Entities IV' },
     ],
   },
+  {
+    id: 'blindfolded-gothic-queen',
+    title: 'Blindfolded Gothic Queen',
+    price: '$1.99',
+    gumroadLink: 'https://imdeepmehra.gumroad.com/l/ighhh',
+    cover: 'images/bundles/covers/Blindfolded-Gothic-Queen-cover.jpg',
+    downloads: 0,
+    views: 0,
+    daysAgo: 0,
+    items: [
+      { img: 'images/bundles/previews/Blindfolded-Gothic-Crown-Queen-I.jpg', title: 'Blindfolded Gothic Crown Queen I' },
+      { img: 'images/bundles/previews/Blindfolded-Gothic-Crown-Queen-II.jpg', title: 'Blindfolded Gothic Crown Queen II' },
+      { img: 'images/bundles/previews/Blindfolded-Gothic-Crown-Queen-III.jpg', title: 'Blindfolded Gothic Crown Queen III' },
+      { img: 'images/bundles/previews/Blindfolded-Gothic-Crown-Queen-IV.jpg', title: 'Blindfolded Gothic Crown Queen IV' },
+    ],
+  },
+  {
+    id: 'aloof-monochrome-portrait',
+    title: 'Aloof Monochrome Manga Portrait',
+    price: '$1.99',
+    gumroadLink: 'https://imdeepmehra.gumroad.com/l/batevr',
+    cover: 'images/bundles/covers/Aloof-Monochrome-Portrait-cover.jpg',
+    downloads: 0,
+    views: 0,
+    daysAgo: 0,
+    items: [
+      { img: 'images/bundles/previews/ALOOF-MONOCHROME-PORTRAIT-I.jpg', title: 'Aloof Monochrome Portrait I' },
+      { img: 'images/bundles/previews/ALOOF-MONOCHROME-PORTRAIT-II.jpg', title: 'Aloof Monochrome Portrait II' },
+      { img: 'images/bundles/previews/ALOOF-MONOCHROME-PORTRAIT-III.jpg', title: 'Aloof Monochrome Portrait III' },
+    ],
+  },
 ];
 
 const WALLPAPERS = [
