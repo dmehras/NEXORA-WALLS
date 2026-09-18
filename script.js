@@ -339,7 +339,7 @@ const BUNDLES = [
   },
   {
     id: 'blindfolded-gothic-queen',
-    title: 'Blindfolded Gothic Queen',
+    title: 'Blindfolded Gothic Queen Ultrawide',
     price: '$1.99',
     gumroadLink: 'https://imdeepmehra.gumroad.com/l/ighhh',
     cover: 'images/bundles/covers/Blindfolded-Gothic-Queen-cover.jpg',
@@ -355,7 +355,7 @@ const BUNDLES = [
   },
   {
     id: 'aloof-monochrome-portrait',
-    title: 'Aloof Monochrome Manga Portrait',
+    title: 'Aloof Monochrome Portrait Ultrawide',
     price: '$1.99',
     gumroadLink: 'https://imdeepmehra.gumroad.com/l/batevr',
     cover: 'images/bundles/covers/Aloof-Monochrome-Portrait-cover.jpg',
